@@ -1,6 +1,7 @@
 package me.trup10ka.jwj.web.parser;
 
 import me.trup10ka.jwj.data.Champion;
+import me.trup10ka.jwj.web.PageURL;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,10 +15,9 @@ public class UGGChampionsPageParser implements HtmlChampionsPageParser {
     private Document parsedHtml;
     private Connection connection;
     private ArrayList<Champion> champions;
-    private final String UGG_URL = "https://u.gg";
 
     public UGGChampionsPageParser() {
-        this.connection = Jsoup.connect(UGG_URL + "/lol/champions/");
+        this.connection = Jsoup.connect(PageURL.U_GG.url + "/lol/champions/");
         this.parsedHtml = parse();
     }
     @Override
