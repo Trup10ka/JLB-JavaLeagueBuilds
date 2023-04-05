@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.trup10ka.JWJ</groupId>
-    <artifactId>JWJ-JWeatherJurnalist</artifactId>
+    <groupId>me.trup10ka.JLB</groupId>
+    <artifactId>JLB-JavaLeagueClient</artifactId>
     <version>0.5-SNAPSHOT</version>
 
     <properties>
