@@ -8,6 +8,8 @@ public class Champion {
 
     private RunePage runePage;
 
+    private SummonerSpell summonerSpell;
+
     public Champion(String name) {
         this.name = name;
     }
