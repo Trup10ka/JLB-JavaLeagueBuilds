@@ -1,5 +1,7 @@
 package me.trup10ka.jlb.data;
 
+import java.util.List;
+
 public class Champion {
 
     private String name;
@@ -8,8 +10,14 @@ public class Champion {
 
     private RunePage runePage;
 
-    private SummonerSpell summonerSpell;
+    private List<SummonerSpell> summonerSpells;
 
+    public Champion(String name, ItemBuild itemBuild, RunePage runePage, List<SummonerSpell> summonerSpells) {
+        this.name = name;
+        this.itemBuild = itemBuild;
+        this.runePage = runePage;
+        this.summonerSpells = summonerSpells;
+    }
     public Champion(String name) {
         this.name = name;
     }
@@ -25,8 +33,12 @@ public class Champion {
         return runePage;
     }
 
+    public List<SummonerSpell> getSummonerSpell() {
+        return summonerSpells;
+    }
+
     @Override
     public String toString() {
-        return "Champion " + name;
+        return "Champion " + name + "\nItemBuild: " + itemBuild + "\nRunePage: " + runePage + "\nSummonerSpells: " + summonerSpells;
     }
 }

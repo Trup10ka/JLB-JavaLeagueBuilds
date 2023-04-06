@@ -1,6 +1,6 @@
-package me.trup10ka.jwj.web.parser;
+package me.trup10ka.jlb.web.parser;
 
-import me.trup10ka.jwj.data.Champion;
+import me.trup10ka.jlb.data.Champion;
 import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
