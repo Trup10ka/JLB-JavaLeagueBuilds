@@ -1,5 +1,6 @@
-package me.trup10ka.jwj.data;
+package me.trup10ka.jlb.data;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class RunePage {
@@ -9,10 +10,13 @@ public class RunePage {
 
     private final Set<Rune> secondaryRunes;
 
-    private RunePage(Rune mainRune, Set<Rune> secondaryMainRunes, Set<Rune> secondaryRunes) {
+    private final ArrayList<Attribute> attributes;
+
+    private RunePage(Rune mainRune, Set<Rune> secondaryMainRunes, Set<Rune> secondaryRunes, ArrayList<Attribute> attributes) {
         this.mainRune = mainRune;
         this.secondaryMainRunes = secondaryMainRunes;
         this.secondaryRunes = secondaryRunes;
+        this.attributes = attributes;
     }
     public static class Builder {
         private Rune mainRune;
@@ -21,6 +25,7 @@ public class RunePage {
 
         private Set<Rune> secondaryRunes;
 
+        private ArrayList<Attribute> attributes;
         public Builder mainRune(Rune mainRune) {
             this.mainRune = mainRune;
             return this;
@@ -33,8 +38,17 @@ public class RunePage {
             this.secondaryRunes = secondaryRunes;
             return this;
         }
-        public RunePage build() {
-            return new RunePage(mainRune, secondaryMainRunes, secondaryRunes);
+        public Builder attributes(ArrayList<Attribute> attributes) {
+            this.attributes = attributes;
+            return this;
         }
+        public RunePage build() {
+            return new RunePage(mainRune, secondaryMainRunes, secondaryRunes, attributes);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Main rune: " + mainRune + "\nSecondary main runes: " + secondaryMainRunes + "\nSecondary runes: " + secondaryRunes + "\nAttributes: " + attributes;
     }
 }

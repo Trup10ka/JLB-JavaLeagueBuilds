@@ -1,4 +1,4 @@
-package me.trup10ka.jwj.data;
+package me.trup10ka.jlb.data;
 
 import java.util.Map;
 import java.util.Set;
