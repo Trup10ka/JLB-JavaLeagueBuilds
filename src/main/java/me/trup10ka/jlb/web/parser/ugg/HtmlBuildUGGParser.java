@@ -20,12 +20,17 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
     private Connection connection;
 
     public HtmlBuildUGGParser(String champion) {
+        setChampionToParse(champion);
+    }
+    @Override
+    public void setChampionToParse(String champion) {
         this.connection = Jsoup.connect(PageURL.U_GG.championURL(champion));
         this.document = parse();
         if (validate()) {
             throw new WrongChampionPathException(champion);
         }
     }
+
     private boolean validate() {
         return document.select("div.page-not-found").size() != 0;
     }
@@ -40,10 +45,15 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
 
     @Override
     public ItemBuild itemBuild() {
-        System.out.println(startingItems());
-        return null;
+        Set<Item> setOfStartingItems =  startingItems();
+        Set<Item> setOfCoreItems = coreItems();
+        Map<String, Set<Item>> mapOfEndItems = endItems();
+        return new ItemBuild.Builder()
+                .startItems(setOfStartingItems)
+                .coreItems(setOfCoreItems)
+                .endItems(mapOfEndItems)
+                .build();
     }
-
 
     @Override
     public RunePage runePage() {
@@ -64,37 +74,21 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
     public List<SummonerSpell> summoners() {
         return querySummoners();
     }
-    // TODO: Optimize this with exclusion of mobile version
+    // TODO: Optimize this with exclusion of mobile version of website
     private Set<Item> startingItems() {
-        Set<Item> startingItems = new HashSet<>();
-
-        int[] usedPositionValues = null;
-        String usedImagePath = null;
-
-        for (Element element : document.select("div.starting-items").select("div.item-img")) {
-            String startingItem = element.select("div > div").select("div > div")
-                    .attr("style");
-            String imagePath = imagePath(startingItem);
-            int[] positionValues = positionOfImage(startingItem);
-
-            if (usedPositionValues == null) {
-                usedPositionValues = new int[2];
-                setValuesForUsedVariables(usedPositionValues, positionValues);
-                usedImagePath = imagePath;
-                startingItems.add(new Item(imagePath, positionValues[0], positionValues[1]));
-                continue;
-            }
-
-            if (isItemAlreadyRegistered(usedImagePath, imagePath , usedPositionValues, positionValues))
-                break;
-            startingItems.add(new Item(imagePath, positionValues[0], positionValues[1]));
-        }
-        return startingItems;
+        return queryItemPosition("div.starting-items");
     }
-
-    // style='height: 48px; width: 48px; background-image: url("https://static.bigbrain.gg/assets/lol/riot_static/13.7.1/img/sprite/item2.webp");
-    // background-repeat: no-repeat; background-position: -336px -96px; transform: scale(1); transform-origin: 0px 0px 0px;'
-
+    private Set<Item> coreItems() {
+        return queryItemPosition("div.core-items");
+    }
+    private Map<String, Set<Item>> endItems() {
+        Map<String, Set<Item>> mapOfEndItems = new TreeMap<>();
+        for (int i = 1; i < 4; i++) {
+            Set<Item> endItems = queryItemPosition("div.item-options-" + i);
+            mapOfEndItems.put(i + 3 + ". option", endItems);
+        }
+        return mapOfEndItems;
+    }
     private Rune nameOfKeyRune() {
         return new Rune(document.select("div.perk.keystone.perk-active")
               .select("img")
@@ -136,6 +130,32 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
             result.add(summoner);
         }
         return result;
+    }
+    private Set<Item> queryItemPosition(String itemCategory) {
+        Set<Item> coreItems = new TreeSet<>();
+
+        int[] usedPositionValues = null;
+        String usedImagePath = null;
+
+        for (Element element : document.select(itemCategory).select("div.item-img")) {
+            String startingItem = element.select("div > div").select("div > div")
+                    .attr("style");
+            String imagePath = imagePath(startingItem);
+            int[] positionValues = positionOfImage(startingItem);
+
+            if (usedPositionValues == null) {
+                usedPositionValues = new int[2];
+                setValuesForUsedVariables(usedPositionValues, positionValues);
+                usedImagePath = imagePath;
+                coreItems.add(new Item(imagePath, positionValues[0], positionValues[1]));
+                continue;
+            }
+
+            if (isItemAlreadyRegistered(usedImagePath, imagePath , usedPositionValues, positionValues))
+                break;
+            coreItems.add(new Item(imagePath, positionValues[0], positionValues[1]));
+        }
+        return coreItems;
     }
     private TreeSet<Rune> addElementsFromRange(int first, int last, Set<Rune> runes) {
         final TreeSet<Rune> splitSet = new TreeSet<>();

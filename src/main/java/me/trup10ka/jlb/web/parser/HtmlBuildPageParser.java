@@ -10,6 +10,8 @@ import java.util.List;
 public interface HtmlBuildPageParser {
     Document parse();
 
+    void setChampionToParse(String champion);
+
     ItemBuild itemBuild();
 
     RunePage runePage();
