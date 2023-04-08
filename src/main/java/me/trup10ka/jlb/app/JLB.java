@@ -40,7 +40,7 @@ public class JLB extends Application {
 
         stage.setTitle("JLB");
         stage.setScene(mainScene);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/icons/icon.png")));
         stage.show();
         new FadeIn(mainScene.getRoot()).play();
     }

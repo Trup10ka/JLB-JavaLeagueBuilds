@@ -3,6 +3,7 @@ package me.trup10ka.jlb.controllers;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.HBox;
 import me.trup10ka.jlb.web.parser.lographs.HtmlChampionsLoGParser;
 import me.trup10ka.jlb.web.parser.mobafire.HtmlChampionsMobafireParser;
@@ -12,35 +13,41 @@ import java.util.concurrent.CompletableFuture;
 
 public class MainScene {
     @FXML
-    public HBox buttonBox;
+    private HBox buttonBox;
     @FXML
-    public void initialize() {
-        buttonBox.getChildren().add(initializeUGGButton());
-        buttonBox.getChildren().add(initializeLeagueOfGraphsButton());
-        buttonBox.getChildren().add(initializeMobafireButton());
-    }
-    public void loadingPage() {
+    public ProgressIndicator indicator;
 
+    @FXML
+    private void setChampionsParserUGG() {
+        indicator.setVisible(true);
+        buttonBox.setVisible(false);
+        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsUGGParser()))
+                .thenAccept(voids -> {
+                    indicator.setVisible(false);
+                    buttonBox.setVisible(true);
+                    System.out.println("nigger");
+                });
     }
-    private JFXButton initializeUGGButton() {
-        JFXButton button = new JFXButton("U.GG");
-        button.setOnAction(actionEvent ->
-                CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsUGGParser()))
-                        .thenAccept(voids -> System.out.println("U.GG Loaded")));
-        return button;
+    @FXML
+    private void setChampionsParserLeagueOfGraphs() {
+        indicator.setVisible(true);
+        buttonBox.setVisible(false);
+        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsLoGParser()))
+                .thenAccept(voids -> {
+                    indicator.setVisible(false);
+                    buttonBox.setVisible(true);
+                    System.out.println("nigger");
+                });
     }
-    private JFXButton initializeLeagueOfGraphsButton() {
-        JFXButton button = new JFXButton("League of Graphs");
-        button.setOnAction(actionEvent ->
-                CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsLoGParser()))
-                        .thenAccept(voids -> System.out.println("League of Graphs Loaded")));
-        return button;
-    }
-    private JFXButton initializeMobafireButton() {
-        JFXButton button = new JFXButton("Mobafire");
-        button.setOnAction(actionEvent ->
-                CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsMobafireParser()))
-                        .thenAccept(voids -> System.out.println("Mobafire Loaded")));
-        return button;
+    @FXML
+    private void setChampionsParserMobafire() {
+        indicator.setVisible(true);
+        buttonBox.setVisible(false);
+        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsMobafireParser()))
+                .thenAccept(voids -> {
+                    indicator.setVisible(false);
+                    buttonBox.setVisible(true);
+                    System.out.println("nigger");
+                });
     }
 }

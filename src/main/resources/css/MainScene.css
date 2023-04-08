@@ -1,11 +1,11 @@
 @font-face {
-    font-family: "Nucleo";
-    src: url("resources/fonts/Nucleo-jEjAO.ttf");
+    font-family: "Queen";
+    src: url("resources/fonts/Queensides-3z7Ey.ttf");
 }
 
 #root {
     -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,  #6e8be0 ,  #a9cdfe);
-    -fx-font-family: "Nucleo";
+    -fx-font-family: "Queen";
 }
 .jfx-button {
      -jfx-button-type: RAISED;
