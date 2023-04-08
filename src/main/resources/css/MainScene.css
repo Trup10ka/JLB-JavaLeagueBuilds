@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "Nucleo";
+    src: url("resources/fonts/Nucleo-jEjAO.ttf");
+}
+
+#root {
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,  #6e8be0 ,  #a9cdfe);
+    -fx-font-family: "Nucleo";
+}
+.jfx-button {
+     -jfx-button-type: RAISED;
+     -fx-background-color: rgba(126, 209, 254, 1);
+     -fx-text-fill: grey;
+     -fx-pref-width: 100px;
+}

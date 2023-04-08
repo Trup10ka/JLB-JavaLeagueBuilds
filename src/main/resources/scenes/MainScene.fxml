@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="me.trup10ka.qtjambitest.controllers.MainScene"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/MainScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.MainScene">
+   <children>
+      <Label layoutX="434.0" layoutY="227.0" text="JLB - League Builds in Java App">
+         <font>
+            <Font name="Calisto MT" size="31.0" />
+         </font>
+      </Label>
+      <HBox fx:id="buttonBox" alignment="CENTER" layoutX="453.0" layoutY="344.0" prefHeight="100.0" prefWidth="394.0" spacing="10">
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </opaqueInsets>
+      </HBox>
+      <VBox layoutX="83.0" layoutY="99.0" prefHeight="502.0" spacing="10" prefWidth="135.0" />
+   </children>
 </AnchorPane>
