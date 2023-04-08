@@ -59,4 +59,9 @@ public class ItemBuild {
     public Item getBoots() {
         return boots;
     }
+
+    @Override
+    public String toString() {
+        return "ItemBuild = StartItems: " + startItems + ", CoreItems: " + coreItems + ", EndItems: " + endItems + ", Boots: " + boots;
+    }
 }

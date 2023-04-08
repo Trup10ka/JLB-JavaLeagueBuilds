@@ -11,6 +11,8 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HtmlBuildUGGParser implements HtmlBuildPageParser {
 
@@ -38,10 +40,10 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
 
     @Override
     public ItemBuild itemBuild() {
-
-
-        return new ItemBuild.Builder().build();
+        System.out.println(startingItems());
+        return null;
     }
+
 
     @Override
     public RunePage runePage() {
@@ -60,18 +62,39 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
 
     @Override
     public List<SummonerSpell> summoners() {
-        List<SummonerSpell> summonerSpells = querySummoners();
-        return summonerSpells;
+        return querySummoners();
     }
-
+    // TODO: Optimize this with exclusion of mobile version
     private Set<Item> startingItems() {
         Set<Item> startingItems = new HashSet<>();
+
+        int[] usedPositionValues = null;
+        String usedImagePath = null;
+
         for (Element element : document.select("div.starting-items").select("div.item-img")) {
-            var startingItem = element.select("div").select("div")
-                    .attr("background-position");
+            String startingItem = element.select("div > div").select("div > div")
+                    .attr("style");
+            String imagePath = imagePath(startingItem);
+            int[] positionValues = positionOfImage(startingItem);
+
+            if (usedPositionValues == null) {
+                usedPositionValues = new int[2];
+                setValuesForUsedVariables(usedPositionValues, positionValues);
+                usedImagePath = imagePath;
+                startingItems.add(new Item(imagePath, positionValues[0], positionValues[1]));
+                continue;
+            }
+
+            if (isItemAlreadyRegistered(usedImagePath, imagePath , usedPositionValues, positionValues))
+                break;
+            startingItems.add(new Item(imagePath, positionValues[0], positionValues[1]));
         }
         return startingItems;
     }
+
+    // style='height: 48px; width: 48px; background-image: url("https://static.bigbrain.gg/assets/lol/riot_static/13.7.1/img/sprite/item2.webp");
+    // background-repeat: no-repeat; background-position: -336px -96px; transform: scale(1); transform-origin: 0px 0px 0px;'
+
     private Rune nameOfKeyRune() {
         return new Rune(document.select("div.perk.keystone.perk-active")
               .select("img")
@@ -121,7 +144,6 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
             splitSet.add(tmp.get(i - 1));
         return splitSet;
     }
-
     private boolean isRunePresentAndNotAKeyStone(String rune, Set<Rune> runes) {
         if (rune.contains("The Keystone"))
             return true;
@@ -130,5 +152,36 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
                 return true;
         return false;
 
+    }
+
+    private String imagePath(String image) {
+        Pattern pattern = Pattern.compile("\\((.*?)\\)");
+        Matcher matcher = pattern.matcher(image);
+
+        String url = matcher.find() ? matcher.group(0) : "";
+
+        return url.substring(url.lastIndexOf("/") + 1, url.length() - 1).replaceAll("webp","png");
+    }
+    private int[] positionOfImage(String image) {
+        Pattern pattern = Pattern.compile("(?<=background-position:).*?(?=;)");
+        Matcher matcher = pattern.matcher(image);
+
+        String position = matcher.find()? matcher.group(0) : "";
+        String positionParseAble = position.replaceAll("px", "");
+        String[] result = positionParseAble.split(" ");
+
+        int positionX = Integer.parseInt(result[0]);
+        int positionY = Integer.parseInt(result[1]);
+        return new int [] {positionX, positionY};
+    }
+    private boolean isItemAlreadyRegistered(String usedImagePath,
+                                            String imagePath,
+                                            int[] positionValues,
+                                            int[] usedPositionValues) {
+        return usedPositionValues[0] == positionValues[0] && usedPositionValues[1] == positionValues[1] && usedImagePath.equals(imagePath);
+    }
+    private void setValuesForUsedVariables(int[] usedPositionValues, int[] positionValues) {
+        usedPositionValues[0] = positionValues[0];
+        usedPositionValues[1] = positionValues[1];
     }
 }
