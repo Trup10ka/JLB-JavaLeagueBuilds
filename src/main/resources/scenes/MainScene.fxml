@@ -8,21 +8,23 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/MainScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.MainScene">
+<AnchorPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/MainScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.MainScene">
    <children>
+      <Pane fx:id="applicationHeader" prefHeight="59.0" prefWidth="1300.0" />
       <Label layoutX="434.0" layoutY="224.0" text="JLB - League Builds in Java App">
          <font>
             <Font name="Calisto MT" size="31.0" />
          </font>
       </Label>
-      <HBox fx:id="buttonBox" alignment="CENTER" layoutX="168.0" layoutY="311.0" prefHeight="166.0" prefWidth="964.0" spacing="60.0">
+      <HBox fx:id="buttonBox" alignment="CENTER" layoutX="61.0" layoutY="326.0" prefHeight="166.0" prefWidth="1161.0" spacing="270.0">
          <opaqueInsets>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </opaqueInsets>
          <children>
-            <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="150.0" onAction="#setChampionsParserUGG" prefHeight="48.0" prefWidth="150.0" text="U.GG">
+            <JFXButton id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="170.0" onAction="#setChampionsParserUGG" prefHeight="65.0" prefWidth="170.0" text="U.GG">
                <font>
                   <Font size="16.0" />
                </font>
@@ -34,7 +36,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton minWidth="150.0" onAction="#setChampionsParserMobafire" prefHeight="48.0" prefWidth="150.0" text="Mobafire">
+            <JFXButton id="mobafire-button" minWidth="170.0" onAction="#setChampionsParserMobafire" prefHeight="65.0" prefWidth="169.0" text="Mobafire">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -43,7 +45,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton minWidth="150.0" onAction="#setChampionsParserLeagueOfGraphs" prefHeight="48.0" prefWidth="150.0" text="League of Graphs">
+            <JFXButton id="leagueofgraphs-button" minWidth="170.0" onAction="#setChampionsParserLeagueOfGraphs" prefHeight="65.0" prefWidth="150.0" text="League of Graphs">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -55,5 +57,20 @@
          </children>
       </HBox>
       <ProgressIndicator fx:id="indicator" layoutX="615.0" layoutY="370.0" visible="false" />
+      <ImageView fitHeight="48.0" fitWidth="52.0" layoutX="72.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/icon.png" />
+         </image>
+      </ImageView>
+      <Label alignment="BOTTOM_LEFT" layoutX="23.0" layoutY="22.0" prefHeight="27.0" prefWidth="42.0" text="JLB">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ImageView onMouseClicked="#terminate" fitHeight="35.0" fitWidth="35.0" layoutX="1250.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/close.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

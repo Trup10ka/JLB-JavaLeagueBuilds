@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -10,10 +9,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
+<AnchorPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
    <children>
+      <Pane fx:id="applicationHeader" prefHeight="47.0" prefWidth="1224.0" />
       <HBox fx:id="buttonBox" alignment="CENTER" layoutX="201.0" layoutY="34.0" prefHeight="72.0" prefWidth="899.0" spacing="140.0">
          <children>
             <JFXButton minWidth="150.0" prefHeight="37.0" prefWidth="130.0" text="U.GG">
@@ -53,6 +53,11 @@
             </padding>
          </FlowPane>
       </ScrollPane>
+      <ImageView onMouseClicked="#terminate" fitHeight="35.0" fitWidth="35.0" layoutX="1250.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/close.png" />
+         </image>
+      </ImageView>
 
    </children>
 </AnchorPane>

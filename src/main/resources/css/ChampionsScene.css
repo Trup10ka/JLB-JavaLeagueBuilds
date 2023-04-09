@@ -1,5 +1,7 @@
 #root {
     -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,  #6e8be0 ,  #a9cdfe);
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 10 10 10 10;
 }
 .scroll-pane > .viewport{
     -fx-background-color: transparent;

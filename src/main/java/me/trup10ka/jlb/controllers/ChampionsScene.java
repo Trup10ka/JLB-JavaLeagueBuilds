@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class ChampionsScene {
     private static ChampionsScene instance;
     private HtmlChampionsPageParser championsPageParser;
+    @FXML
+    private Pane applicationHeader;
 
     @FXML
     private ProgressIndicator progressIndicator;
@@ -23,6 +25,10 @@ public class ChampionsScene {
 
     public ChampionsScene() {
         instance = this;
+    }
+    public void initialize() {
+        applicationHeader.setOnMousePressed(event -> JLB.getInstance().setOffSets(event));
+        applicationHeader.setOnMouseDragged(event -> JLB.getInstance().moveStage(event));
     }
 
     public void setChampionsPageParser(HtmlChampionsPageParser championsPageParser) {
@@ -42,7 +48,7 @@ public class ChampionsScene {
 
         ImageView imageView = new ImageView("champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
         imageView.setFitHeight(60); imageView.setFitWidth(60);
-        RoundCorners.setRoundCorners(imageView);
+        RoundCorners.setRoundedCornerImageView(imageView);
 
         imgViewPane.getChildren().add(imageView);
         Label nameLabel = new Label(champion.getName());
@@ -55,7 +61,7 @@ public class ChampionsScene {
         flowPane.getChildren().add(nameLabel);
         flowPane.setOnMouseClicked(mouseEvent -> {
             JLB.getInstance().switchToBuildScene();
-            BuildScene.getInstance().setChampionToParse(champion.getName().toLowerCase().replaceAll("[. ]", ""));
+            BuildScene.getInstance().setChampionToParse(champion);
         });
 
         this.championsPane.getChildren().add(flowPane);
@@ -66,5 +72,9 @@ public class ChampionsScene {
 
     public void executeErrorLabel(Exception exception) {
         System.out.println(exception.getMessage());
+    }
+    @FXML
+    private void terminate() {
+        JLB.getInstance().terminate();
     }
 }
