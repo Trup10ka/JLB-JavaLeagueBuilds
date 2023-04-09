@@ -20,9 +20,9 @@ public enum PageURL {
             return null;
         }
     };
-    public final String allChampionsURL;
-    PageURL(String allChampionsURL) {
-        this.allChampionsURL = allChampionsURL;
+    public final String ALL_CHAMPIONS_URL;
+    PageURL(String ALL_CHAMPIONS_URL) {
+        this.ALL_CHAMPIONS_URL = ALL_CHAMPIONS_URL;
     }
     public abstract String championURL(String champion);
 }

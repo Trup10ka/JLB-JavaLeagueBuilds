@@ -1,10 +1,12 @@
 package me.trup10ka.jlb.web.parser.ugg;
 
+import me.trup10ka.jlb.controllers.ChampionsScene;
 import me.trup10ka.jlb.data.*;
 import me.trup10ka.jlb.web.PageURL;
 import me.trup10ka.jlb.web.WrongChampionPathException;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 import org.jsoup.Connection;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -24,8 +26,12 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
     }
     @Override
     public void setChampionToParse(String champion) {
-        this.connection = Jsoup.connect(PageURL.U_GG.championURL(champion));
-        this.document = parse();
+        try {
+            this.connection = Jsoup.connect(PageURL.U_GG.championURL(champion));
+            this.document = parse();
+        } catch (RuntimeException e) {
+            ChampionsScene.getInstance().executeErrorLabel(e);
+        }
         if (validate()) {
             throw new WrongChampionPathException(champion);
         }

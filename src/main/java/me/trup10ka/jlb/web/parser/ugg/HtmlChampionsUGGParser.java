@@ -18,7 +18,7 @@ public class HtmlChampionsUGGParser implements HtmlChampionsPageParser {
     private ArrayList<Champion> champions;
 
     public HtmlChampionsUGGParser() {
-        this.connection = Jsoup.connect(PageURL.U_GG.allChampionsURL);
+        this.connection = Jsoup.connect(PageURL.U_GG.ALL_CHAMPIONS_URL);
         this.parsedHtml = parse();
     }
     @Override

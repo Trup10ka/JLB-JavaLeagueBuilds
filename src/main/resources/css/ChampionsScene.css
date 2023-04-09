@@ -1,0 +1,45 @@
+#root {
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,  #6e8be0 ,  #a9cdfe);
+}
+.scroll-pane > .viewport{
+    -fx-background-color: transparent;
+}
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color: transparent;
+}
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(18, 111, 239, 1);
+    -fx-background-radius: 5em;
+}
+.jfx-button {
+     -jfx-button-type: RAISED;
+     -fx-background-color: rgba(126, 209, 254, 1);
+     -fx-text-fill: grey;
+     -fx-pref-width: 100px;
+}
+.champion-card {
+     -fx-padding: 17px 17px 17px 17px;
+     -fx-pref-height: 80;
+     -fx-pref-width: 60;
+     -fx-column-h-alignment: CENTER;
+     -fx-alignment: CENTER;
+}
+.champion-name {
+    -fx-label-padding: 10px 0px 0px 0px;
+    -fx-wrap-text: true;
+
+}
+.champion-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.error-label {
+    -fx-text-fill: RED;
+}
