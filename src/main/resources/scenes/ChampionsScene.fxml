@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
+   <children>
+      <HBox fx:id="buttonBox" alignment="CENTER" layoutX="201.0" layoutY="34.0" prefHeight="72.0" prefWidth="899.0" spacing="140.0">
+         <children>
+            <JFXButton minWidth="150.0" prefHeight="37.0" prefWidth="130.0" text="U.GG">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/ugg-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton minWidth="150.0" prefHeight="36.0" prefWidth="130.0" text="Mobafire">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/mobafire-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton minWidth="150.0" prefHeight="34.0" prefWidth="150.0" text="League of Graphs">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/league-of-graphs-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+      <ProgressIndicator fx:id="progressIndicator" layoutX="624.0" layoutY="350.0" prefHeight="92.0" prefWidth="115.0" />
+      <ScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="168.0" prefHeight="518.0" prefWidth="1255.0">
+         <FlowPane fx:id="championsPane" prefHeight="514.0" prefWidth="1250.0">
+            <padding>
+               <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+            </padding>
+         </FlowPane>
+      </ScrollPane>
+
+   </children>
+</AnchorPane>
