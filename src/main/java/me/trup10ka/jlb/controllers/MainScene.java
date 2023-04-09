@@ -1,6 +1,7 @@
 package me.trup10ka.jlb.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,18 +30,20 @@ public class MainScene {
     @FXML
     private void setChampionsParserUGG() {
         JLB.getInstance().switchToChampions();
-        ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsUGGParser());
+        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsUGGParser()))
+                .thenRun(() -> Platform.runLater(() -> ChampionsScene.getInstance().fillChampionsPane()));
     }
     @FXML
     private void setChampionsParserLeagueOfGraphs() {
         JLB.getInstance().switchToChampions();
-        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsLoGParser()));
-
+        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsLoGParser()))
+                .thenRun(() -> Platform.runLater(() -> ChampionsScene.getInstance().fillChampionsPane()));
     }
     @FXML
     private void setChampionsParserMobafire() {
         JLB.getInstance().switchToChampions();
-        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsMobafireParser()));
+        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsMobafireParser()))
+                .thenRun(() -> Platform.runLater(() -> ChampionsScene.getInstance().fillChampionsPane()));
     }
     @FXML
     private void terminate() {

@@ -34,7 +34,7 @@ public class ChampionsScene {
     public void setChampionsPageParser(HtmlChampionsPageParser championsPageParser) {
         this.championsPageParser = championsPageParser;
         this.progressIndicator.setVisible(false);
-        fillChampionsPane();
+
     }
     public void fillChampionsPane() {
         ArrayList<Champion> champions = championsPageParser.champions();
