@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 
 <?import javafx.scene.control.Button?>
+<?import me.trup10ka.jlb.util.SmoothScrollPane?>
 <AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
    <children>
       <Pane fx:id="applicationHeader" prefHeight="47.0" prefWidth="1224.0" />
@@ -47,13 +48,13 @@
          </children>
       </HBox>
       <ProgressIndicator fx:id="progressIndicator" layoutX="624.0" layoutY="350.0" prefHeight="92.0" prefWidth="115.0" />
-      <ScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="168.0" prefHeight="518.0" prefWidth="1255.0">
+      <SmoothScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="168.0" prefHeight="518.0" prefWidth="1255.0">
          <FlowPane fx:id="championsPane" prefHeight="514.0" prefWidth="1250.0">
             <padding>
                <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
             </padding>
          </FlowPane>
-      </ScrollPane>
+      </SmoothScrollPane>
       <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
@@ -63,6 +64,5 @@
             </ImageView>
          </graphic>
       </Button>
-
    </children>
 </AnchorPane>
