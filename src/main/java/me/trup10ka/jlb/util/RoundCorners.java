@@ -1,5 +1,6 @@
 package me.trup10ka.jlb.util;
 
+import javafx.scene.Parent;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -9,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 
 
 public class RoundCorners {
-    public static void setRoundCorners(ImageView imageView) {
+    public static void setRoundedCornerImageView(ImageView imageView) {
         Rectangle clip = new Rectangle(
                 imageView.getFitWidth(), imageView.getFitHeight()
         );
@@ -23,5 +24,4 @@ public class RoundCorners {
         imageView.setClip(null);
         imageView.setImage(image);
     }
-
 }

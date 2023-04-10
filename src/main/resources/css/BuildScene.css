@@ -3,3 +3,14 @@
     -fx-background-radius: 10 10 10 10;
     -fx-border-radius: 10 10 10 10;
 }
+
+
+
+#terminate {
+   -fx-background-color: transparent;
+   -fx-radius: 25 25 25 25;
+}
+#terminate:hover {
+    -fx-background-color: rgba(27, 195, 185, 0.2);
+    -fx-cursor: hand;
+}

@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import me.trup10ka.jlb.app.JLB;
+import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.Champion;
 import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class ChampionsScene {
     private static ChampionsScene instance;
     private HtmlChampionsPageParser championsPageParser;
+
     @FXML
     private Pane applicationHeader;
 
@@ -27,14 +28,13 @@ public class ChampionsScene {
         instance = this;
     }
     public void initialize() {
-        applicationHeader.setOnMousePressed(event -> JLB.getInstance().setOffSets(event));
-        applicationHeader.setOnMouseDragged(event -> JLB.getInstance().moveStage(event));
+        applicationHeader.setOnMousePressed(event -> JavaLeagueBuilds.getInstance().setOffSets(event));
+        applicationHeader.setOnMouseDragged(event -> JavaLeagueBuilds.getInstance().moveStage(event));
     }
 
     public void setChampionsPageParser(HtmlChampionsPageParser championsPageParser) {
         this.championsPageParser = championsPageParser;
         this.progressIndicator.setVisible(false);
-
     }
     public void fillChampionsPane() {
         ArrayList<Champion> champions = championsPageParser.champions();
@@ -60,7 +60,7 @@ public class ChampionsScene {
         flowPane.getChildren().add(imgViewPane);
         flowPane.getChildren().add(nameLabel);
         flowPane.setOnMouseClicked(mouseEvent -> {
-            JLB.getInstance().switchToBuildScene();
+            JavaLeagueBuilds.getInstance().switchToBuildScene();
             BuildScene.getInstance().setChampionToParse(champion);
         });
 
@@ -75,6 +75,6 @@ public class ChampionsScene {
     }
     @FXML
     private void terminate() {
-        JLB.getInstance().terminate();
+        JavaLeagueBuilds.getInstance().terminate();
     }
 }

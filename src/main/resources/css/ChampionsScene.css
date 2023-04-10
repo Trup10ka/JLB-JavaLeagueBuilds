@@ -9,7 +9,7 @@
 .scroll-pane {
     -fx-background-color: transparent;
 }
-.scroll-bar:horizontal, .scroll-bar:vertical{
+.scroll-bar:vertical{
     -fx-background-color: transparent;
 }
 .increment-button, .decrement-button {
@@ -45,3 +45,12 @@
 .error-label {
     -fx-text-fill: RED;
 }
+#terminate {
+   -fx-background-color: transparent;
+   -fx-radius: 25 25 25 25;
+}
+#terminate:hover {
+    -fx-background-color: rgba(27, 195, 185, 0.2);
+    -fx-cursor: hand;
+}
+

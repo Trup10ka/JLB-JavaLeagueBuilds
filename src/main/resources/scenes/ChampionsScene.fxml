@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
+<?import javafx.scene.control.Button?>
+<AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
    <children>
       <Pane fx:id="applicationHeader" prefHeight="47.0" prefWidth="1224.0" />
       <HBox fx:id="buttonBox" alignment="CENTER" layoutX="201.0" layoutY="34.0" prefHeight="72.0" prefWidth="899.0" spacing="140.0">
@@ -53,11 +54,15 @@
             </padding>
          </FlowPane>
       </ScrollPane>
-      <ImageView onMouseClicked="#terminate" fitHeight="35.0" fitWidth="35.0" layoutX="1250.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icons/close.png" />
-         </image>
-      </ImageView>
+      <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/close.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
 
    </children>
 </AnchorPane>

@@ -9,24 +9,34 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import me.trup10ka.jlb.util.RoundCorners;
 
 import java.io.IOException;
 
-
-public class JLB extends Application {
-    private static JLB instance;
+/**
+ * @author Lukas Friedl
+ */
+public class JavaLeagueBuilds extends Application {
+    private static JavaLeagueBuilds instance;
 
     private Stage stage;
     private double xOffSet;
     private double yOffSet;
-
     private final Scene mainScene;
     private final Scene championScene;
+    /**
+     * Determines what page has been chosen by the user
+     * <br>Only possible values are:
+     * <ul>
+     *     <li>U.GG</li>
+     *     <li>LoG</li>
+     *     <li>Mobafire</li>
+     * </ul>
+     */
+    public static String chosenPage;
 
     private final Scene buildScene;
 
-    public JLB() {
+    public JavaLeagueBuilds() {
         instance = this;
 
         Scene mainScene = null;
@@ -79,7 +89,7 @@ public class JLB extends Application {
     public void terminate() {
         stage.close();
     }
-    public static JLB getInstance() {
+    public static JavaLeagueBuilds getInstance() {
         return instance;
     }
 }
