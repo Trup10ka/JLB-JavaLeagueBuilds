@@ -1,7 +1,7 @@
 #root {
     -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,  #6e8be0 ,  #a9cdfe);
-    -fx-background-radius: 10 10 10 10;
-    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 5 5 5 5;
+    -fx-border-radius: 5 5 5 5;
 }
 .scroll-pane > .viewport{
     -fx-background-color: transparent;
@@ -27,17 +27,19 @@
      -fx-text-fill: grey;
      -fx-pref-width: 100px;
 }
+.jfx-button:hover {
+    -fx-cursor: hand;
+}
 .champion-card {
      -fx-padding: 17px 17px 17px 17px;
      -fx-pref-height: 80;
-     -fx-pref-width: 60;
+     -fx-pref-width: 80;
      -fx-column-h-alignment: CENTER;
      -fx-alignment: CENTER;
 }
 .champion-name {
     -fx-label-padding: 10px 0px 0px 0px;
     -fx-wrap-text: true;
-
 }
 .champion-image {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);

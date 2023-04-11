@@ -1,13 +1,16 @@
 #root {
     -fx-background-color: linear-gradient(to right, #6e6f6f, #515151);
-    -fx-background-radius: 10 10 10 10;
-    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 5 5 5 5;
+    -fx-border-radius: 5 5 5 5;
 }
 .jfx-button {
      -jfx-button-type: RAISED;
      -fx-text-fill: black;
      -fx-pref-width: 100px;
      -fx-font-size: 14px
+}
+.jfx-button:hover {
+    -fx-cursor: hand;
 }
 #ugg-button {
      -fx-background-color: rgba(49, 76, 241 ,0.7);

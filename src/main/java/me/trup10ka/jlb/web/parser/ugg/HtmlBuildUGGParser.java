@@ -29,9 +29,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
         try {
             this.connection = Jsoup.connect(PageURL.U_GG.championURL(champion));
             this.document = parse();
-        } catch (RuntimeException e) {
-            ChampionsScene.getInstance().executeErrorLabel(e);
-        }
+        } catch (RuntimeException ignored) {}
         if (validate()) {
             throw new WrongChampionPathException(champion);
         }

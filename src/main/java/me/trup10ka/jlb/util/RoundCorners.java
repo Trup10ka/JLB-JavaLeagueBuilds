@@ -1,6 +1,5 @@
 package me.trup10ka.jlb.util;
 
-import javafx.scene.Parent;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;

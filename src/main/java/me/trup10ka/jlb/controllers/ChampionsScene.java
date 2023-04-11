@@ -23,6 +23,8 @@ public class ChampionsScene {
     private ProgressIndicator progressIndicator;
     @FXML
     private FlowPane championsPane;
+    @FXML
+    private Label errorLabel;
 
     public ChampionsScene() {
         instance = this;
@@ -37,6 +39,8 @@ public class ChampionsScene {
         this.progressIndicator.setVisible(false);
     }
     public void fillChampionsPane() {
+        if (championsPageParser.champions() == null)
+            return;
         ArrayList<Champion> champions = championsPageParser.champions();
         for (Champion champion : champions) {
             addToTilePane(champion);
@@ -71,7 +75,7 @@ public class ChampionsScene {
     }
 
     public void executeErrorLabel(Exception exception) {
-        System.out.println(exception.getMessage());
+        errorLabel.setText(exception.getMessage());
     }
     @FXML
     private void terminate() {
