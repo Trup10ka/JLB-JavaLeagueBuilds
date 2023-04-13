@@ -1,5 +1,6 @@
 package me.trup10ka.jlb.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -73,9 +74,9 @@ public class ChampionsScene {
     public static ChampionsScene getInstance() {
         return instance;
     }
-
     public void executeErrorLabel(Exception exception) {
-        errorLabel.setText(exception.getMessage());
+        exception.printStackTrace();
+        Platform.runLater(() -> errorLabel.setText(exception.getMessage()));
     }
     @FXML
     private void terminate() {

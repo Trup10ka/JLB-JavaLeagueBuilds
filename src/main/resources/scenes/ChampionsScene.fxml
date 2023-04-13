@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,9 +12,10 @@
 
 <?import javafx.scene.control.Button?>
 <?import me.trup10ka.jlb.util.SmoothScrollPane?>
+<?import javafx.scene.control.Label?>
 <AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
    <children>
-      <Pane fx:id="applicationHeader" prefHeight="47.0" prefWidth="1224.0" />
+      <Pane fx:id="applicationHeader" prefHeight="28.0" prefWidth="1224.0" />
       <HBox fx:id="buttonBox" alignment="CENTER" layoutX="201.0" layoutY="34.0" prefHeight="72.0" prefWidth="899.0" spacing="140.0">
          <children>
             <JFXButton minWidth="150.0" prefHeight="37.0" prefWidth="130.0" text="U.GG">
@@ -30,9 +30,7 @@
             <JFXButton minWidth="150.0" prefHeight="36.0" prefWidth="130.0" text="Mobafire">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/mobafire-icon.png" />
-                     </image>
+                     <Image url="@../icons/mobafire-icon.png"/>
                   </ImageView>
                </graphic>
             </JFXButton>
@@ -64,5 +62,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label id="error-label" fx:id="errorLabel" layoutX="500.0" layoutY="350.0"/>
    </children>
 </AnchorPane>
