@@ -1,6 +1,6 @@
 package me.trup10ka.jlb.data;
 
-public record Item(String name, String imagePath, float x, float y) implements Comparable<Item>{
+public record Item(String name, String imageName, float x, float y) implements Comparable<Item>{
     public Item {
     }
     public Item(String name, String imagePath) {
