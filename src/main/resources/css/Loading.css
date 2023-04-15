@@ -1,0 +1,13 @@
+#root {
+    -fx-background-color: dimgray;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+#terminate {
+   -fx-background-color: transparent;
+   -fx-radius: 25 25 25 25;
+}
+#terminate:hover {
+    -fx-background-color: rgba(27, 195, 185, 0.2);
+    -fx-cursor: hand;
+}

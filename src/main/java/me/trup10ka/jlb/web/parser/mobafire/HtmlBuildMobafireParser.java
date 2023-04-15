@@ -8,34 +8,41 @@ import org.jsoup.nodes.Document;
 
 import java.util.List;
 
-public class HtmlBuildMobafireParser implements HtmlBuildPageParser {
+public class HtmlBuildMobafireParser implements HtmlBuildPageParser
+{
 
-    public HtmlBuildMobafireParser(String url) {
+    public HtmlBuildMobafireParser(String url)
+    {
         setChampionToParse(url);
     }
 
     @Override
-    public Document parse() {
+    public Document parse()
+    {
         return null;
     }
 
     @Override
-    public void setChampionToParse(String champion) {
+    public void setChampionToParse(String champion)
+    {
 
     }
 
     @Override
-    public ItemBuild itemBuild() {
+    public ItemBuild itemBuild()
+    {
         return null;
     }
 
     @Override
-    public RunePage runePage() {
+    public RunePage runePage()
+    {
         return null;
     }
 
     @Override
-    public List<SummonerSpell> summoners() {
+    public List<SummonerSpell> summoners()
+    {
         return null;
     }
 }

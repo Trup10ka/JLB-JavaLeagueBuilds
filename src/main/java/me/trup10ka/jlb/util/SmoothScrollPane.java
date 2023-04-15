@@ -116,8 +116,7 @@ public class SmoothScrollPane extends ScrollPane
             if (old != null && sameSign(delta, old.delta) && playing(old))
             {
                 mod = old.getMod() + 1;
-            }
-            else
+            } else
             {
                 mod = 1;
             }

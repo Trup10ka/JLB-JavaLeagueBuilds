@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Button?>
+<AnchorPane id="root" maxHeight="-Infinity" fx:controller="me.trup10ka.jlb.controllers.LoadingScene"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0"
+            stylesheets="@../css/Loading.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+
+   <ImageView fitHeight="328.0" fitWidth="422.0" layoutX="439.0" layoutY="169.0" pickOnBounds="true"
+              preserveRatio="true">
+      <image>
+         <Image url="@../icons/loading.gif"/>
+      </image>
+   </ImageView>
+   <Pane fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0"/>
+   <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0"
+           minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
+      <graphic>
+         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                    preserveRatio="true">
+            <Image url="@../icons/close.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
+</AnchorPane>

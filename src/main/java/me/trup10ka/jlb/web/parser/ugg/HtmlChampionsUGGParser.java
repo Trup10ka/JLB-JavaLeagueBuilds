@@ -2,7 +2,7 @@ package me.trup10ka.jlb.web.parser.ugg;
 
 import me.trup10ka.jlb.controllers.ChampionsScene;
 import me.trup10ka.jlb.data.Champion;
-import me.trup10ka.jlb.web.PageURL;
+import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -12,33 +12,40 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class HtmlChampionsUGGParser implements HtmlChampionsPageParser {
+public class HtmlChampionsUGGParser implements HtmlChampionsPageParser
+{
 
     private final Document parsedHtml;
     private final Connection connection;
     private ArrayList<Champion> champions;
 
-    public HtmlChampionsUGGParser() {
-        this.connection = Jsoup.connect(PageURL.U_GG.ALL_CHAMPIONS_URL);
+    public HtmlChampionsUGGParser()
+    {
+        this.connection = Jsoup.connect(Page.U_GG.ALL_CHAMPIONS_URL);
         this.parsedHtml = parse();
     }
+
     @Override
-    public Document parse() {
+    public Document parse()
+    {
         Document parsedHtml = null;
-        try {
+        try
+        {
             parsedHtml = connection.get();
-        }
-        catch (IOException | RuntimeException e) {
+        } catch (IOException | RuntimeException e)
+        {
             ChampionsScene.getInstance().executeErrorLabel(e);
         }
         return parsedHtml;
     }
 
     @Override
-    public ArrayList<Champion> champions() {
+    public ArrayList<Champion> champions()
+    {
         if (this.champions != null && this.champions.size() > 0)
             return champions;
-        if (this.parsedHtml == null) {
+        if (this.parsedHtml == null)
+        {
             ChampionsScene.getInstance().executeErrorLabel(new NullPointerException("You couldn't parse the desired page - U.GG"));
             return null;
         }

@@ -9,13 +9,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import me.trup10ka.jlb.web.Page;
 
 import java.io.IOException;
 
 /**
  * @author Lukas Friedl
  */
-public class JavaLeagueBuilds extends Application {
+public class JavaLeagueBuilds extends Application
+{
     private static JavaLeagueBuilds instance;
 
     private Stage stage;
@@ -23,6 +25,8 @@ public class JavaLeagueBuilds extends Application {
     private double yOffSet;
     private final Scene mainScene;
     private final Scene championScene;
+    private final Scene buildScene;
+    private final Scene loadingScene;
     /**
      * Determines what page has been chosen by the user
      * <br>Only possible values are:
@@ -32,31 +36,37 @@ public class JavaLeagueBuilds extends Application {
      *     <li>Mobafire</li>
      * </ul>
      */
-    public static String chosenPage;
+    public static Page chosenPage;
 
-    private final Scene buildScene;
 
-    public JavaLeagueBuilds() {
+    public JavaLeagueBuilds()
+    {
         instance = this;
 
         Scene mainScene = null;
         Scene champions = null;
         Scene buildScene = null;
-
-        try {
+        Scene loadingScene = null;
+        try
+        {
             mainScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/MainScene.fxml")));
             champions = new Scene(FXMLLoader.load(getClass().getResource("/scenes/ChampionsScene.fxml")));
             buildScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildScene.fxml")));
+            loadingScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/LoadingScene.fxml")));
+        } catch (IOException e)
+        {
+            e.printStackTrace();
         }
-        catch (IOException e) {e.printStackTrace();}
 
         this.mainScene = mainScene;
         this.championScene = champions;
         this.buildScene = buildScene;
+        this.loadingScene = loadingScene;
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage)
+    {
         this.stage = stage;
 
         stage.setScene(mainScene);
@@ -71,25 +81,39 @@ public class JavaLeagueBuilds extends Application {
         new FadeIn(mainScene.getRoot()).play();
     }
 
-    public void switchToChampions() {
+    public void switchToChampions()
+    {
         stage.setScene(championScene);
     }
 
-    public void switchToBuildScene() {
+    public void switchToBuildScene()
+    {
         stage.setScene(buildScene);
     }
-    public void setOffSets(MouseEvent mouseEvent) {
+    public void switchToLoading()
+    {
+        stage.setScene(loadingScene);
+    }
+
+    public void setOffSets(MouseEvent mouseEvent)
+    {
         xOffSet = mouseEvent.getSceneX();
         yOffSet = mouseEvent.getSceneY();
     }
-    public void moveStage(MouseEvent mouseEvent) {
+
+    public void moveStage(MouseEvent mouseEvent)
+    {
         stage.setX(mouseEvent.getScreenX() - xOffSet);
         stage.setY(mouseEvent.getScreenY() - yOffSet);
     }
-    public void terminate() {
+
+    public void terminate()
+    {
         stage.close();
     }
-    public static JavaLeagueBuilds getInstance() {
+
+    public static JavaLeagueBuilds getInstance()
+    {
         return instance;
     }
 }

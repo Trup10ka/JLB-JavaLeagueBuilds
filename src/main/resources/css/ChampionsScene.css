@@ -1,5 +1,5 @@
 #root {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,  #6e8be0 ,  #a9cdfe);
+    -fx-background-color: dimgray;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
 }
@@ -23,9 +23,18 @@
 }
 .jfx-button {
      -jfx-button-type: RAISED;
-     -fx-background-color: rgba(126, 209, 254, 1);
      -fx-text-fill: grey;
      -fx-pref-width: 100px;
+}
+#ugg-button {
+     -fx-background-color: rgba(49, 76, 241 ,0.7);
+     -fx-text-fill: white;
+}
+#mobafire-button {
+     -fx-background-color: rgba(255, 194, 103, 0.7);
+}
+#leagueofgraphs-button {
+     -fx-background-color: rgba(88, 210, 202, 0.7);
 }
 .jfx-button:hover {
     -fx-cursor: hand;

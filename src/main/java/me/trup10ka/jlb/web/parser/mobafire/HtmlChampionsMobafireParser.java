@@ -6,15 +6,18 @@ import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 
-public class HtmlChampionsMobafireParser implements HtmlChampionsPageParser {
+public class HtmlChampionsMobafireParser implements HtmlChampionsPageParser
+{
 
     @Override
-    public Document parse() {
+    public Document parse()
+    {
         return null;
     }
 
     @Override
-    public ArrayList<Champion> champions() {
+    public ArrayList<Champion> champions()
+    {
         return null;
     }
 }

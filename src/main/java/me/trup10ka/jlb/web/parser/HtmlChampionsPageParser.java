@@ -5,7 +5,9 @@ import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 
-public interface HtmlChampionsPageParser {
+public interface HtmlChampionsPageParser
+{
     Document parse();
+
     ArrayList<Champion> champions();
 }

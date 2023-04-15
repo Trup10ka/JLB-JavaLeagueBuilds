@@ -1,5 +1,5 @@
 #root {
-    -fx-background-color: linear-gradient(to right, #6e6f6f, #515151);
+    -fx-background-color: dimgray;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
 }

@@ -13,7 +13,8 @@ import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
 
 import java.util.ArrayList;
 
-public class ChampionsScene {
+public class ChampionsScene
+{
     private static ChampionsScene instance;
     private HtmlChampionsPageParser championsPageParser;
 
@@ -27,32 +28,42 @@ public class ChampionsScene {
     @FXML
     private Label errorLabel;
 
-    public ChampionsScene() {
+    public ChampionsScene()
+    {
         instance = this;
     }
-    public void initialize() {
+
+    public void initialize()
+    {
         applicationHeader.setOnMousePressed(event -> JavaLeagueBuilds.getInstance().setOffSets(event));
         applicationHeader.setOnMouseDragged(event -> JavaLeagueBuilds.getInstance().moveStage(event));
     }
 
-    public void setChampionsPageParser(HtmlChampionsPageParser championsPageParser) {
+    public void setChampionsPageParser(HtmlChampionsPageParser championsPageParser)
+    {
         this.championsPageParser = championsPageParser;
         this.progressIndicator.setVisible(false);
     }
-    public void fillChampionsPane() {
+
+    public void fillChampionsPane()
+    {
         if (championsPageParser.champions() == null)
             return;
         ArrayList<Champion> champions = championsPageParser.champions();
-        for (Champion champion : champions) {
+        for (Champion champion : champions)
+        {
             addToTilePane(champion);
         }
     }
-    private void addToTilePane(Champion champion) {
+
+    private void addToTilePane(Champion champion)
+    {
         StackPane imgViewPane = new StackPane();
         imgViewPane.getStyleClass().add("champion-image");
 
         ImageView imageView = new ImageView("images/champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
-        imageView.setFitHeight(60); imageView.setFitWidth(60);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(60);
         RoundCorners.setRoundedCornerImageView(imageView);
 
         imgViewPane.getChildren().add(imageView);
@@ -64,22 +75,29 @@ public class ChampionsScene {
 
         flowPane.getChildren().add(imgViewPane);
         flowPane.getChildren().add(nameLabel);
-        flowPane.setOnMouseClicked(mouseEvent -> {
+        flowPane.setOnMouseClicked(mouseEvent ->
+        {
             JavaLeagueBuilds.getInstance().switchToBuildScene();
             BuildScene.getInstance().setChampionToParse(champion);
         });
 
         this.championsPane.getChildren().add(flowPane);
     }
-    public static ChampionsScene getInstance() {
+
+    public static ChampionsScene getInstance()
+    {
         return instance;
     }
-    public void executeErrorLabel(Exception exception) {
+
+    public void executeErrorLabel(Exception exception)
+    {
         exception.printStackTrace();
         Platform.runLater(() -> errorLabel.setText(exception.getMessage()));
     }
+
     @FXML
-    private void terminate() {
+    private void terminate()
+    {
         JavaLeagueBuilds.getInstance().terminate();
     }
 }

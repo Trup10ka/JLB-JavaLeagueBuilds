@@ -7,7 +7,8 @@ import org.jsoup.nodes.Document;
 
 import java.util.List;
 
-public interface HtmlBuildPageParser {
+public interface HtmlBuildPageParser
+{
     Document parse();
 
     void setChampionToParse(String champion);

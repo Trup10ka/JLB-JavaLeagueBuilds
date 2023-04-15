@@ -1,6 +1,7 @@
 package me.trup10ka.jlb.data;
-
-public enum SummonerSpell {
+@SuppressWarnings("unused")
+public enum SummonerSpell
+{
     HEAL,
     GHOST,
     EXHAUST,
