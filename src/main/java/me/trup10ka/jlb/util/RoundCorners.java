@@ -24,7 +24,7 @@ public class RoundCorners {
         imageView.setClip(null);
         imageView.setImage(image);
     }
-    public static void setRoundedCornerToItem(Pane pane) {
+    public static void setRoundedCornerToImagePane(Pane pane) {
         Rectangle rectangle = new Rectangle(48, 48);
         rectangle.setArcWidth(15); rectangle.setArcHeight(15);
         pane.setClip(rectangle);

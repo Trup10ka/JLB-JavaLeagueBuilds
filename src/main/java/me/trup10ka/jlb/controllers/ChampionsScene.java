@@ -51,7 +51,7 @@ public class ChampionsScene {
         StackPane imgViewPane = new StackPane();
         imgViewPane.getStyleClass().add("champion-image");
 
-        ImageView imageView = new ImageView("champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
+        ImageView imageView = new ImageView("images/champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
         imageView.setFitHeight(60); imageView.setFitWidth(60);
         RoundCorners.setRoundedCornerImageView(imageView);
 

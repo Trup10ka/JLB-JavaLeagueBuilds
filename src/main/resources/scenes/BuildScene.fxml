@@ -12,48 +12,60 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.BuildScene">
-   <children>
-      <Pane fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
-      <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/close.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <VBox alignment="CENTER" layoutX="7.0" prefHeight="700.0" prefWidth="195.0" spacing="180.0">
-         <children>
-            <JFXButton text="U.GG" />
-            <JFXButton text="Mobafire" />
-            <JFXButton lineSpacing="2.0" text="League of Graphs" textAlignment="CENTER" wrapText="true" />
-         </children>
-      </VBox>
-      <ImageView fx:id="goBack" fitHeight="35.0" fitWidth="20.0" layoutX="1215.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icons/left-arrow.png" />
-         </image>
-      </ImageView>
-      <Line endX="-91.0" endY="549.0" layoutX="330.0" layoutY="88.0" startX="-91.0" startY="-37.0" />
-      <Label fx:id="championName" alignment="CENTER" layoutX="651.0" layoutY="57.0" prefHeight="28.0" prefWidth="225.0">
+<AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css"
+            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="me.trup10ka.jlb.controllers.BuildScene">
+   <Pane fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0"/>
+   <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0"
+           minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
+      <graphic>
+         <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true"
+                    preserveRatio="true">
+            <image>
+               <Image url="@../icons/close.png"/>
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+   <ImageView fx:id="goBack" fitHeight="35.0" fitWidth="20.0" layoutX="1215.0" layoutY="23.0" pickOnBounds="true"
+              preserveRatio="true">
+      <Image url="@../icons/left-arrow.png"/>
+   </ImageView>
+   <VBox alignment="CENTER" layoutX="7.0" prefHeight="700.0" prefWidth="195.0" spacing="180.0">
+      <JFXButton text="U.GG"/>
+      <JFXButton lineSpacing="2.0" text="League of Graphs" textAlignment="CENTER" wrapText="true"/>
+   </VBox>
+   <Line endX="-91.0" endY="549.0" layoutX="330.0" layoutY="88.0" startX="-91.0" startY="-37.0"/>
+   <Label fx:id="championName" alignment="CENTER" layoutX="651.0" layoutY="57.0" prefHeight="28.0" prefWidth="225.0">
+      <font>
+         <Font size="19.0"/>
+      </font>
+   </Label>
+   <Pane layoutX="351.0" layoutY="457.0">
+      <Label layoutX="391.0" text="Items">
          <font>
-            <Font size="19.0" />
+            <Font size="17.0"/>
          </font>
       </Label>
-      <Label layoutX="742.0" layoutY="457.0" text="Items">
+      <HBox fx:id="itemsBox" alignment="CENTER" layoutY="57.0" prefHeight="136.0" prefWidth="825.0" spacing="60"/>
+   </Pane>
+   <Pane layoutX="967.0" layoutY="150.0">
+      <VBox fx:id="summonersBox" layoutX="40.0" layoutY="58.0" prefHeight="116.0" prefWidth="65.0"/>
+      <Label text="Summoner spells">
          <font>
-            <Font size="17.0" />
+            <Font size="19.0"/>
          </font>
       </Label>
-      <VBox fx:id="summonersBox" layoutX="1007.0" layoutY="208.0" prefHeight="116.0" prefWidth="65.0" />
-      <Label layoutX="967.0" layoutY="150.0" text="Summoner spells">
+   </Pane>
+   <Pane layoutX="325.0" layoutY="138.0" prefHeight="263.0" prefWidth="578.0">
+      <Label layoutX="263.0" layoutY="7.0" text="Runes">
          <font>
-            <Font size="19.0" />
-         </font></Label>
-      <VBox layoutX="367.0" layoutY="150.0" prefHeight="200.0" prefWidth="118.0" />
-      <VBox layoutX="571.0" layoutY="150.0" prefHeight="200.0" prefWidth="118.0" />
-      <HBox  alignment="CENTER" fx:id="itemsBox" layoutX="351.0" layoutY="514.0" prefHeight="136.0" prefWidth="825.0" spacing="60" />
-   </children>
+            <Font size="18.0"/>
+         </font>
+      </Label>
+      <HBox fx:id="secondaryRunesAndAttributesBox" layoutX="2.0" layoutY="153.0" prefHeight="110.0"
+            alignment="CENTER_LEFT" prefWidth="578.0" spacing="20"/>
+      <HBox fx:id="mainRunesBox" layoutX="2.0" layoutY="42.0" prefHeight="110.0" prefWidth="578.0"
+            alignment="CENTER_LEFT" spacing="15"/>
+   </Pane>
 </AnchorPane>

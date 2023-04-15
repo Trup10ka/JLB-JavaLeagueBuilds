@@ -1,5 +1,6 @@
 package me.trup10ka.jlb.web.parser.ugg;
 
+import me.trup10ka.jlb.controllers.ChampionsScene;
 import me.trup10ka.jlb.data.Champion;
 import me.trup10ka.jlb.web.PageURL;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 
 public class HtmlChampionsUGGParser implements HtmlChampionsPageParser {
 
-    private Document parsedHtml;
-    private Connection connection;
+    private final Document parsedHtml;
+    private final Connection connection;
     private ArrayList<Champion> champions;
 
     public HtmlChampionsUGGParser() {
@@ -27,8 +28,8 @@ public class HtmlChampionsUGGParser implements HtmlChampionsPageParser {
         try {
             parsedHtml = connection.get();
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (IOException | RuntimeException e) {
+            ChampionsScene.getInstance().executeErrorLabel(e);
         }
         return parsedHtml;
     }
@@ -37,6 +38,10 @@ public class HtmlChampionsUGGParser implements HtmlChampionsPageParser {
     public ArrayList<Champion> champions() {
         if (this.champions != null && this.champions.size() > 0)
             return champions;
+        if (this.parsedHtml == null) {
+            ChampionsScene.getInstance().executeErrorLabel(new NullPointerException("You couldn't parse the desired page - U.GG"));
+            return null;
+        }
         this.champions = new ArrayList<>(180);
         for (Element element : parsedHtml.select("a.champion-link"))
             champions.add(new Champion(element.select("div.champion-name").text()));

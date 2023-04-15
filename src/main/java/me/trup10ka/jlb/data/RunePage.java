@@ -47,6 +47,21 @@ public class RunePage {
         }
     }
 
+    public Rune getMainRune() {
+        return mainRune;
+    }
+
+    public Set<Rune> getSecondaryMainRunes() {
+        return secondaryMainRunes;
+    }
+
+    public Set<Rune> getSecondaryRunes() {
+        return secondaryRunes;
+    }
+
+    public ArrayList<Attribute> getAttributes() {
+        return attributes;
+    }
     @Override
     public String toString() {
         return "Main rune: " + mainRune + "\nSecondary main runes: " + secondaryMainRunes + "\nSecondary runes: " + secondaryRunes + "\nAttributes: " + attributes;

@@ -20,7 +20,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>Main.java</mainClass>
+                    <mainClass>me.trup10ka.jlb.app.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>

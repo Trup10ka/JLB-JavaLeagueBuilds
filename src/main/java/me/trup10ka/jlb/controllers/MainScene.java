@@ -2,10 +2,8 @@ package me.trup10ka.jlb.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
-import me.trup10ka.jlb.app.Main;
 import me.trup10ka.jlb.web.parser.lographs.HtmlChampionsLoGParser;
 import me.trup10ka.jlb.web.parser.mobafire.HtmlChampionsMobafireParser;
 import me.trup10ka.jlb.web.parser.ugg.HtmlChampionsUGGParser;

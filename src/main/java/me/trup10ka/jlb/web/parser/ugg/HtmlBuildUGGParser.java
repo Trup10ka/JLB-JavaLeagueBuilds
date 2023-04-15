@@ -1,12 +1,10 @@
 package me.trup10ka.jlb.web.parser.ugg;
 
-import me.trup10ka.jlb.controllers.ChampionsScene;
 import me.trup10ka.jlb.data.*;
 import me.trup10ka.jlb.web.PageURL;
 import me.trup10ka.jlb.web.WrongChampionPathException;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 import org.jsoup.Connection;
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -120,7 +118,12 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser {
         for (Element element : document.select("div.shard-active")) {
             String shard = element.select("img")
                     .attr("alt")
+                    .replaceAll("The ", "")
+                    .replaceAll("Scaling ", "")
+                    .replaceAll("Bonus ", "")
                     .replaceAll(" Shard", "");
+            if (shard.equals("CDR"))
+                shard = "ability_haste";
             if (attributes.size() < 3)
                 attributes.add(new Attribute(shard));
         }
