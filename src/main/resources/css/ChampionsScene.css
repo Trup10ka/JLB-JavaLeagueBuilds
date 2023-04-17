@@ -2,6 +2,7 @@
     -fx-background-color: dimgray;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
+    -fx-font-family: "Friz Quadrata";
 }
 .scroll-pane > .viewport{
     -fx-background-color: transparent;
@@ -25,6 +26,8 @@
      -jfx-button-type: RAISED;
      -fx-text-fill: grey;
      -fx-pref-width: 100px;
+     -fx-font-size: 14px;
+     -fx-background-radius: 25px;
 }
 #ugg-button {
      -fx-background-color: rgba(49, 76, 241 ,0.7);

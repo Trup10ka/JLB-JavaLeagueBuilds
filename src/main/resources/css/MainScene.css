@@ -3,24 +3,40 @@
     -fx-background-radius: 5;
     -fx-border-radius: 5;
 }
+.font-changer {
+    -fx-font-family: "Friz Quadrata";
+}
 .jfx-button {
      -jfx-button-type: RAISED;
      -fx-text-fill: black;
      -fx-pref-width: 100px;
-     -fx-font-size: 14px
+     -fx-font-size: 14px;
+     -fx-background-radius: 25px;
 }
 .jfx-button:hover {
     -fx-cursor: hand;
 }
 #ugg-button {
-     -fx-background-color: rgba(49, 76, 241 ,0.7);
+     -fx-background-color: rgba(49, 76, 241, 0.7);
+     -fx-text-fill: white;
+}
+#ugg-button:hover {
+     -fx-background-color: derive(#314cf1, -15%);
      -fx-text-fill: white;
 }
 #mobafire-button {
      -fx-background-color: rgba(255, 194, 103, 0.7);
+     -fx-text-fill: black;
+}
+#mobafire-button:hover {
+     -fx-background-color: derive(#f7ad3e, -15%);
 }
 #leagueofgraphs-button {
      -fx-background-color: rgba(88, 210, 202, 0.7);
+     -fx-text-fill: black;
+}
+#leagueofgraphs-button:hover {
+     -fx-background-color: derive(#34cfc5, -15%);
 }
 #terminate {
    -fx-background-color: transparent;
