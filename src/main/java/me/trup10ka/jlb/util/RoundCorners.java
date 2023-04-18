@@ -15,8 +15,8 @@ public class RoundCorners
         Rectangle clip = new Rectangle(
                 imageView.getFitWidth(), imageView.getFitHeight()
         );
-        clip.setArcWidth(15);
-        clip.setArcHeight(15);
+        clip.setArcWidth(12);
+        clip.setArcHeight(12);
         imageView.setClip(clip);
 
         SnapshotParameters parameters = new SnapshotParameters();
@@ -30,8 +30,8 @@ public class RoundCorners
     public static void setRoundedCornerToImagePane(Pane pane)
     {
         Rectangle rectangle = new Rectangle(48, 48);
-        rectangle.setArcWidth(15);
-        rectangle.setArcHeight(15);
+        rectangle.setArcWidth(12);
+        rectangle.setArcHeight(12);
         pane.setClip(rectangle);
     }
 }

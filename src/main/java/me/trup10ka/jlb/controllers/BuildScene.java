@@ -240,8 +240,7 @@ public class BuildScene
         {
             ImageView image = new ImageView("images/runes/attributes/"
                     + attribute.propertyName().toLowerCase().replaceAll("[: ]+", "_") + ".png");
-            image.setFitHeight(27);
-            image.setFitWidth(27);
+            image.setFitHeight(27); image.setFitWidth(27);
             runes.add(image);
         }
         return runes;

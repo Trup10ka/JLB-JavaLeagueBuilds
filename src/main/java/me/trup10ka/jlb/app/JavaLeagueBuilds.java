@@ -7,11 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import me.trup10ka.jlb.web.Page;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Lukas Friedl
@@ -27,6 +30,7 @@ public class JavaLeagueBuilds extends Application
     private final Scene championScene;
     private final Scene buildScene;
     private final Scene loadingScene;
+    private List<Scene> scenes;
     /**
      * Determines what page has been chosen by the user
      * <br>Only possible values are:
@@ -44,13 +48,13 @@ public class JavaLeagueBuilds extends Application
         instance = this;
 
         Scene mainScene = null;
-        Scene champions = null;
+        Scene championsScene = null;
         Scene buildScene = null;
         Scene loadingScene = null;
         try
         {
             mainScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/MainScene.fxml")));
-            champions = new Scene(FXMLLoader.load(getClass().getResource("/scenes/ChampionsScene.fxml")));
+            championsScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/ChampionsScene.fxml")));
             buildScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildScene.fxml")));
             loadingScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/LoadingScene.fxml")));
         } catch (IOException e)
@@ -59,9 +63,10 @@ public class JavaLeagueBuilds extends Application
         }
 
         this.mainScene = mainScene;
-        this.championScene = champions;
+        this.championScene = championsScene;
         this.buildScene = buildScene;
         this.loadingScene = loadingScene;
+        this.scenes = Arrays.asList(mainScene, championsScene, buildScene, loadingScene);
     }
 
     @Override
@@ -69,13 +74,16 @@ public class JavaLeagueBuilds extends Application
     {
         this.stage = stage;
 
+        stage.setTitle("Java League Builds");
         stage.setScene(mainScene);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icons/icon.png")));
         stage.setResizable(false);
         stage.initStyle(StageStyle.TRANSPARENT);
-        mainScene.setFill(Color.TRANSPARENT);
-        championScene.setFill(Color.TRANSPARENT);
-        buildScene.setFill(Color.TRANSPARENT);
+
+        @SuppressWarnings("unused")
+        final Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/LeagueOfLegendsFont.ttf"), 14);
+
+        scenes.forEach(scene -> scene.setFill(Color.TRANSPARENT));
 
         stage.show();
         new FadeIn(mainScene.getRoot()).play();
