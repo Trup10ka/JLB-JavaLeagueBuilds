@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class RunePage
 {
-    private final Rune mainRune;
+    private final Rune keyStoneRune;
 
     private final Set<Rune> secondaryMainRunes;
 
@@ -13,9 +13,9 @@ public class RunePage
 
     private final ArrayList<Attribute> attributes;
 
-    private RunePage(Rune mainRune, Set<Rune> secondaryMainRunes, Set<Rune> secondaryRunes, ArrayList<Attribute> attributes)
+    private RunePage(Rune keyStoneRune, Set<Rune> secondaryMainRunes, Set<Rune> secondaryRunes, ArrayList<Attribute> attributes)
     {
-        this.mainRune = mainRune;
+        this.keyStoneRune = keyStoneRune;
         this.secondaryMainRunes = secondaryMainRunes;
         this.secondaryRunes = secondaryRunes;
         this.attributes = attributes;
@@ -61,9 +61,9 @@ public class RunePage
         }
     }
 
-    public Rune getMainRune()
+    public Rune getKeyStoneRune()
     {
-        return mainRune;
+        return keyStoneRune;
     }
 
     public Set<Rune> getSecondaryMainRunes()
@@ -84,6 +84,6 @@ public class RunePage
     @Override
     public String toString()
     {
-        return "Main rune: " + mainRune + "\nSecondary main runes: " + secondaryMainRunes + "\nSecondary runes: " + secondaryRunes + "\nAttributes: " + attributes;
+        return "Main rune: " + keyStoneRune + "\nSecondary main runes: " + secondaryMainRunes + "\nSecondary runes: " + secondaryRunes + "\nAttributes: " + attributes;
     }
 }

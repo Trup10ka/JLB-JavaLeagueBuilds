@@ -54,6 +54,7 @@
     -fx-wrap-text: true;
 }
 .champion-image {
+    -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 #error-label {
@@ -65,7 +66,7 @@
    -fx-radius: 25;
 }
 #terminate:hover {
-    -fx-background-color: rgba(27, 195, 185, 0.2);
+    -fx-background-color: rgba(79, 79, 79 , 0.3);
     -fx-cursor: hand;
 }
 

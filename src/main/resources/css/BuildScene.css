@@ -28,11 +28,29 @@
     -fx-background-radius: 7;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.1, 5, 5);
 }
+#core-item-box {
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-border-color: rgba(212,175,55, 0.7);
+}
+#champion-name {
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-border-color: rgba(0, 0, 0, 0.5)
+}
+#arrow {
+    -fx-background-color: transparent;
+    -fx-radius: 25;
+    -fx-cursor: hand;
+}
+#arrow:hover {
+    -fx-background-color: rgba(79, 79, 79 , 0.3);
+}
 #terminate {
    -fx-background-color: transparent;
    -fx-radius: 25;
+   -fx-cursor: hand;
 }
 #terminate:hover {
-    -fx-background-color: rgba(27, 195, 185, 0.2);
-    -fx-cursor: hand;
+    -fx-background-color: rgba(79, 79, 79 , 0.3);
 }

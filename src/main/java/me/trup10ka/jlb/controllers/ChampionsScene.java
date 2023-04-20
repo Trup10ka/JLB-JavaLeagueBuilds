@@ -2,6 +2,7 @@ package me.trup10ka.jlb.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
@@ -58,30 +59,46 @@ public class ChampionsScene
 
     private void addToTilePane(Champion champion)
     {
-        StackPane imgViewPane = new StackPane();
-        imgViewPane.getStyleClass().add("champion-image");
+        StackPane imgViewPane = createPaneForImageView(champion);
 
-        ImageView imageView = new ImageView("images/champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
-        imageView.setFitHeight(60);
-        imageView.setFitWidth(60);
-        RoundCorners.setRoundedCornerImageView(imageView);
+        ImageView imageView = createChampionImageView(champion);
 
         imgViewPane.getChildren().add(imageView);
+
         Label nameLabel = new Label(champion.getName());
         nameLabel.getStyleClass().add("champion-name");
 
+        FlowPane flowPane = createChampionCard(imgViewPane, nameLabel);
+
+        this.championsPane.getChildren().add(flowPane);
+    }
+
+    private FlowPane createChampionCard(Node... node)
+    {
         FlowPane flowPane = new FlowPane();
         flowPane.getStyleClass().add("champion-card");
-
-        flowPane.getChildren().add(imgViewPane);
-        flowPane.getChildren().add(nameLabel);
-        flowPane.setOnMouseClicked(mouseEvent ->
+        for (Node child : node)
+            flowPane.getChildren().add(child);
+        return flowPane;
+    }
+    private StackPane createPaneForImageView(Champion champion)
+    {
+        StackPane imgViewPane = new StackPane();
+        imgViewPane.getStyleClass().add("champion-image");
+        imgViewPane.setOnMouseClicked(mouseEvent ->
         {
             JavaLeagueBuilds.getInstance().switchToBuildScene();
             BuildScene.getInstance().setChampionToParse(champion);
         });
-
-        this.championsPane.getChildren().add(flowPane);
+        return imgViewPane;
+    }
+    private ImageView createChampionImageView(Champion champion)
+    {
+        ImageView imageView = new ImageView("images/champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(60);
+        RoundCorners.setRoundedCornerImageView(imageView);
+        return imageView;
     }
 
     public static ChampionsScene getInstance()

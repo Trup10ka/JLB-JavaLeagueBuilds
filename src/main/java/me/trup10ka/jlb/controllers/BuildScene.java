@@ -2,6 +2,7 @@ package me.trup10ka.jlb.controllers;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -30,7 +31,7 @@ public class BuildScene
     @FXML
     private Pane applicationHeader;
     @FXML
-    private ImageView goBack;
+    private Button goBack;
     @FXML
     private Label championName;
     @FXML
@@ -74,7 +75,7 @@ public class BuildScene
                     buildParser.runePage(),
                     buildParser.summoners());
         }
-        championName.setText(recentChampion.getName());
+        championName.setText(getNameOfChampionWithHisPredictedClass(recentChampion));
         build();
     }
 
@@ -126,6 +127,7 @@ public class BuildScene
     {
         HBox allImages = createAllItemsInCategory(itemBuild.getCoreItems());
         allImages.getStyleClass().add("filled-box");
+        allImages.setId("core-item-box");
         itemsBox.getChildren().add(allImages);
     }
 
@@ -199,7 +201,7 @@ public class BuildScene
     private ImageView keyStoneRune()
     {
         ImageView image = new ImageView("images/runes/mainrunes/" +
-                recentChampion.getRunePage().getMainRune().name().toLowerCase().replaceAll("[-: ]", "_") + ".png");
+                recentChampion.getRunePage().getKeyStoneRune().name().toLowerCase().replaceAll("[-: ]", "_") + ".png");
         image.setFitHeight(70);
         image.setFitWidth(70);
         return image;
@@ -246,6 +248,19 @@ public class BuildScene
         return runes;
     }
 
+    private String getNameOfChampionWithHisPredictedClass(Champion champion)
+    {
+        StringBuilder name = new StringBuilder(champion.getName());
+        String keyStoneRune = champion.getRunePage().getKeyStoneRune().name();
+        switch (keyStoneRune)
+        {
+            case "Conqueror", "Grasp of the Undying" -> name.append("\nBruiser/Tank/Mage");
+            case "Press the Attack", "Lethal Tempo", "Hail of Blades", "Fleet Footwork" -> name.append("\n- Marksman -");
+            case "Electrocute", "Predator", "Dark Harvest", "First Strike" -> name.append("\n- Mage/Assassin -");
+            case "Summon Aery", "Arcane Comet", "Phase Rush", "Aftershock", "Guardian", "Glacial Augment" -> name.append("\n").append("- Mage/Support -");
+        }
+        return name.toString();
+    }
     private HtmlBuildPageParser returnParserOfCurrentPageInUse(String championName)
     {
         recentlyUsedPage = JavaLeagueBuilds.chosenPage;
