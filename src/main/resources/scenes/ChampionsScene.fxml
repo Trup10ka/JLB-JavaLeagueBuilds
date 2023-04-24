@@ -49,7 +49,6 @@
          </graphic>
       </JFXButton>
    </HBox>
-   <ProgressIndicator fx:id="progressIndicator" layoutX="624.0" layoutY="350.0" prefHeight="92.0" prefWidth="115.0"/>
    <SmoothScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="168.0" prefHeight="518.0" prefWidth="1255.0">
       <FlowPane fx:id="championsPane" prefHeight="514.0" prefWidth="1250.0">
          <padding>

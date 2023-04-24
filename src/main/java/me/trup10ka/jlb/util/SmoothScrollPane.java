@@ -16,7 +16,9 @@ import javafx.util.Duration;
 /**
  * ScrollPane with smooth transition scrolling.
  *
- * @author Matt and Tomasan7
+ * @author Matt
+ * @author Tomasan7
+ * @since 1.0.0
  */
 @DefaultProperty("kontent")
 public class SmoothScrollPane extends ScrollPane

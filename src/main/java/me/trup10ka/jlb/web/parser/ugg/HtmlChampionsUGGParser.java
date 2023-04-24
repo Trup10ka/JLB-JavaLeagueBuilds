@@ -12,6 +12,13 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Parser for champions page for {@link Page#U_GG U.GG} page
+ * <br> <br>
+ * @author Lukas "Trup10ka" Friedl
+ * @see HtmlChampionsPageParser
+ * @since 1.0.0
+ */
 public class HtmlChampionsUGGParser implements HtmlChampionsPageParser
 {
 
@@ -39,6 +46,10 @@ public class HtmlChampionsUGGParser implements HtmlChampionsPageParser
         return parsedHtml;
     }
 
+    /**
+     * Queries the champions page for all possible champion builds
+     * @return ArrayList of all registered champions on the U.GG page
+     */
     @Override
     public ArrayList<Champion> champions()
     {

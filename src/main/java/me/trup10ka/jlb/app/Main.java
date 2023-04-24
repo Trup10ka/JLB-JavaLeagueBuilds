@@ -10,6 +10,5 @@ public class Main
         testClass.createNewChampion();*/
 
         Application.launch(JavaLeagueBuilds.class, args);
-
     }
 }

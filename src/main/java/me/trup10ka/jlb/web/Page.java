@@ -1,5 +1,13 @@
 package me.trup10ka.jlb.web;
 
+/**
+ * Enum class for all possible pages from which app can parse data.
+ * <br> <br>
+ * Each constant can provide link to all champions page URL and champion build page URL.
+ *
+ * @author Lukas "Trup10ka" Friedl
+ * @since 1.0.0
+ */
 public enum Page
 {
 

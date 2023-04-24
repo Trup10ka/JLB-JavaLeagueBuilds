@@ -19,17 +19,32 @@ import java.util.*;
 
 
 /**
- * @author Lukas Friedl
+ * Controller for BuilderScene fxml
+ * @since 1.0.0
+ * @author Lukas "Trup10ka" Friedl
  */
 public class BuildScene
 {
 
     private static BuildScene instance;
-
+    /**
+     * {@link Champion} which has user chosen, and from which data will be queried
+     */
     private Champion recentChampion;
+    /**
+     * After first build shown, stores the used page to this variable, and whether is this and also {@link #recentChampion}
+     * variables equal to the future page and future champion choice,
+     * just uses this variable instead of connecting to page again
+     */
     private Page recentlyUsedPage;
+    /**
+     * Part of the scene responsible for ability to move the stage; more information -> {@link JavaLeagueBuilds}
+     */
     @FXML
     private Pane applicationHeader;
+    /**
+     * Button which takes you back to {@link ChampionsScene}
+     */
     @FXML
     private Button goBack;
     @FXML
@@ -59,7 +74,7 @@ public class BuildScene
      * Sets the adequate build website parser.
      * Which website is in use is determined by the {@link JavaLeagueBuilds#chosenPage chosenPage} property
      *
-     * @param champion is champion whose build page will be loaded
+     * @param champion is {@link Champion champion} whose build page will be loaded
      */
     public void setChampionToParse(Champion champion)
     {
@@ -71,14 +86,22 @@ public class BuildScene
             HtmlBuildPageParser buildParser = returnParserOfCurrentPageInUse(champion.getName());
             recentChampion = new Champion(
                     champion.getName(),
-                    buildParser.itemBuild(),
-                    buildParser.runePage(),
+                    buildParser.queryItemBuild(),
+                    buildParser.queryRunePage(),
                     buildParser.summoners());
         }
         championName.setText(getNameOfChampionWithHisPredictedClass(recentChampion));
         build();
     }
 
+    /**
+     * Builds the entire Build page, by calling <strong>arranging</strong> methods
+     * <ul>
+     *     <li>{@link BuildScene#arrangeItems(ItemBuild) Arrange Items}</li>
+     *     <li>{@link BuildScene#arrangeRunes() Arrange Runes}</li>
+     *     <li>{@link BuildScene#arrangeSummonerSpells() Arrange Summoner Spells}</li>
+     * </ul>
+     */
     @FXML
     private void build()
     {
@@ -87,6 +110,11 @@ public class BuildScene
         arrangeRunes();
     }
 
+    /**
+     * Arranges {@link BuildScene#arrangeStartingItems(ItemBuild) starting items}, {@link BuildScene#arrangeCoreItems(ItemBuild) core items}
+     * and {@link BuildScene#arrangeOtherItems(ItemBuild) other items}
+     * @param itemBuild chosen champion's {@link ItemBuild}
+     */
     private void arrangeItems(ItemBuild itemBuild)
     {
         arrangeStartingItems(itemBuild);
@@ -94,12 +122,19 @@ public class BuildScene
         arrangeOtherItems(itemBuild);
     }
 
+    /**
+     * Arranges all champion's runes, including: <br> {@link BuildScene#mainRunes() Keystone and main runes} and
+     * {@link BuildScene#secondaryRunesAndAttributes() secondary runes and atributes}
+     */
     private void arrangeRunes()
     {
         mainRunes();
         secondaryRunesAndAttributes();
     }
 
+    /**
+     * Adds champion's summoner spells into the {@link JavaLeagueBuilds#buildScene BuildScene}
+     */
     private void arrangeSummonerSpells()
     {
         VBox summonersBox = new VBox();
@@ -115,7 +150,10 @@ public class BuildScene
         }
         this.summonersBox.getChildren().add(summonersBox);
     }
-
+    /**
+     * Creates and adds all {@link ItemBuild#startItems starting items} of the champion into the Scene
+     * @param itemBuild {@link ItemBuild} of the chosen champion
+     */
     private void arrangeStartingItems(ItemBuild itemBuild)
     {
         HBox allImages = createAllItemsInCategory(itemBuild.getStartItems());
@@ -123,6 +161,10 @@ public class BuildScene
         itemsBox.getChildren().add(allImages);
     }
 
+    /**
+     * Creates and adds all {@link ItemBuild#coreItems core items} of the champion into the Scene
+     * @param itemBuild {@link ItemBuild} of the chosen champion
+     */
     private void arrangeCoreItems(ItemBuild itemBuild)
     {
         HBox allImages = createAllItemsInCategory(itemBuild.getCoreItems());
@@ -131,6 +173,10 @@ public class BuildScene
         itemsBox.getChildren().add(allImages);
     }
 
+    /**
+     * Arranges all {@link ItemBuild#endItems other (end) items} of the champion
+     * @param itemBuild {@link ItemBuild} of the chosen champion
+     */
     private void arrangeOtherItems(ItemBuild itemBuild)
     {
         HBox allImagesAndOptions = createAllItemsInCategoryAndOptions(itemBuild.getEndItems());
@@ -138,6 +184,12 @@ public class BuildScene
         itemsBox.getChildren().add(allImagesAndOptions);
     }
 
+    /**
+     * A method for <strong>set of items</strong> which are need displayed <br>
+     * Takes the {@link Item Items} wrapped in pane which is then added to the final collection (HBox) of items
+     * @param items set of items to be displayed
+     * @return HBox (collection) of images of the items
+     */
     private HBox createAllItemsInCategory(Set<Item> items)
     {
         HBox allImages = new HBox();
@@ -153,6 +205,11 @@ public class BuildScene
         return allImages;
     }
 
+    /**
+     * A method for <strong>map of items</strong> which are need displayed <br>
+     * @param otherItems map of items to be displayed
+     * @return HBox (collection) of images of items
+     */
     private HBox createAllItemsInCategoryAndOptions(Map<String, Set<Item>> otherItems)
     {
         HBox allImagesAndOptions = new HBox();
@@ -175,6 +232,12 @@ public class BuildScene
         return allImagesAndOptions;
     }
 
+    /**
+     * Creates a styled pane which has a specified background image
+     * <br> The "coordinates" approach is needed because of how the images are displayed on U.GG website
+     * @param item item which is to be displayed in pane
+     * @return styled pane with background image
+     */
     private Pane createItemImagePane(Item item)
     {
         Pane pane = new Pane();
@@ -186,19 +249,28 @@ public class BuildScene
         return pane;
     }
 
+    /**
+     * Arranges Keystone and main runes
+     */
     private void mainRunes()
     {
-        this.mainRunesBox.getChildren().add(keyStoneRune());
-        this.mainRunesBox.getChildren().addAll(sideMainRunes());
+        this.mainRunesBox.getChildren().add(returnKeyStoneRune());
+        this.mainRunesBox.getChildren().addAll(returnSideMainRunes());
     }
 
+    /**
+     * Arranges secondary runes and attributes
+     */
     private void secondaryRunesAndAttributes()
     {
-        this.secondaryRunesAndAttributesBox.getChildren().addAll(secondaryRunes());
-        this.secondaryRunesAndAttributesBox.getChildren().addAll(attributes());
+        this.secondaryRunesAndAttributesBox.getChildren().addAll(returnSecondaryRunes());
+        this.secondaryRunesAndAttributesBox.getChildren().addAll(returnAttributes());
     }
 
-    private ImageView keyStoneRune()
+    /**
+     * @return Image of {@link RunePage#keyStoneRune Keystone} rune
+     */
+    private ImageView returnKeyStoneRune()
     {
         ImageView image = new ImageView("images/runes/mainrunes/" +
                 recentChampion.getRunePage().getKeyStoneRune().name().toLowerCase().replaceAll("[-: ]", "_") + ".png");
@@ -207,10 +279,13 @@ public class BuildScene
         return image;
     }
 
-    private List<ImageView> sideMainRunes()
+    /**
+     * @return a list of image views with {@link RunePage#sideMainRunes main} runes
+     */
+    private List<ImageView> returnSideMainRunes()
     {
         List<ImageView> runes = new ArrayList<>(3);
-        for (Rune rune : recentChampion.getRunePage().getSecondaryMainRunes())
+        for (Rune rune : recentChampion.getRunePage().getSideMainRunes())
         {
             ImageView image = new ImageView("images/runes/secondaryrunes/"
                     + rune.name().toLowerCase().replaceAll("[: ]+", "_").replaceAll("'", "") + ".png");
@@ -221,7 +296,10 @@ public class BuildScene
         return runes;
     }
 
-    private List<ImageView> secondaryRunes()
+    /**
+     * @return a list of image views with {@link RunePage#secondaryRunes secondary} runes
+     */
+    private List<ImageView> returnSecondaryRunes()
     {
         List<ImageView> runes = new ArrayList<>(2);
         for (Rune rune : recentChampion.getRunePage().getSecondaryRunes())
@@ -235,7 +313,10 @@ public class BuildScene
         return runes;
     }
 
-    private List<ImageView> attributes()
+    /**
+     * @return a list of image views with attributes
+     */
+    private List<ImageView> returnAttributes()
     {
         List<ImageView> runes = new ArrayList<>(3);
         for (Attribute attribute : recentChampion.getRunePage().getAttributes())
@@ -248,6 +329,11 @@ public class BuildScene
         return runes;
     }
 
+    /**
+     * Takes in champion as parameter and gets his keystone rune from which it decides its possible class
+     * @param champion champions build to be shown
+     * @return name of the champion with his predicted class in one string
+     */
     private String getNameOfChampionWithHisPredictedClass(Champion champion)
     {
         StringBuilder name = new StringBuilder(champion.getName());
@@ -261,6 +347,14 @@ public class BuildScene
         }
         return name.toString();
     }
+
+    /**
+     * At the beginning user chooses his website which he wants to use.
+     * <br> The choice is later used here to determine which page parser should be created.
+     * Every page parser takes champion name as a parameter
+     * @param championName champion to be parsed from web
+     * @return chosen website build page parser
+     */
     private HtmlBuildPageParser returnParserOfCurrentPageInUse(String championName)
     {
         recentlyUsedPage = JavaLeagueBuilds.chosenPage;
@@ -278,6 +372,10 @@ public class BuildScene
         JavaLeagueBuilds.getInstance().terminate();
     }
 
+    /**
+     * Clears the BuildScene page
+     * @param boxes all nodes present and visible in BuildScene
+     */
     private void clearPageAndSwitchToChampions(Pane... boxes)
     {
         for (Pane box : boxes)

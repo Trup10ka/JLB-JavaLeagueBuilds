@@ -17,7 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Lukas Friedl
+ * Class representing the JLB application
+ * @author Lukas "Trup10ka" Friedl
+ * @since 1.0.0
  */
 public class JavaLeagueBuilds extends Application
 {
@@ -30,7 +32,12 @@ public class JavaLeagueBuilds extends Application
     private final Scene championScene;
     private final Scene buildScene;
     private final Scene loadingScene;
-    private List<Scene> scenes;
+
+    /**
+     * A wrap-up for all the Scenes above to handle them easier ({@link JavaLeagueBuilds#start(Stage) here; line 91})
+     */
+    private final List<Scene> scenes;
+    // TODO: Re-work this into instance variable
     /**
      * Determines what page has been chosen by the user
      * <br>Only possible values are:
@@ -69,6 +76,10 @@ public class JavaLeagueBuilds extends Application
         this.scenes = Arrays.asList(mainScene, championsScene, buildScene, loadingScene);
     }
 
+    /**
+     * Initializes the stage with main scene
+     * @param stage created window
+     */
     @Override
     public void start(Stage stage)
     {
@@ -103,12 +114,20 @@ public class JavaLeagueBuilds extends Application
         stage.setScene(loadingScene);
     }
 
+    /**
+     * When stage pressed at the top, sets stage's offsets relative to the screen
+     * @param mouseEvent mouse pressed event
+     */
     public void setOffSets(MouseEvent mouseEvent)
     {
         xOffSet = mouseEvent.getSceneX();
         yOffSet = mouseEvent.getSceneY();
     }
 
+    /**
+     * When stage grabbed at the top, sets stage's position using offsets relative to the screen
+     * @param mouseEvent mouse grab event
+     */
     public void moveStage(MouseEvent mouseEvent)
     {
         stage.setX(mouseEvent.getScreenX() - xOffSet);

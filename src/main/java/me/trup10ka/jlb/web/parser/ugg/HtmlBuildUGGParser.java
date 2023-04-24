@@ -14,6 +14,14 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <p>
+ *     Parser for the {@link Page#U_GG U.GG} page
+ * </p>
+ * @author Lukas "Trup10ka" Friedl
+ * @see HtmlBuildPageParser
+ * @since 1.0.0
+ */
 public class HtmlBuildUGGParser implements HtmlBuildPageParser
 {
 
@@ -40,6 +48,10 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         }
     }
 
+    /**
+     * Validates whether correct URL to champion was provided
+     * @return true if the document contains div with class "page not found"; means wrong path to champion was entered
+     */
     private boolean validate()
     {
         return document.select("div.page-not-found").size() != 0;
@@ -51,18 +63,19 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         try
         {
             return connection.get();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public ItemBuild itemBuild()
+    public ItemBuild queryItemBuild()
     {
-        Set<Item> setOfStartingItems = startingItems();
-        Set<Item> setOfCoreItems = coreItems();
-        Map<String, Set<Item>> mapOfEndItems = endItems();
+        Set<Item> setOfStartingItems = queryStartingItems();
+        Set<Item> setOfCoreItems = queryCoreItems();
+        Map<String, Set<Item>> mapOfEndItems = queryEndItems();
         return new ItemBuild.Builder()
                 .startItems(setOfStartingItems)
                 .coreItems(setOfCoreItems)
@@ -71,7 +84,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
     }
 
     @Override
-    public RunePage runePage()
+    public RunePage queryRunePage()
     {
         Rune nameOfKeyRune = nameOfKeyRune();
         Set<Rune> namesOfMainSecondaryRunes = secondaryRunes();
@@ -93,17 +106,17 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
     }
 
     // TODO: Optimize this with exclusion of mobile version of website
-    private Set<Item> startingItems()
+    private Set<Item> queryStartingItems()
     {
         return queryItemPosition("div.starting-items");
     }
 
-    private Set<Item> coreItems()
+    private Set<Item> queryCoreItems()
     {
         return queryItemPosition("div.core-items");
     }
 
-    private Map<String, Set<Item>> endItems()
+    private Map<String, Set<Item>> queryEndItems()
     {
         Map<String, Set<Item>> mapOfEndItems = new TreeMap<>();
         for (int i = 1; i < 4; i++)
@@ -114,6 +127,10 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         return mapOfEndItems;
     }
 
+    /**
+     * Extract the Keystone rune from build page
+     * @return {@link RunePage#keyStoneRune Keystone rune}
+     */
     private Rune nameOfKeyRune()
     {
         return new Rune(document.select("div.perk.keystone.perk-active")
@@ -122,6 +139,10 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
                 .replaceAll("The Keystone ", ""), 0);
     }
 
+    /**
+     * Extract secondary runes from build page
+     * @return {@link RunePage#secondaryRunes Secondary runes}
+     */
     private TreeSet<Rune> secondaryRunes()
     {
         TreeSet<Rune> namesOfMainSecondaryRunes = new TreeSet<>();
@@ -141,6 +162,10 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         return namesOfMainSecondaryRunes;
     }
 
+    /**
+     * Extracts attributes shards from the build page
+     * @return {@link RunePage#attributes Attributes}
+     */
     private ArrayList<Attribute> attributes()
     {
         ArrayList<Attribute> attributes = new ArrayList<>();
@@ -160,6 +185,10 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         return attributes;
     }
 
+    /**
+     * Extracts summoner spells from the build page
+     * @return {@link SummonerSpell Summoner spells}
+     */
     private List<SummonerSpell> querySummoners()
     {
         ArrayList<SummonerSpell> result = new ArrayList<>();
@@ -172,6 +201,12 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         return result;
     }
 
+    /**
+     * Because U.GG uses map of images with {@link Item items}, each item image has background image of the map, and position x and y
+     * of the item in the map
+     * @param itemCategory category of items (starting, core or other items)
+     * @return set of items where items instead of image path have the x and y positions and reference to one of the map of items
+     */
     private Set<Item> queryItemPosition(String itemCategory)
     {
         Set<Item> coreItems = new TreeSet<>();
@@ -202,15 +237,28 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         return coreItems;
     }
 
-    private TreeSet<Rune> addElementsFromRange(int first, int last, Set<Rune> runes)
+    /**
+     * Returns a new Set containing all the elements from the previous collection from defined range
+     * @param first position of the first element that will be added to new Set
+     * @param last position of the last element that will be added to new Set
+     * @param previousSet previous collection from which elements will be extracted
+     * @return new Set containing all elements from the previous collection within defined range
+     */
+    private TreeSet<Rune> addElementsFromRange(int first, int last, Set<Rune> previousSet)
     {
         final TreeSet<Rune> splitSet = new TreeSet<>();
-        ArrayList<Rune> tmp = new ArrayList<>(runes);
+        ArrayList<Rune> tmp = new ArrayList<>(previousSet);
         for (int i = first; i <= last; i++)
             splitSet.add(tmp.get(i - 1));
         return splitSet;
     }
 
+    /**
+     * Check whether rune is already present and not a {@link RunePage#keyStoneRune Keystone} rune
+     * @param rune rune that is being checked
+     * @param runes list of already saved runes
+     * @return true when rune is already present; false when it is not
+     */
     private boolean isRunePresentAndNotAKeyStone(String rune, Set<Rune> runes)
     {
         if (rune.contains("The Keystone"))
@@ -222,6 +270,11 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
 
     }
 
+    /**
+     * Extracts the name of the file from URL
+     * @param image map image URL
+     * @return just the name of the map of images
+     */
     private String imagePath(String image)
     {
         Pattern pattern = Pattern.compile("\\((.*?)\\)");
@@ -232,6 +285,11 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         return url.substring(url.lastIndexOf("/") + 1, url.length() - 1).replaceAll("webp", "png");
     }
 
+    /**
+     * Extracts background position of the image in the map of images
+     * @param image item image URL
+     * @return array of background positions x and y
+     */
     private int[] positionOfImage(String image)
     {
         Pattern pattern = Pattern.compile("(?<=background-position:).*?(?=;)");
@@ -246,6 +304,15 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         return new int[]{positionX, positionY};
     }
 
+    /**
+     * Checks whether the specified item is already saved
+     * @param usedImagePath reference to the map file
+     * @param imagePath reference to the new map file
+     * @param positionValues position values
+     * @param usedPositionValues new position values
+     * @return true if all conditions are met; item already exists in saved items
+     * @see #queryItemPosition(String) How items are queried
+     */
     private boolean isItemAlreadyRegistered(String usedImagePath,
                                             String imagePath,
                                             int[] positionValues,
@@ -254,6 +321,11 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         return usedPositionValues[0] == positionValues[0] && usedPositionValues[1] == positionValues[1] && usedImagePath.equals(imagePath);
     }
 
+    /**
+     * Refreshes the old used values with the new position values
+     * @param usedPositionValues old used position values
+     * @param positionValues new position values
+     */
     private void setValuesForUsedVariables(int[] usedPositionValues, int[] positionValues)
     {
         usedPositionValues[0] = positionValues[0];

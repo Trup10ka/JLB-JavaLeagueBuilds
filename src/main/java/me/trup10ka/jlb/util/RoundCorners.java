@@ -6,8 +6,15 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import me.trup10ka.jlb.controllers.BuildScene;
+import me.trup10ka.jlb.data.Champion;
 
-
+/**
+ * Utility class for making round corners for nodes which are not round-able with css.
+ * @author Lukas "Trup10ka" Friedl
+ * @see BuildScene#arrangeSummonerSpells() Creating summoner spells
+ * @see me.trup10ka.jlb.controllers.ChampionsScene#createChampionImageView(Champion) Creating champion images
+ */
 public class RoundCorners
 {
     public static void setRoundedCornerImageView(ImageView imageView)

@@ -29,13 +29,13 @@ public class HtmlBuildMobafireParser implements HtmlBuildPageParser
     }
 
     @Override
-    public ItemBuild itemBuild()
+    public ItemBuild queryItemBuild()
     {
         return null;
     }
 
     @Override
-    public RunePage runePage()
+    public RunePage queryRunePage()
     {
         return null;
     }
