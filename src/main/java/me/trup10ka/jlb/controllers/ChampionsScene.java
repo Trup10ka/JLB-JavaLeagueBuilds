@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
@@ -11,6 +12,8 @@ import me.trup10ka.jlb.data.Champion;
 import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
 
+
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -135,7 +138,8 @@ public class ChampionsScene
      */
     private ImageView createChampionImageView(Champion champion)
     {
-        ImageView imageView = new ImageView("images/champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
+        URL url = getClass().getResource("/images/champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
+        ImageView imageView = new ImageView(url.toExternalForm());
         imageView.setFitHeight(60);
         imageView.setFitWidth(60);
         RoundCorners.setRoundedCornerImageView(imageView);
