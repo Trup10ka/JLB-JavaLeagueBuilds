@@ -39,13 +39,14 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton id="leagueofgraphs-button" lineSpacing="2.0" minWidth="170.0" prefHeight="65.0" prefWidth="150.0" styleClass="font-changer" text="League of Graphs" textAlignment="CENTER" wrapText="true">
+      <Label styleClass="coming-soon" text="LoG - Coming soon"/>
+      <!--<JFXButton id="leagueofgraphs-button" lineSpacing="2.0" minWidth="170.0" prefHeight="65.0" prefWidth="150.0" styleClass="font-changer" text="League of Graphs" textAlignment="CENTER" wrapText="true">
       <graphic>
          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../icons/league-of-graphs-icon.png" />
          </ImageView>
       </graphic>
-      </JFXButton>
+      </JFXButton>-->
    </VBox>
    <Line endX="-91.0" endY="573.0" layoutX="330.0" layoutY="88.0" startX="-91.0" startY="-60.0" />
    <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="768.0" layoutY="172.0" lineSpacing="4.0" prefHeight="130.0" prefWidth="263.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
