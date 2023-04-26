@@ -1,4 +1,5 @@
 # JLB
+This project requires Java Runtime **v18** or higher. Click to [download](https://download.oracle.com/java/18/archive/jdk-18.0.2_windows-x64_bin.exe)
 ### Application made in JavaFX framework.
 
 This app provides support for League of Legends sites like **U.GG**, **Mobafire** or **League of Graphs**
