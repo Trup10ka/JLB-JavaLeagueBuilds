@@ -9,9 +9,14 @@ import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.Champion;
 import me.trup10ka.jlb.util.RoundCorners;
+import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
+import me.trup10ka.jlb.web.parser.lographs.HtmlBuildLoGParser;
+import me.trup10ka.jlb.web.parser.mobafire.HtmlBuildMobafireParser;
+import me.trup10ka.jlb.web.parser.ugg.HtmlBuildUGGParser;
 
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Controller for ChampionScene fxml
@@ -123,8 +128,17 @@ public class ChampionsScene
         imgViewPane.getStyleClass().add("champion-image");
         imgViewPane.setOnMouseClicked(mouseEvent ->
         {
-            JavaLeagueBuilds.getInstance().switchToBuildScene();
-            BuildScene.getInstance().setChampionToParse(champion);
+            JavaLeagueBuilds.getInstance().switchToLoading();
+            CompletableFuture.runAsync(() -> 
+            {
+                HtmlBuildPageParser buildPage = switch (JavaLeagueBuilds.chosenPage)
+                {
+                    case U_GG -> new HtmlBuildUGGParser(champion.getName().toLowerCase());
+                    case MOBAFIRE -> new HtmlBuildMobafireParser(champion.getName().toLowerCase());
+                    case LEAGUE_OF_GRAPHS -> new HtmlBuildLoGParser(champion.getName().toLowerCase());
+                };
+                BuildScene.getInstance().setChampionToParse(champion, buildPage);
+            }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildScene()));
         });
         return imgViewPane;
     }

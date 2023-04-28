@@ -1,5 +1,6 @@
 package me.trup10ka.jlb.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -75,23 +76,22 @@ public class BuildScene
      * Which website is in use is determined by the {@link JavaLeagueBuilds#chosenPage chosenPage} property
      *
      * @param champion is {@link Champion champion} whose build page will be loaded
+     * @param pageParser page parser which is going to be used to parse the data
      */
-    public void setChampionToParse(Champion champion)
+    public void setChampionToParse(Champion champion, HtmlBuildPageParser pageParser)
     {
         if (!(recentChampion != null
                 && recentChampion.getName().equals(champion.getName())
                 && recentlyUsedPage.equals(JavaLeagueBuilds.chosenPage)))
         {
 
-            HtmlBuildPageParser buildParser = returnParserOfCurrentPageInUse(champion.getName());
             recentChampion = new Champion(
                     champion.getName(),
-                    buildParser.queryItemBuild(),
-                    buildParser.queryRunePage(),
-                    buildParser.summoners());
+                    pageParser.queryItemBuild(),
+                    pageParser.queryRunePage(),
+                    pageParser.summoners());
         }
-        championName.setText(getNameOfChampionWithHisPredictedClass(recentChampion));
-        build();
+        Platform.runLater(this::build);
     }
 
     /**
@@ -105,6 +105,7 @@ public class BuildScene
     @FXML
     private void build()
     {
+        championName.setText(getNameOfChampionWithHisPredictedClass(recentChampion));
         arrangeSummonerSpells();
         arrangeItems(recentChampion.getItemBuild());
         arrangeRunes();
@@ -346,24 +347,6 @@ public class BuildScene
             case "Summon Aery", "Arcane Comet", "Phase Rush", "Aftershock", "Guardian", "Glacial Augment" -> name.append("\n").append("- Mage/Support -");
         }
         return name.toString();
-    }
-
-    /**
-     * At the beginning user chooses his website which he wants to use.
-     * <br> The choice is later used here to determine which page parser should be created.
-     * Every page parser takes champion name as a parameter
-     * @param championName champion to be parsed from web
-     * @return chosen website build page parser
-     */
-    private HtmlBuildPageParser returnParserOfCurrentPageInUse(String championName)
-    {
-        recentlyUsedPage = JavaLeagueBuilds.chosenPage;
-        return switch (JavaLeagueBuilds.chosenPage)
-        {
-            case U_GG -> new HtmlBuildUGGParser(championName.toLowerCase().replaceAll("[. ]", ""));
-            case LEAGUE_OF_GRAPHS -> new HtmlBuildLoGParser(championName.toLowerCase().replaceAll("[. ]", ""));
-            case MOBAFIRE -> new HtmlBuildMobafireParser(championName.toLowerCase().replaceAll("[. ]", ""));
-        };
     }
 
     @FXML
