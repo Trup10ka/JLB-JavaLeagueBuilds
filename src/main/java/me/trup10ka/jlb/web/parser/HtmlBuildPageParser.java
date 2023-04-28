@@ -44,4 +44,12 @@ public interface HtmlBuildPageParser
      * @return {@link me.trup10ka.jlb.data.SummonerSpell Summoners} which are currently the best option to take on chosen {@link me.trup10ka.jlb.data.Champion champion}
      */
     List<SummonerSpell> summoners();
+    /**
+     * Validates whether correct URL to champion was provided
+     * @return true if the document contains div with class "page not found"; means wrong path to champion was entered
+     */
+    default boolean validate(Document document)
+    {
+        return document.select("div.page-not-found").size() != 0;
+    }
 }
