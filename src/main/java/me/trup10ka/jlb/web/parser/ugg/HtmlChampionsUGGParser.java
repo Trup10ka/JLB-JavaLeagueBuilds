@@ -60,7 +60,7 @@ public class HtmlChampionsUGGParser implements HtmlChampionsPageParser
             ChampionsScene.getInstance().executeErrorLabel(new NullPointerException("You couldn't parse the desired page - U.GG"));
             return null;
         }
-        this.champions = new ArrayList<>(180);
+        this.champions = new ArrayList<>(190);
         for (Element element : parsedHtml.select("a.champion-link"))
             champions.add(new Champion(element.select("div.champion-name").text()));
         return champions;

@@ -72,6 +72,6 @@ public class Champion
     @Override
     public String toString()
     {
-        return "Champion " + name + "\nItemBuild: " + itemBuild + "\nRunePage: " + runePage + "\nSummonerSpells: " + summonerSpells;
+        return "Champion " + name + "\nItemBuild: " + itemBuild + "\nRunePage: " + runePage + "\nSummonerSpells: " + summonerSpells + "\n";
     }
 }

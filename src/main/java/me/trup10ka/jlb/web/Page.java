@@ -27,7 +27,7 @@ public enum Page
                     return null;
                 }
             },
-    LEAGUE_OF_GRAPHS("https://leagueofgraphs.com/champions/")
+    LEAGUE_OF_GRAPHS("https://www.leagueofgraphs.com")
             {
                 @Override
                 public String championURL(String champion)

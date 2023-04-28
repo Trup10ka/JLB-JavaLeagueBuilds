@@ -6,7 +6,7 @@
 
     <groupId>me.trup10ka.JLB</groupId>
     <artifactId>JLB-JavaLeagueClient</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.source>18</maven.compiler.source>

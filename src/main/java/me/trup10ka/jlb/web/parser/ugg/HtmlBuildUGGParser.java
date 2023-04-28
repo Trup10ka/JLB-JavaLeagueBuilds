@@ -42,20 +42,12 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
             this.document = parse();
         }
         catch (RuntimeException ignored) {}
-        if (validate())
+        if (validate(document))
         {
             throw new WrongChampionPathException(champion);
         }
     }
 
-    /**
-     * Validates whether correct URL to champion was provided
-     * @return true if the document contains div with class "page not found"; means wrong path to champion was entered
-     */
-    private boolean validate()
-    {
-        return document.select("div.page-not-found").size() != 0;
-    }
 
     @Override
     public Document parse()
