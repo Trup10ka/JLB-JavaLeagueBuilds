@@ -32,22 +32,24 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton id="mobafire-button" minWidth="170.0" prefHeight="65.0"
+      <Label styleClass="coming-soon" text="Mobafire - Coming soon"/>
+      <Label styleClass="coming-soon" text="LoG - Coming soon"/>
+      <!--<JFXButton id="mobafire-button" minWidth="170.0" prefHeight="65.0"
                  prefWidth="169.0" text="Mobafire">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../icons/mobafire-icon.png"/>
             </ImageView>
          </graphic>
-      </JFXButton>
-      <JFXButton id="leagueofgraphs-button" minWidth="170.0"
+      </JFXButton>-->
+      <!--<JFXButton id="leagueofgraphs-button" minWidth="170.0"
                  prefHeight="65.0" prefWidth="150.0" text="League of Graphs">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../icons/league-of-graphs-icon.png"/>
             </ImageView>
          </graphic>
-      </JFXButton>
+      </JFXButton>-->
    </HBox>
    <SmoothScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="168.0" prefHeight="518.0" prefWidth="1255.0">
       <FlowPane fx:id="championsPane" prefHeight="514.0" prefWidth="1250.0">

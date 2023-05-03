@@ -16,6 +16,13 @@
 .jfx-button:hover {
     -fx-cursor: hand;
 }
+.coming-soon {
+    -fx-font-size: 18px;
+    -fx-border-radius: 25px;
+    -fx-border-color: darkgray;
+    -fx-padding: 7px;
+    -fx-pref-height: 65px;
+}
 #ugg-button {
      -fx-background-color: rgba(49, 76, 241, 0.7);
      -fx-text-fill: white;
