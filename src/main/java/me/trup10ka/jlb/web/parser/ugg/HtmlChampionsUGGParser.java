@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @see HtmlChampionsPageParser
  * @since 1.0.0
  */
-public class HtmlChampionsUGGParser implements HtmlChampionsPageParser
+public final class HtmlChampionsUGGParser implements HtmlChampionsPageParser
 {
 
     private final Document parsedHtml;
