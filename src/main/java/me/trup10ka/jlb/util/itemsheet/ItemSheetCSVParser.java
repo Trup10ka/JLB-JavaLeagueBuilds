@@ -1,29 +1,34 @@
 package me.trup10ka.jlb.util.itemsheet;
 
 import me.trup10ka.jlb.data.Item;
+import me.trup10ka.jlb.util.FormattedString;
+
+import static me.trup10ka.jlb.util.itemsheet.ItemSheetPath.CSV;
 
 import java.io.*;
 
-public class ItemSheetCSVParser implements ItemSheetParser
+public final class ItemSheetCSVParser
 {
-    private final BufferedReader reader;
-    public ItemSheetCSVParser()
+    private static BufferedReader createBufferedReader()
     {
         BufferedReader bufferedReader = null;
         try
         {
-            bufferedReader = new BufferedReader(new FileReader(ItemSheetPath.CSV.path));
+            bufferedReader = new BufferedReader(new FileReader(CSV.path));
         }
         catch (IOException ioException)
         {
             ioException.printStackTrace();
             System.out.println(ioException.getMessage());
         }
-        this.reader = bufferedReader;
+        return bufferedReader;
     }
-    @Override
-    public Item getItemFromName(String name)
+    public static Item getItemFromName(String previousName)
     {
+        BufferedReader reader = createBufferedReader();
+        String name = generateFormattedString(previousName);
+        if (name == null)
+            return null;
         try
         {
             String line;
@@ -44,5 +49,11 @@ public class ItemSheetCSVParser implements ItemSheetParser
         }
         return null;
     }
-
+    private static String generateFormattedString(String nameOfTheItem)
+    {
+        String itemNameFormatted = FormattedString.CSV_NAME_FORMAT.toForm(nameOfTheItem);
+        if (itemNameFormatted.equals("stealth_ward") || itemNameFormatted.contains("oracle_lens") || itemNameFormatted.equals("farsight_alteration"))
+            return null;
+        return itemNameFormatted;
+    }
 }

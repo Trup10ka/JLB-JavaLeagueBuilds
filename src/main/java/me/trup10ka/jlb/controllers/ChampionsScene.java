@@ -4,11 +4,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.Champion;
+import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
@@ -136,9 +136,9 @@ public class ChampionsScene
             {
                 HtmlBuildPageParser buildPage = switch (JavaLeagueBuilds.chosenPage)
                 {
-                    case U_GG -> new HtmlBuildUGGParser(champion.getName().toLowerCase());
-                    case MOBAFIRE -> new HtmlBuildMobafireParser(champion.getName().toLowerCase());
-                    case LEAGUE_OF_GRAPHS -> new HtmlBuildLoGParser(champion.getName().toLowerCase());
+                    case U_GG -> new HtmlBuildUGGParser(champion.getWebBuildPagePath());
+                    case MOBAFIRE -> new HtmlBuildMobafireParser(champion.getWebBuildPagePath());
+                    case LEAGUE_OF_GRAPHS -> new HtmlBuildLoGParser(champion.getWebBuildPagePath());
                 };
                 BuildScene.getInstance().setChampionToParse(champion, buildPage);
             }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildScene()));
@@ -152,10 +152,10 @@ public class ChampionsScene
      */
     private ImageView createChampionImageView(Champion champion)
     {
-        URL url = getClass().getResource("/images/champions/" + champion.getName().toLowerCase().replaceAll("[. ]", "") + ".png");
+        String championName = FormattedString.RESOURCES_IMAGE_FORMAT.toForm(champion.getName());
+        URL url = getClass().getResource("/images/champions/" + championName + ".png");
         ImageView imageView = new ImageView(url.toExternalForm());
-        imageView.setFitHeight(60);
-        imageView.setFitWidth(60);
+        imageView.setFitHeight(60); imageView.setFitWidth(60);
         RoundCorners.setRoundedCornerImageView(imageView);
         return imageView;
     }

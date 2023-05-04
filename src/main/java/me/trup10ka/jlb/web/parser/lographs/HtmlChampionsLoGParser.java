@@ -2,6 +2,7 @@ package me.trup10ka.jlb.web.parser.lographs;
 
 import me.trup10ka.jlb.controllers.ChampionsScene;
 import me.trup10ka.jlb.data.Champion;
+import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
 import org.jsoup.Connection;
@@ -50,10 +51,24 @@ public class HtmlChampionsLoGParser implements HtmlChampionsPageParser
         champions = new ArrayList<>(190);
         for (Element element : document.select("div#championListBox").select("div.championName"))
         {
+            String formattedName = FormattedString.HYPERLINK_FORMAT.toForm(element.text());
+            formattedName = solveSpecialCaseChampionNames(formattedName);
             champions.add(
-                    new Champion(element.text())
+                    new Champion(element.text(), formattedName)
             );
         }
+
         return champions;
+    }
+    private String solveSpecialCaseChampionNames(String previousName)
+    {
+        String name = previousName;
+        if (previousName.contains("&"))
+            name = previousName.split("&")[0];
+        else if (previousName.contains("glasc"))
+            name = previousName.split("glasc")[0];
+        else if (previousName.equals("wukong"))
+            name = "monkeyking";
+        return name;
     }
 }

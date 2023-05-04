@@ -32,7 +32,7 @@ public enum Page
                 @Override
                 public String championURL(String champion)
                 {
-                    return null;
+                    return "https://www.leagueofgraphs.com/champions/builds/" + champion;
                 }
             };
     public final String ALL_CHAMPIONS_URL;

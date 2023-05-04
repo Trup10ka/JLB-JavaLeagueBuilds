@@ -2,6 +2,7 @@ package me.trup10ka.jlb.web.parser.ugg;
 
 import me.trup10ka.jlb.controllers.ChampionsScene;
 import me.trup10ka.jlb.data.Champion;
+import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
 import org.jsoup.Connection;
@@ -62,7 +63,10 @@ public final class HtmlChampionsUGGParser implements HtmlChampionsPageParser
         }
         this.champions = new ArrayList<>(190);
         for (Element element : parsedHtml.select("a.champion-link"))
-            champions.add(new Champion(element.select("div.champion-name").text()));
+        {
+            String path = FormattedString.HYPERLINK_FORMAT.toForm(element.select("div.champion-name").text());
+            champions.add(new Champion(element.select("div.champion-name").text(), path));
+        }
         return champions;
     }
 

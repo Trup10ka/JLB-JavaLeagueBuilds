@@ -32,6 +32,8 @@ public class Champion
 {
 
     private final String name;
+
+    private String webBuildPagePath;
     private ItemBuild itemBuild;
     private RunePage runePage;
     private List<SummonerSpell> summonerSpells;
@@ -44,10 +46,12 @@ public class Champion
         this.summonerSpells = summonerSpells;
     }
 
-    public Champion(String name)
+    public Champion(String name, String webBuildPagePath)
     {
         this.name = name;
+        this.webBuildPagePath = webBuildPagePath;
     }
+
 
     public String getName()
     {
@@ -62,6 +66,11 @@ public class Champion
     public RunePage getRunePage()
     {
         return runePage;
+    }
+
+    public String getWebBuildPagePath()
+    {
+        return webBuildPagePath;
     }
 
     public List<SummonerSpell> getSummonerSpell()

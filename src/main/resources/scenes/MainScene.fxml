@@ -46,15 +46,14 @@
             </ImageView>
          </graphic>
       </JFXButton>-->
-      <Label styleClass="coming-soon" text="LoG - Coming soon"/>
-      <!--<JFXButton styleClass="font-changer" id="leagueofgraphs-button" minWidth="170.0" onAction="#setChampionsParserLeagueOfGraphs"
+      <JFXButton styleClass="font-changer" id="leagueofgraphs-button" minWidth="170.0" onAction="#setChampionsParserLeagueOfGraphs"
                  prefHeight="65.0" prefWidth="150.0" text="League of Graphs">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../icons/league-of-graphs-icon.png"/>
             </ImageView>
          </graphic>
-      </JFXButton>-->
+      </JFXButton>
    </HBox>
    <ImageView fitHeight="48.0" fitWidth="52.0" layoutX="72.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@../icons/icon.png"/>
