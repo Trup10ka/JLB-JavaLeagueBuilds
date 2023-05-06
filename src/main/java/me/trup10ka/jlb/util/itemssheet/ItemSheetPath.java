@@ -1,4 +1,4 @@
-package me.trup10ka.jlb.util.itemsheet;
+package me.trup10ka.jlb.util.itemssheet;
 
 public enum ItemSheetPath
 {

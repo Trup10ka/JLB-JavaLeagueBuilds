@@ -1,9 +1,9 @@
-package me.trup10ka.jlb.util.itemsheet;
+package me.trup10ka.jlb.util.itemssheet;
 
 import me.trup10ka.jlb.data.Item;
 import me.trup10ka.jlb.util.FormattedString;
 
-import static me.trup10ka.jlb.util.itemsheet.ItemSheetPath.CSV;
+import static me.trup10ka.jlb.util.itemssheet.ItemSheetPath.CSV;
 
 import java.io.*;
 
@@ -51,7 +51,7 @@ public final class ItemSheetCSVParser
     }
     private static String generateFormattedString(String nameOfTheItem)
     {
-        String itemNameFormatted = FormattedString.CSV_NAME_FORMAT.toForm(nameOfTheItem);
+        String itemNameFormatted = FormattedString.CSV_NAME_FORMAT.toFormat(nameOfTheItem);
         if (itemNameFormatted.equals("stealth_ward") || itemNameFormatted.contains("oracle_lens") || itemNameFormatted.equals("farsight_alteration"))
             return null;
         return itemNameFormatted;
