@@ -14,7 +14,7 @@ public enum FormattedString
                             .toLowerCase();
                 }
             },
-    RESOURCES_IMAGE_FORMAT
+    CHAMPION_IMAGE_NAME_FORMAT
             {
                 @Override
                 public String toFormat(String toBeFormatted)
@@ -34,6 +34,18 @@ public enum FormattedString
                             .replaceAll(" ", "_")
                             .replaceAll("'", "")
                             .replaceAll(",", "")
+                            .toLowerCase();
+                }
+            },
+    ATTRIBUTE_NAME_IMAGE_FORMAT
+            {
+                @Override
+                public String toFormat(String toBeFormatted)
+                {
+                    return toBeFormatted
+                            .replaceAll("[+%0-9]+", "")
+                            .trim()
+                            .replaceAll(" ", "_")
                             .toLowerCase();
                 }
             };

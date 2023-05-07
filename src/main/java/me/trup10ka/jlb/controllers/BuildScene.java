@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.*;
+import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
@@ -323,7 +324,7 @@ public class BuildScene
         for (Attribute attribute : recentChampion.getRunePage().getAttributes())
         {
             ImageView image = new ImageView("images/runes/attributes/"
-                    + attribute.propertyName().toLowerCase().replaceAll("[: ]+", "_") + ".png");
+                    + FormattedString.ATTRIBUTE_NAME_IMAGE_FORMAT.toFormat(attribute.propertyName()) + ".png");
             image.setFitHeight(27); image.setFitWidth(27);
             runes.add(image);
         }

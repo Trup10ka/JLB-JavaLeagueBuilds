@@ -152,7 +152,7 @@ public class ChampionsScene
      */
     private ImageView createChampionImageView(Champion champion)
     {
-        String championName = FormattedString.RESOURCES_IMAGE_FORMAT.toFormat(champion.getName());
+        String championName = FormattedString.CHAMPION_IMAGE_NAME_FORMAT.toFormat(champion.getName());
         URL url = getClass().getResource("/images/champions/" + championName + ".png");
         ImageView imageView = new ImageView(url.toExternalForm());
         imageView.setFitHeight(60); imageView.setFitWidth(60);
