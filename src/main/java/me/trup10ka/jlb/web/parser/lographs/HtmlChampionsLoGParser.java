@@ -51,23 +51,11 @@ public class HtmlChampionsLoGParser implements HtmlChampionsPageParser
         champions = new ArrayList<>(190);
         for (Element element : document.select("div#championListBox").select("div.championName"))
         {
-            String formattedName = FormattedString.HYPERLINK_FORMAT.toFormat(element.text());
-            formattedName = solveSpecialCaseChampionNames(formattedName);
+            String formattedName = FormattedString.LOG_HYPERLINK_FORMAT.toFormat(element.text());
             champions.add(
                     new Champion(element.text(), formattedName)
             );
         }
         return champions;
-    }
-    private String solveSpecialCaseChampionNames(String previousName)
-    {
-        String name = previousName;
-        if (previousName.contains("&"))
-            name = previousName.split("&")[0];
-        else if (previousName.contains("glasc"))
-            name = previousName.split("glasc")[0];
-        else if (previousName.equals("wukong"))
-            name = "monkeyking";
-        return name;
     }
 }

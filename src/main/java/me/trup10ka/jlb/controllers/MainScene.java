@@ -41,7 +41,7 @@ public class MainScene
     @FXML
     private void setChampionsParserUGG()
     {
-        JavaLeagueBuilds.chosenPage = U_GG;
+        JavaLeagueBuilds.setChosenPage(U_GG);
         JavaLeagueBuilds.getInstance().switchToLoading();
         CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsUGGParser()))
                 .thenRun(() -> Platform.runLater(() -> {
@@ -57,7 +57,7 @@ public class MainScene
     @FXML
     private void setChampionsParserLeagueOfGraphs()
     {
-        JavaLeagueBuilds.chosenPage = LEAGUE_OF_GRAPHS;
+        JavaLeagueBuilds.setChosenPage(LEAGUE_OF_GRAPHS);
         JavaLeagueBuilds.getInstance().switchToLoading();
         CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsLoGParser()))
                 .thenRun(() -> Platform.runLater(() -> {
@@ -72,7 +72,7 @@ public class MainScene
     @FXML
     private void setChampionsParserMobafire()
     {
-        JavaLeagueBuilds.chosenPage = MOBAFIRE;
+        JavaLeagueBuilds.setChosenPage(MOBAFIRE);
         JavaLeagueBuilds.getInstance().switchToLoading();
         CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsMobafireParser()))
                 .thenRun(() -> Platform.runLater(() -> {

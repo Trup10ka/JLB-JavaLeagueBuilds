@@ -14,10 +14,10 @@ import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 import me.trup10ka.jlb.web.parser.lographs.HtmlBuildLoGParser;
-import me.trup10ka.jlb.web.parser.mobafire.HtmlBuildMobafireParser;
 import me.trup10ka.jlb.web.parser.ugg.HtmlBuildUGGParser;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 
 /**
@@ -64,7 +64,7 @@ public class BuildScene
     {
         applicationHeader.setOnMousePressed(event -> JavaLeagueBuilds.getInstance().setOffSets(event));
         applicationHeader.setOnMouseDragged(event -> JavaLeagueBuilds.getInstance().moveStage(event));
-        goBack.setOnMousePressed(event -> clearPageAndSwitchToChampions(itemsBox, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox));
+        goBack.setOnMousePressed(event -> clearPageAndSwitchToChampions(true ,itemsBox, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox));
     }
 
     public BuildScene()
@@ -83,9 +83,10 @@ public class BuildScene
     {
         if (!(recentChampion != null
                 && recentChampion.getName().equals(champion.getName())
-                && recentlyUsedPage.equals(JavaLeagueBuilds.chosenPage)))
+                && recentlyUsedPage.equals(JavaLeagueBuilds.getChosenPage())))
         {
 
+            recentlyUsedPage = JavaLeagueBuilds.getChosenPage();
             recentChampion = new Champion(
                     champion.getName(),
                     pageParser.queryItemBuild(),
@@ -360,15 +361,44 @@ public class BuildScene
      * Clears the BuildScene page
      * @param boxes all nodes present and visible in BuildScene
      */
-    private void clearPageAndSwitchToChampions(Pane... boxes)
+    private void clearPageAndSwitchToChampions(boolean shouldSwitch, Pane... boxes)
     {
         for (Pane box : boxes)
         {
             box.getChildren().clear();
         }
-        JavaLeagueBuilds.getInstance().switchToChampions();
+        if (shouldSwitch)
+            JavaLeagueBuilds.getInstance().switchToChampions();
+    }
+    private void clearPageAndSwitchToChampions()
+    {
+        clearPageAndSwitchToChampions(false ,itemsBox, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
     }
 
+    @FXML
+    private void switchToUGG()
+    {
+        if (recentlyUsedPage == Page.U_GG)
+            return;
+        JavaLeagueBuilds.setChosenPage(Page.U_GG);
+        CompletableFuture.runAsync(() -> {
+            HtmlBuildPageParser parser = new HtmlBuildUGGParser(FormattedString.U_GG_HYPERLINK_FORMAT.toFormat(recentChampion.getName()));
+            setChampionToParse(recentChampion, parser);
+        });
+        clearPageAndSwitchToChampions();
+    }
+    @FXML
+    private void switchToLoG()
+    {
+        if (recentlyUsedPage == Page.LEAGUE_OF_GRAPHS)
+            return;
+        JavaLeagueBuilds.setChosenPage(Page.LEAGUE_OF_GRAPHS);
+        CompletableFuture.runAsync(() -> {
+            HtmlBuildPageParser parser = new HtmlBuildLoGParser(FormattedString.LOG_HYPERLINK_FORMAT.toFormat(recentChampion.getName()));
+            setChampionToParse(recentChampion, parser);
+        });
+        clearPageAndSwitchToChampions();
+    }
     public static BuildScene getInstance()
     {
         return instance;

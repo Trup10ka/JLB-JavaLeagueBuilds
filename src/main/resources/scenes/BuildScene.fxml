@@ -24,7 +24,7 @@
       </graphic>
    </Button>
    <VBox alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="674.0" prefWidth="166.0" spacing="180.0">
-      <JFXButton id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="145.0" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="U.GG">
+      <JFXButton onAction="#switchToUGG" id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="145.0" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="U.GG">
          <font>
             <Font size="16.0" />
          </font>
@@ -34,7 +34,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton id="leagueofgraphs-button" lineSpacing="2.0" minWidth="145.0" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="League of Graphs" textAlignment="CENTER" wrapText="true">
+      <JFXButton onAction="#switchToLoG" id="leagueofgraphs-button" lineSpacing="2.0" minWidth="145.0" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="League of Graphs" textAlignment="CENTER" wrapText="true">
       <graphic>
          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../icons/league-of-graphs-icon.png" />
@@ -51,14 +51,12 @@
    <Pane id="items-pane" layoutX="225.0" layoutY="446.0" prefHeight="214.0" prefWidth="850.0">
       <HBox fx:id="itemsBox" alignment="CENTER" layoutY="50.0" prefHeight="156.0" prefWidth="850.0" spacing="25" />
       <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="5.0" prefHeight="45.0" prefWidth="95.0" spacing="7.0">
-         <children>
-            <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
-            <Label styleClass="font-changer" text="Items">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
+         <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0"/>
+         <Label styleClass="font-changer" text="Items">
+            <font>
+               <Font size="20.0"/>
+            </font>
+         </Label>
       </HBox>
    </Pane>
    <Pane id="summoners-pane" layoutX="1082.0" layoutY="115.0" prefHeight="174.0" prefWidth="213.0">
@@ -74,14 +72,12 @@
       <HBox fx:id="mainRunesBox" alignment="CENTER" layoutX="129.0" layoutY="14.0" prefHeight="100.0" prefWidth="350.0" spacing="15" styleClass="filled-box" />
       <HBox fx:id="secondaryRunesAndAttributesBox" alignment="CENTER" layoutX="129.0" layoutY="138.0" prefHeight="100.0" prefWidth="350.0" spacing="20" styleClass="filled-box" />
       <HBox alignment="CENTER_LEFT" layoutX="21.0" layoutY="103.0" prefHeight="35.0" prefWidth="71.0" spacing="6.0">
-         <children>
-            <Line endX="100.0" endY="3.0" startX="100.0" startY="-25.0" stroke="#464646" strokeWidth="2.0" />
-            <Label styleClass="font-changer" text="Runes">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
+         <Line endX="100.0" endY="3.0" startX="100.0" startY="-25.0" stroke="#464646" strokeWidth="2.0"/>
+         <Label styleClass="font-changer" text="Runes">
+            <font>
+               <Font size="20.0"/>
+            </font>
+         </Label>
       </HBox>
    </Pane>
 </AnchorPane>

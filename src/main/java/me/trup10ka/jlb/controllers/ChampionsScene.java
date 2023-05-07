@@ -134,7 +134,7 @@ public class ChampionsScene
             JavaLeagueBuilds.getInstance().switchToLoading();
             CompletableFuture.runAsync(() -> 
             {
-                HtmlBuildPageParser buildPage = switch (JavaLeagueBuilds.chosenPage)
+                HtmlBuildPageParser buildPage = switch (JavaLeagueBuilds.getChosenPage())
                 {
                     case U_GG -> new HtmlBuildUGGParser(champion.getWebBuildPagePath());
                     case MOBAFIRE -> new HtmlBuildMobafireParser(champion.getWebBuildPagePath());

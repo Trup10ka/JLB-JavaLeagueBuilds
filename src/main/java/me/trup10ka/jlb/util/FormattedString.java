@@ -2,7 +2,7 @@ package me.trup10ka.jlb.util;
 
 public enum FormattedString
 {
-    HYPERLINK_FORMAT
+    U_GG_HYPERLINK_FORMAT
             {
                 @Override
                 public String toFormat(String toBeFormatted)
@@ -12,6 +12,25 @@ public enum FormattedString
                             .replaceAll(" ", "")
                             .replaceAll("\\.", "")
                             .toLowerCase();
+                }
+            },
+    LOG_HYPERLINK_FORMAT
+            {
+                @Override
+                public String toFormat(String toBeFormatted)
+                {
+                    String formatted = toBeFormatted
+                            .replaceAll("'", "")
+                            .replaceAll(" ", "")
+                            .replaceAll("\\.", "")
+                            .toLowerCase();
+                    if (formatted.contains("&"))
+                        formatted = formatted.split("&")[0];
+                    else if (formatted.contains("glasc"))
+                        formatted = formatted.split("glasc")[0];
+                    else if (formatted.equals("wukong"))
+                        formatted= "monkeyking";
+                    return formatted;
                 }
             },
     CHAMPION_IMAGE_NAME_FORMAT

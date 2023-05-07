@@ -47,9 +47,9 @@ public class JavaLeagueBuilds extends Application
      *     <li>Mobafire</li>
      * </ul>
      */
-    public static Page chosenPage;
+    private static Page chosenPage;
 
-
+    @SuppressWarnings("DataFlowIssue")
     public JavaLeagueBuilds()
     {
         instance = this;
@@ -139,6 +139,14 @@ public class JavaLeagueBuilds extends Application
         stage.close();
     }
 
+    public static Page getChosenPage()
+    {
+        return chosenPage;
+    }
+    public static void setChosenPage(Page chosenPage)
+    {
+        JavaLeagueBuilds.chosenPage = chosenPage;
+    }
     public static JavaLeagueBuilds getInstance()
     {
         return instance;

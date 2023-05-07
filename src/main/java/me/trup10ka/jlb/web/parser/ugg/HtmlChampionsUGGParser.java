@@ -64,7 +64,7 @@ public final class HtmlChampionsUGGParser implements HtmlChampionsPageParser
         this.champions = new ArrayList<>(190);
         for (Element element : parsedHtml.select("a.champion-link"))
         {
-            String path = FormattedString.HYPERLINK_FORMAT.toFormat(element.select("div.champion-name").text());
+            String path = FormattedString.U_GG_HYPERLINK_FORMAT.toFormat(element.select("div.champion-name").text());
             champions.add(new Champion(element.select("div.champion-name").text(), path));
         }
         return champions;
