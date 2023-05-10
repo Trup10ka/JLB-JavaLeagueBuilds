@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
@@ -24,6 +25,9 @@ import me.trup10ka.jlb.web.parser.ugg.HtmlChampionsUGGParser;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -38,6 +42,13 @@ public class ChampionsScene
      * Html page parser for champions, determined by players choice in {@link MainScene MainScene} (one of the setChampionsParser methods)
      */
     private HtmlChampionsPageParser championsPageParser;
+
+    private final Map<String, FlowPane> allChampionCardsByTheirNames;
+
+    private ImageView recentActivePage;
+
+    @FXML
+    private TextField searchBarForChampions;
     /**
      * Part of the scene responsible for ability to move the stage; more information -> {@link JavaLeagueBuilds}
      */
@@ -58,10 +69,10 @@ public class ChampionsScene
     private ImageView logPageActive;
     @FXML
     private ProgressIndicator progressIndicator;
-    private ImageView recentActivePage;
     public ChampionsScene()
     {
         instance = this;
+        allChampionCardsByTheirNames = new TreeMap<>();
     }
 
     public void initialize()
@@ -81,6 +92,7 @@ public class ChampionsScene
     public void setChampionsPageParser(HtmlChampionsPageParser championsPageParser)
     {
         this.championsPageParser = championsPageParser;
+        allChampionCardsByTheirNames.clear();
     }
 
     /**
@@ -93,9 +105,7 @@ public class ChampionsScene
             return;
         ArrayList<Champion> champions = championsPageParser.champions();
         for (Champion champion : champions)
-        {
             addToTilePane(champion);
-        }
     }
 
     /**
@@ -119,6 +129,7 @@ public class ChampionsScene
 
         FlowPane flowPane = createChampionCard(imgViewPane, nameLabel);
 
+        this.allChampionCardsByTheirNames.put(champion.getName(), flowPane);
         this.championsPane.getChildren().add(flowPane);
     }
 
@@ -182,6 +193,16 @@ public class ChampionsScene
     {
         exception.printStackTrace();
         Platform.runLater(() -> errorLabel.setText(exception.getMessage()));
+    }
+    @FXML
+    private void refreshChampionPageWithSearchFilter()
+    {
+        championsPane.getChildren().clear();
+        String searchingName = searchBarForChampions.getText();
+        for (String key : allChampionCardsByTheirNames.keySet())
+            if (key.toLowerCase().contains(searchingName))
+                championsPane.getChildren().add(allChampionCardsByTheirNames.get(key));
+
     }
     @FXML
     private void refreshForUGG()
