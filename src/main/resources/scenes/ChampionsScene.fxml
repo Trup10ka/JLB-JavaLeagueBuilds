@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,43 +11,38 @@
 <?import javafx.scene.control.Button?>
 <?import me.trup10ka.jlb.util.SmoothScrollPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ProgressIndicator?>
 <AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css"
             xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
    <Pane fx:id="applicationHeader" prefHeight="28.0" prefWidth="1224.0"/>
-   <HBox fx:id="buttonBox" alignment="CENTER" layoutX="201.0" layoutY="34.0" prefHeight="72.0" prefWidth="899.0"
-         spacing="140.0">
-      <JFXButton id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="170.0"
-                 prefHeight="65.0" prefWidth="170.0" text="U.GG">
-         <font>
-            <Font size="16.0"/>
-         </font>
+   <HBox fx:id="buttonBox" id="buttons-box" alignment="CENTER" layoutX="230.0" layoutY="55.0" prefHeight="85.0" prefWidth="840.0">
+      <JFXButton onAction="#refreshForUGG"  alignment="CENTER" id="ugg-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="U.GG">
          <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" fx:id="uggPageActive" visible="false">
                <Image url="@../icons/ugg-icon.png"/>
             </ImageView>
          </graphic>
       </JFXButton>
-      <Label styleClass="coming-soon" text="Mobafire - Coming soon"/>
-      <Label styleClass="coming-soon" text="LoG - Coming soon"/>
-      <!--<JFXButton id="mobafire-button" minWidth="170.0" prefHeight="65.0"
-                 prefWidth="169.0" text="Mobafire">
+      <FlowPane alignment="CENTER" prefHeight="85.0" minWidth="280.0">
+         <Label styleClass="coming-soon, font-changer">Mobafire - Coming soon</Label>
+      </FlowPane>
+      <!--<JFXButton onAction="#refreshForMobafire" alignment="CENTER" id="mobafire-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="Mobafire">
          <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" fx:id="mobafirePageActive" visible="false">
                <Image url="@../icons/mobafire-icon.png"/>
             </ImageView>
          </graphic>
       </JFXButton>-->
-      <!--<JFXButton id="leagueofgraphs-button" minWidth="170.0"
-                 prefHeight="65.0" prefWidth="150.0" text="League of Graphs">
+      <JFXButton onAction="#refreshForLoG" alignment="CENTER" id="leagueofgraphs-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="League of Graphs">
          <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" fx:id="logPageActive" visible="false">
                <Image url="@../icons/league-of-graphs-icon.png"/>
             </ImageView>
          </graphic>
-      </JFXButton>-->
+      </JFXButton>
    </HBox>
    <SmoothScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="168.0" prefHeight="518.0" prefWidth="1255.0">
       <FlowPane fx:id="championsPane" prefHeight="514.0" prefWidth="1250.0">
@@ -58,6 +51,7 @@
          </padding>
       </FlowPane>
    </SmoothScrollPane>
+   <ProgressIndicator fx:id="progressIndicator" visible="false" layoutX="630" layoutY="350" scaleX="1.4" scaleY="1.4"/>
    <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0"
            minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
       <graphic>

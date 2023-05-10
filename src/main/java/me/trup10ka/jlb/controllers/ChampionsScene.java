@@ -4,17 +4,22 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.Champion;
 import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.util.RoundCorners;
+import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
 import me.trup10ka.jlb.web.parser.lographs.HtmlBuildLoGParser;
+import me.trup10ka.jlb.web.parser.lographs.HtmlChampionsLoGParser;
 import me.trup10ka.jlb.web.parser.mobafire.HtmlBuildMobafireParser;
+import me.trup10ka.jlb.web.parser.mobafire.HtmlChampionsMobafireParser;
 import me.trup10ka.jlb.web.parser.ugg.HtmlBuildUGGParser;
+import me.trup10ka.jlb.web.parser.ugg.HtmlChampionsUGGParser;
 
 
 import java.net.URL;
@@ -45,7 +50,15 @@ public class ChampionsScene
     private FlowPane championsPane;
     @FXML
     private Label errorLabel;
-
+    @FXML
+    private ImageView uggPageActive;
+    @FXML
+    private ImageView mobafirePageActive;
+    @FXML
+    private ImageView logPageActive;
+    @FXML
+    private ProgressIndicator progressIndicator;
+    private ImageView recentActivePage;
     public ChampionsScene()
     {
         instance = this;
@@ -75,6 +88,7 @@ public class ChampionsScene
      */
     public void fillChampionsPane()
     {
+        setRecentActivePage();
         if (championsPageParser.champions() == null)
             return;
         ArrayList<Champion> champions = championsPageParser.champions();
@@ -169,7 +183,94 @@ public class ChampionsScene
         exception.printStackTrace();
         Platform.runLater(() -> errorLabel.setText(exception.getMessage()));
     }
+    @FXML
+    private void refreshForUGG()
+    {
+        JavaLeagueBuilds.setChosenPage(Page.U_GG);
+        switchToMinorLoading(true);
+        setActivePageImage(Page.U_GG);
+        CompletableFuture.runAsync(() -> setChampionsPageParser(new HtmlChampionsUGGParser()))
+                .thenRun(() -> Platform.runLater(() -> {
+                    switchToMinorLoading(false);
+                    fillChampionsPane();
+                }));
+    }
+    @FXML
+    private void refreshForMobafire()
+    {
+        JavaLeagueBuilds.setChosenPage(Page.MOBAFIRE);
+        switchToMinorLoading(true);
+        setActivePageImage(Page.MOBAFIRE);
+        CompletableFuture.runAsync(() -> setChampionsPageParser(new HtmlChampionsMobafireParser()))
+                .thenRun(() -> Platform.runLater(() -> {
+                    switchToMinorLoading(false);
+                    fillChampionsPane();
+                }));
+    }
+    @FXML
+    private void refreshForLoG()
+    {
+        JavaLeagueBuilds.setChosenPage(Page.LEAGUE_OF_GRAPHS);
+        switchToMinorLoading(true);
+        setActivePageImage(Page.LEAGUE_OF_GRAPHS);
+        CompletableFuture.runAsync(() -> setChampionsPageParser(new HtmlChampionsLoGParser()))
+                .thenRun(() -> Platform.runLater(() -> {
+                    switchToMinorLoading(false);
+                    fillChampionsPane();
+                }));
+    }
+    private void switchToMinorLoading(boolean onOrOff)
+    {
+        if (onOrOff)
+        {
+            championsPane.getChildren().clear();
+            championsPane.setVisible(false);
+            progressIndicator.setVisible(true);
+        }
+        else
+        {
+            championsPane.setVisible(true);
+            progressIndicator.setVisible(false);
+        }
+    }
 
+    private void setActivePageImage(Page page)
+    {
+        switch (page)
+        {
+            case U_GG -> {
+                recentActivePage.setVisible(false);
+                recentActivePage = uggPageActive;
+            }
+            case MOBAFIRE -> {
+                recentActivePage.setVisible(false);
+                recentActivePage = mobafirePageActive;
+            }
+            case LEAGUE_OF_GRAPHS -> {
+                recentActivePage.setVisible(false);
+                recentActivePage = logPageActive;
+            }
+        }
+    }
+    private void setRecentActivePage()
+    {
+        switch (JavaLeagueBuilds.getChosenPage())
+        {
+            case U_GG ->
+            {
+                uggPageActive.setVisible(true);
+                recentActivePage = uggPageActive;
+            }
+            case MOBAFIRE -> {
+                mobafirePageActive.setVisible(true);
+                recentActivePage = mobafirePageActive;
+            }
+            case LEAGUE_OF_GRAPHS -> {
+                logPageActive.setVisible(true);
+                recentActivePage = logPageActive;
+            }
+        }
+    }
     @FXML
     private void terminate()
     {
