@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.BuildScene">
+<?import com.jfoenix.controls.JFXButton?>
+<AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.BuildScene">
    <Pane fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
+   <Line endX="-91.0" endY="573.0" layoutX="280.0" layoutY="93.0" startX="-91.0" startY="-60.0" />
+   <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="763.0" layoutY="107.0" lineSpacing="4.0" prefHeight="130.0" prefWidth="263.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Label>
    <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
       <graphic>
          <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
@@ -24,7 +35,7 @@
       </graphic>
    </Button>
    <VBox alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="674.0" prefWidth="166.0" spacing="180.0">
-      <JFXButton onAction="#switchToUGG" id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="145.0" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="U.GG">
+      <JFXButton id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="145.0" onAction="#switchToUGG" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="U.GG">
          <font>
             <Font size="16.0" />
          </font>
@@ -34,7 +45,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton onAction="#switchToLoG" id="leagueofgraphs-button" lineSpacing="2.0" minWidth="145.0" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="League of Graphs" textAlignment="CENTER" wrapText="true">
+      <JFXButton id="leagueofgraphs-button" lineSpacing="2.0" minWidth="145.0" onAction="#switchToLoG" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="League of Graphs" textAlignment="CENTER" wrapText="true">
       <graphic>
          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../icons/league-of-graphs-icon.png" />
@@ -42,22 +53,36 @@
       </graphic>
       </JFXButton>
    </VBox>
-   <Line endX="-91.0" endY="573.0" layoutX="280.0" layoutY="93.0" startX="-91.0" startY="-60.0" />
-   <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="763.0" layoutY="107.0" lineSpacing="4.0" prefHeight="130.0" prefWidth="263.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
-      <font>
-         <Font size="26.0" />
-      </font>
-   </Label>
-   <Pane id="items-pane" layoutX="225.0" layoutY="446.0" prefHeight="214.0" prefWidth="850.0">
-      <HBox fx:id="itemsBox" alignment="CENTER" layoutY="50.0" prefHeight="156.0" prefWidth="850.0" spacing="25" />
-      <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="5.0" prefHeight="45.0" prefWidth="95.0" spacing="7.0">
-         <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0"/>
-         <Label styleClass="font-changer" text="Items">
+   <Pane id="items-pane" layoutX="225.0" layoutY="379.0" prefHeight="214.0" prefWidth="850.0">
+      <HBox alignment="CENTER_LEFT" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" spacing="7.0">
+         <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
+         <Label styleClass="font-changer" text="Starting Items">
             <font>
-               <Font size="20.0"/>
+               <Font size="18.0" />
             </font>
          </Label>
       </HBox>
+      <HBox fx:id="startingItems" alignment="CENTER" layoutY="50.0" prefHeight="156.0" prefWidth="166.0" spacing="25" />
+      <HBox alignment="CENTER_LEFT" layoutX="202.0" layoutY="5.0" prefHeight="45.0" prefWidth="111.0" spacing="7.0">
+         <children>
+            <Line endX="100.0" startX="100.0" startY="26.0" stroke="#464646" strokeWidth="2.0" />
+            <Label styleClass="font-changer" text="Core Items">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox fx:id="coreItems" layoutX="202.0" layoutY="50.0" prefHeight="156.0" prefWidth="179.0" />
+      <HBox alignment="CENTER_LEFT" layoutX="498.0" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" spacing="7.0">
+         <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
+         <Label styleClass="font-changer" text="Other Items">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+      </HBox>
+      <HBox fx:id="otherItems" layoutX="498.0" layoutY="50.0" prefHeight="156.0" prefWidth="179.0" />
    </Pane>
    <Pane id="summoners-pane" layoutX="1082.0" layoutY="115.0" prefHeight="174.0" prefWidth="213.0">
       <VBox fx:id="summonersBox" alignment="CENTER" layoutX="67.0" layoutY="44.0" prefHeight="130.0" prefWidth="79.0" styleClass="filled-box" />
@@ -71,13 +96,15 @@
    <Pane id="runes-pane" layoutX="216.0" layoutY="42.0" prefHeight="260.0" prefWidth="502.0">
       <HBox fx:id="mainRunesBox" alignment="CENTER" layoutX="129.0" layoutY="14.0" prefHeight="100.0" prefWidth="350.0" spacing="15" styleClass="filled-box" />
       <HBox fx:id="secondaryRunesAndAttributesBox" alignment="CENTER" layoutX="129.0" layoutY="138.0" prefHeight="100.0" prefWidth="350.0" spacing="20" styleClass="filled-box" />
-      <HBox alignment="CENTER_LEFT" layoutX="21.0" layoutY="103.0" prefHeight="35.0" prefWidth="71.0" spacing="6.0">
-         <Line endX="100.0" endY="3.0" startX="100.0" startY="-25.0" stroke="#464646" strokeWidth="2.0"/>
-         <Label styleClass="font-changer" text="Runes">
-            <font>
-               <Font size="20.0"/>
-            </font>
-         </Label>
-      </HBox>
+      <VBox alignment="CENTER" layoutX="14.0" layoutY="108.0" prefHeight="45.0" prefWidth="95.0">
+         <children>
+            <Label text="Runes">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Line endX="-20.0" startX="-85.0" stroke="#464646" strokeWidth="2.0" />
+         </children>
+      </VBox>
    </Pane>
 </AnchorPane>

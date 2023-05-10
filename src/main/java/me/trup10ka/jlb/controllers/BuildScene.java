@@ -52,7 +52,11 @@ public class BuildScene
     @FXML
     private Label championName;
     @FXML
-    private HBox itemsBox;
+    private HBox startingItems;
+    @FXML
+    private HBox coreItems;
+    @FXML
+    private HBox otherItems;
     @FXML
     private VBox summonersBox;
     @FXML
@@ -64,7 +68,8 @@ public class BuildScene
     {
         applicationHeader.setOnMousePressed(event -> JavaLeagueBuilds.getInstance().setOffSets(event));
         applicationHeader.setOnMouseDragged(event -> JavaLeagueBuilds.getInstance().moveStage(event));
-        goBack.setOnMousePressed(event -> clearPageAndSwitchToChampions(true ,itemsBox, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox));
+        goBack.setOnMousePressed(event -> clearPageAndSwitchToChampions(true ,
+                startingItems, coreItems, otherItems, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox));
     }
 
     public BuildScene()
@@ -161,7 +166,7 @@ public class BuildScene
     {
         HBox allImages = createAllItemsInCategory(itemBuild.getStartItems());
         allImages.getStyleClass().add("filled-box");
-        itemsBox.getChildren().add(allImages);
+        startingItems.getChildren().add(allImages);
     }
 
     /**
@@ -171,9 +176,10 @@ public class BuildScene
     private void arrangeCoreItems(ItemBuild itemBuild)
     {
         HBox allImages = createAllItemsInCategory(itemBuild.getCoreItems());
+        checkForBoots(allImages, itemBuild);
         allImages.getStyleClass().add("filled-box");
         allImages.setId("core-item-box");
-        itemsBox.getChildren().add(allImages);
+        coreItems.getChildren().add(allImages);
     }
 
     /**
@@ -184,7 +190,7 @@ public class BuildScene
     {
         HBox allImagesAndOptions = createAllItemsInCategoryAndOptions(itemBuild.getEndItems());
         allImagesAndOptions.getStyleClass().add("filled-box");
-        itemsBox.getChildren().add(allImagesAndOptions);
+        otherItems.getChildren().add(allImagesAndOptions);
     }
 
     /**
@@ -351,6 +357,14 @@ public class BuildScene
         return name.toString();
     }
 
+    private void checkForBoots(HBox hBox, ItemBuild itemBuild)
+    {
+        if (itemBuild.getBoots() == null)
+            return;
+        double width = hBox.getMinWidth();
+        hBox.getChildren().add(createItemImagePane(itemBuild.getBoots()));
+        hBox.setMinWidth(width + 60);
+    }
     @FXML
     private void terminate()
     {
@@ -372,7 +386,7 @@ public class BuildScene
     }
     private void clearPageAndSwitchToChampions()
     {
-        clearPageAndSwitchToChampions(false ,itemsBox, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
+        clearPageAndSwitchToChampions(false ,startingItems, coreItems, otherItems, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
     }
 
     @FXML
