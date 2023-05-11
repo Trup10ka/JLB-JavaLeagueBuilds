@@ -1,5 +1,6 @@
 package me.trup10ka.jlb.controllers;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -48,7 +49,7 @@ public class ChampionsScene
     private ImageView recentActivePage;
 
     @FXML
-    private TextField searchBarForChampions;
+    private JFXTextField searchBarForChampions;
     /**
      * Part of the scene responsible for ability to move the stage; more information -> {@link JavaLeagueBuilds}
      */
@@ -200,9 +201,8 @@ public class ChampionsScene
         championsPane.getChildren().clear();
         String searchingName = searchBarForChampions.getText();
         for (String key : allChampionCardsByTheirNames.keySet())
-            if (key.toLowerCase().contains(searchingName))
+            if (key.toLowerCase().contains(searchingName.toLowerCase()))
                 championsPane.getChildren().add(allChampionCardsByTheirNames.get(key));
-
     }
     @FXML
     private void refreshForUGG()

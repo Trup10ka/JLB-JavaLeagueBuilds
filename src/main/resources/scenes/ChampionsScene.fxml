@@ -15,6 +15,7 @@
 <?import javafx.scene.control.ProgressIndicator?>
 
 <?import javafx.scene.control.TextField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css"
             xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
@@ -46,7 +47,7 @@
          </graphic>
       </JFXButton>
    </HBox>
-   <TextField fx:id="searchBarForChampions" onKeyTyped="#refreshChampionPageWithSearchFilter" minWidth="400" minHeight="35" promptText="Enter champion name" layoutX="450" layoutY="150"/>
+   <JFXTextField styleClass="font-changer" id="search-bar" fx:id="searchBarForChampions" onKeyTyped="#refreshChampionPageWithSearchFilter" minWidth="400" minHeight="35" promptText="Enter champion name" layoutX="450" layoutY="150"/>
    <SmoothScrollPane hbarPolicy="NEVER" layoutX="23.0" layoutY="200.0" prefHeight="518.0" prefWidth="1255.0">
       <FlowPane fx:id="championsPane" prefHeight="514.0" prefWidth="1250.0">
          <padding>
