@@ -2,6 +2,7 @@ package me.trup10ka.jlb.util.itemssheet;
 
 import me.trup10ka.jlb.data.Item;
 import me.trup10ka.jlb.util.FormattedString;
+import me.trup10ka.jlb.util.ItemDescription;
 
 import static me.trup10ka.jlb.util.itemssheet.ItemSheetPath.CSV;
 
@@ -38,7 +39,10 @@ public final class ItemSheetCSVParser
                 if (itemParameters[0].equals("name") || itemParameters[1].equals("0"))
                     continue;
                 if (itemParameters[0].equals(name))
-                    return new Item(name, itemParameters[1], Float.parseFloat(itemParameters[2]), Float.parseFloat(itemParameters[3]));
+                {
+                    reader.close();
+                    return new Item(name, itemParameters[1], ItemDescription.getDescriptionOfItem(name), Float.parseFloat(itemParameters[2]), Float.parseFloat(itemParameters[3]));
+                }
             }
             System.err.println("I have not found the item, provided name: " + name);
             reader.close();
@@ -49,6 +53,38 @@ public final class ItemSheetCSVParser
         }
         return null;
     }
+    public static String generateNameFromGivenPositionsAndSprite(int[] positions, String imageSprite)
+    {
+        BufferedReader reader = createBufferedReader();
+
+        if (positions == null || imageSprite == null)
+            return null;
+        try
+        {
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                String[] itemParameters = line.split(";");
+                if (itemParameters[0].equals("name") || itemParameters[1].equals("0"))
+                    continue;
+                if (itemParameters[1].equals(imageSprite)
+                        && (Integer.parseInt(itemParameters[2]) == positions[0]
+                        && Integer.parseInt(itemParameters[3]) == positions[1]))
+                {
+                    reader.close();
+                    return itemParameters[0];
+                }
+            }
+            System.err.println("Did not find desired item");
+            reader.close();
+        }
+        catch (IOException ioException)
+        {
+            System.err.println("Error during reading a file: " + ioException.getMessage());
+        }
+        return null;
+    }
+
     private static String generateFormattedString(String nameOfTheItem)
     {
         String itemNameFormatted = FormattedString.CSV_NAME_FORMAT.toFormat(nameOfTheItem);

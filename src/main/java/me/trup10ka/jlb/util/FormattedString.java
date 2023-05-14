@@ -67,7 +67,18 @@ public enum FormattedString
                             .replaceAll(" ", "_")
                             .toLowerCase();
                 }
-            };
+            },
+    ITEM_DESCRIPTION
+    {
+        @Override
+        public String toFormat(String toBeFormatted)
+        {
+            return toBeFormatted
+                    .replaceAll("<br>", "\n\n")
+                    .replaceAll("\\.", "\n\n")
+                    .replaceAll("[</]+[a-zA-Z]+>", "");
+        }
+    };
 
     public abstract String toFormat(String toBeFormatted);
 }
