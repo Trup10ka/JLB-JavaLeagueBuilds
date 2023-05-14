@@ -3,13 +3,17 @@ package me.trup10ka.jlb.controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.*;
 import me.trup10ka.jlb.util.FormattedString;
+import me.trup10ka.jlb.util.ItemDescription;
 import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
@@ -250,6 +254,7 @@ public class BuildScene
     private Pane createItemImagePane(Item item)
     {
         Pane pane = new Pane();
+        createTooltipForItemAndAttachToNode(item, pane);
         pane.setStyle("-fx-background-image: url(\"images/items/" + item.imageName() + "\");" +
                 "-fx-background-position: " + item.x() + " " + item.y() + ";" +
                 "-fx-min-height: 48;" + "-fx-min-width: 48;" + "-fx-max-height: 48;" + "-fx-max-width: 48;" +
@@ -389,6 +394,16 @@ public class BuildScene
         clearPageAndSwitchToChampions(false ,startingItems, coreItems, otherItems, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
     }
 
+    private void createTooltipForItemAndAttachToNode(Item item, Node node)
+    {
+        String nameOfTheItem = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name());
+        Tooltip tooltip = new Tooltip(nameOfTheItem + "\n\n" + ItemDescription.getDescriptionOfItem(item.name()));
+        tooltip.setShowDelay(new Duration(0));
+        tooltip.getStyleClass().add("tool-tip-item");
+        tooltip.setMaxWidth(300);
+        tooltip.setWrapText(true);
+        Tooltip.install(node, tooltip);
+    }
     @FXML
     private void switchToUGG()
     {

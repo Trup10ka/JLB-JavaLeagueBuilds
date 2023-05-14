@@ -51,6 +51,11 @@
    -fx-radius: 25;
    -fx-cursor: hand;
 }
+.tool-tip-item {
+    -fx-font-family: "Friz Quadrata";
+    -fx-font-size: 14px;
+    -fx-background-color: black;
+}
 #terminate:hover {
     -fx-background-color: rgba(79, 79, 79 , 0.3);
 }

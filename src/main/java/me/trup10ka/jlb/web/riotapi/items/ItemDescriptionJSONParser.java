@@ -57,6 +57,6 @@ public final class ItemDescriptionJSONParser
                     .equals(FormattedString.CSV_NAME_FORMAT.toFormat(nameOfItem)))
                 return FormattedString.ITEM_DESCRIPTION.toFormat(allItems.getJSONObject(key).getString("description"));
         }
-        return "No such element found";
+        return "Item was not found";
     }
 }

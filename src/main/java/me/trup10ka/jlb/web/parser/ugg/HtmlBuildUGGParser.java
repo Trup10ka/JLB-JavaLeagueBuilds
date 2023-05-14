@@ -1,9 +1,12 @@
 package me.trup10ka.jlb.web.parser.ugg;
 
 import me.trup10ka.jlb.data.*;
+import me.trup10ka.jlb.util.ItemDescription;
+import me.trup10ka.jlb.util.itemssheet.ItemSheetCSVParser;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.WrongChampionPathException;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
+import me.trup10ka.jlb.web.riotapi.items.ItemDescriptionJSONParser;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -218,13 +221,21 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
                 usedPositionValues = new int[2];
                 setValuesForUsedVariables(usedPositionValues, positionValues);
                 usedImagePath = imagePath;
-                coreItems.add(new Item(imagePath, positionValues[0], positionValues[1]));
+                String nameOfItem = ItemSheetCSVParser.generateNameFromGivenPositionsAndSprite(positionValues, imagePath);
+                String itemDescription = ItemDescription.getDescriptionOfItem(nameOfItem);
+                coreItems.add(new Item(nameOfItem, imagePath, itemDescription, positionValues[0], positionValues[1]));
                 continue;
             }
 
             if (isItemAlreadyRegistered(usedImagePath, imagePath, usedPositionValues, positionValues))
                 break;
-            coreItems.add(new Item(imagePath, positionValues[0], positionValues[1]));
+            String nameOfItem = ItemSheetCSVParser.generateNameFromGivenPositionsAndSprite(positionValues, imagePath);
+            String itemDescription = ItemDescription.getDescriptionOfItem(nameOfItem);
+            coreItems.add(new Item(nameOfItem
+                    ,imagePath
+                    ,itemDescription
+                    ,positionValues[0]
+                    ,positionValues[1]));
         }
         return coreItems;
     }
@@ -295,7 +306,6 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         int positionY = Integer.parseInt(result[1]);
         return new int[]{positionX, positionY};
     }
-
     /**
      * Checks whether the specified item is already saved
      * @param usedImagePath reference to the map file

@@ -1,5 +1,7 @@
 package me.trup10ka.jlb.util;
 
+import java.util.Arrays;
+
 public enum FormattedString
 {
     U_GG_HYPERLINK_FORMAT
@@ -68,17 +70,35 @@ public enum FormattedString
                             .toLowerCase();
                 }
             },
+    ITEM_NAME_FORMAT
+            {
+                @Override
+                public String toFormat(String toBeFormatted)
+                {
+                    String[] allWordsInName = toBeFormatted.split("_");
+                    StringBuilder finalName = new StringBuilder();
+                    for (String word : allWordsInName)
+                    {
+                        char[] charactersInWord = word.toCharArray();
+                        charactersInWord[0] = Character.toUpperCase(charactersInWord[0]);
+                        finalName.append(new String(charactersInWord)).append(" ");
+                    }
+                    return finalName.toString();
+                }
+            },
     ITEM_DESCRIPTION
     {
         @Override
         public String toFormat(String toBeFormatted)
         {
             return toBeFormatted
-                    .replaceAll("<br>", "\n\n")
+                    .replaceAll("<br>", "\n")
                     .replaceAll("\\.", "\n\n")
-                    .replaceAll("[</]+[a-zA-Z]+>", "");
+                    .replaceAll("[</]+[a-zA-Z]+>", "")
+                    .trim();
         }
     };
+
 
     public abstract String toFormat(String toBeFormatted);
 }
