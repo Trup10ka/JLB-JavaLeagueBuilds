@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.text.Normalizer;
 
 
 public final class ItemDescriptionJSONParser
@@ -48,7 +47,7 @@ public final class ItemDescriptionJSONParser
         return new JSONObject(json).getJSONObject("data");
     }
 
-    public String returnDescriptionOfParticularItem(String nameOfItem)
+    public String getDescriptionOfParticularItem(String nameOfItem)
     {
         for (String key : allItems.keySet())
         {

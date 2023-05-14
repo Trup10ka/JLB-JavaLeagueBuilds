@@ -1,6 +1,5 @@
 package me.trup10ka.jlb.util;
 
-import java.util.Arrays;
 
 public enum FormattedString
 {
@@ -95,6 +94,18 @@ public enum FormattedString
                     .replaceAll("<br>", "\n")
                     .replaceAll("\\.", "\n\n")
                     .replaceAll("[</]+[a-zA-Z]+>", "")
+                    .trim();
+        }
+    },
+    RUNE_DESCRIPTION
+    {
+        @Override
+        public String toFormat(String toBeFormatted)
+        {
+            return toBeFormatted
+                    .replaceAll("'", "")
+                    .replaceAll("<br>", "\n")
+                    .replaceAll("[</]+[a-z=0-9-_ A-Z#']+>", "")
                     .trim();
         }
     };
