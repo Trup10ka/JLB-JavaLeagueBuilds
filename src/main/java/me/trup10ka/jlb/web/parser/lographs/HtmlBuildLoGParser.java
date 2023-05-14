@@ -1,6 +1,7 @@
 package me.trup10ka.jlb.web.parser.lographs;
 
 import me.trup10ka.jlb.data.*;
+import me.trup10ka.jlb.util.Descriptions;
 import me.trup10ka.jlb.util.itemssheet.ItemSheetCSVParser;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.WrongChampionPathException;
@@ -217,7 +218,8 @@ public final class HtmlBuildLoGParser implements HtmlBuildPageParser
             {
                 if (isNotActive(rune))
                     continue;
-                return new Rune(rune.select("img.requireTooltip").attr("alt"), 0);
+                String runeName = rune.select("img.requireTooltip").attr("alt");
+                return new Rune(runeName, Descriptions.getDescriptionOfRune(runeName),0);
             }
         }
         return null;
@@ -237,7 +239,8 @@ public final class HtmlBuildLoGParser implements HtmlBuildPageParser
                 Element rune = element.select("div.img-align-block > div").get(i);
                 if (isNotActive(rune))
                     continue;
-                runes.add(new Rune(rune.select("img.requireTooltip").attr("alt"), i));
+                String runeName = rune.select("img.requireTooltip").attr("alt");
+                runes.add(new Rune(runeName, Descriptions.getDescriptionOfRune(runeName),i));
             }
         }
         return runes;

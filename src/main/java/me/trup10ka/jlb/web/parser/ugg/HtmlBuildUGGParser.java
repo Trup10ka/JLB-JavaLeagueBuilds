@@ -1,12 +1,11 @@
 package me.trup10ka.jlb.web.parser.ugg;
 
 import me.trup10ka.jlb.data.*;
-import me.trup10ka.jlb.util.ItemDescription;
+import me.trup10ka.jlb.util.Descriptions;
 import me.trup10ka.jlb.util.itemssheet.ItemSheetCSVParser;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.WrongChampionPathException;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
-import me.trup10ka.jlb.web.riotapi.items.ItemDescriptionJSONParser;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -128,10 +127,11 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
      */
     private Rune nameOfKeyRune()
     {
-        return new Rune(document.select("div.perk.keystone.perk-active")
+        String nameOfTheRune = document.select("div.perk.keystone.perk-active")
                 .select("img")
                 .attr("alt")
-                .replaceAll("The Keystone ", ""), 0);
+                .replaceAll("The Keystone ", "");
+        return new Rune(nameOfTheRune, Descriptions.getDescriptionOfRune(nameOfTheRune),0);
     }
 
     /**
@@ -150,7 +150,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
                     .replaceAll("The Rune ", "");
             if (isRunePresentAndNotAKeyStone(nameOfRune, namesOfMainSecondaryRunes))
                 continue;
-            Rune rune = new Rune(nameOfRune, runePosition);
+            Rune rune = new Rune(nameOfRune, Descriptions.getDescriptionOfRune(nameOfRune),runePosition);
             runePosition++;
             namesOfMainSecondaryRunes.add(rune);
         }
@@ -222,7 +222,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
                 setValuesForUsedVariables(usedPositionValues, positionValues);
                 usedImagePath = imagePath;
                 String nameOfItem = ItemSheetCSVParser.generateNameFromGivenPositionsAndSprite(positionValues, imagePath);
-                String itemDescription = ItemDescription.getDescriptionOfItem(nameOfItem);
+                String itemDescription = Descriptions.getDescriptionOfItem(nameOfItem);
                 coreItems.add(new Item(nameOfItem, imagePath, itemDescription, positionValues[0], positionValues[1]));
                 continue;
             }
@@ -230,7 +230,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
             if (isItemAlreadyRegistered(usedImagePath, imagePath, usedPositionValues, positionValues))
                 break;
             String nameOfItem = ItemSheetCSVParser.generateNameFromGivenPositionsAndSprite(positionValues, imagePath);
-            String itemDescription = ItemDescription.getDescriptionOfItem(nameOfItem);
+            String itemDescription = Descriptions.getDescriptionOfItem(nameOfItem);
             coreItems.add(new Item(nameOfItem
                     ,imagePath
                     ,itemDescription

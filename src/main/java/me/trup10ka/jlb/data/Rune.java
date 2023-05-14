@@ -30,7 +30,7 @@ package me.trup10ka.jlb.data;
  * @see RunePage
  * @see Champion
  */
-public record Rune(String name, int position) implements Comparable<Rune>
+public record Rune(String name, String description, int position) implements Comparable<Rune>
 {
     @Override
     public int compareTo(Rune rune)

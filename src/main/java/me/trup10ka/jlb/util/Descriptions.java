@@ -3,7 +3,7 @@ package me.trup10ka.jlb.util;
 import me.trup10ka.jlb.web.riotapi.items.ItemDescriptionJSONParser;
 import me.trup10ka.jlb.web.riotapi.runes.RunesDescriptionJSONParser;
 
-public class Description
+public class Descriptions
 {
     private static final ItemDescriptionJSONParser itemDescriptionParser;
 
