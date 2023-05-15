@@ -2,7 +2,7 @@ package me.trup10ka.jlb.util.itemssheet;
 
 import me.trup10ka.jlb.data.Item;
 import me.trup10ka.jlb.util.FormattedString;
-import me.trup10ka.jlb.util.ItemDescription;
+import me.trup10ka.jlb.util.Descriptions;
 
 import static me.trup10ka.jlb.util.itemssheet.ItemSheetPath.CSV;
 
@@ -41,7 +41,7 @@ public final class ItemSheetCSVParser
                 if (itemParameters[0].equals(name))
                 {
                     reader.close();
-                    return new Item(name, itemParameters[1], ItemDescription.getDescriptionOfItem(name), Float.parseFloat(itemParameters[2]), Float.parseFloat(itemParameters[3]));
+                    return new Item(name, itemParameters[1], Descriptions.getDescriptionOfItem(name), Float.parseFloat(itemParameters[2]), Float.parseFloat(itemParameters[3]));
                 }
             }
             System.err.println("I have not found the item, provided name: " + name);

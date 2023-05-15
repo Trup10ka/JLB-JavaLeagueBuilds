@@ -45,6 +45,18 @@ public enum FormattedString
                             .toLowerCase();
                 }
             },
+    URI_IMAGE_FORMAT
+            {
+                @Override
+                public String toFormat(String toBeFormatted)
+                {
+                    return toBeFormatted
+                            .toLowerCase()
+                            .replaceAll("'", "")
+                            .replaceAll(":", "")
+                            .replaceAll("[- ]", "_");
+                }
+            },
     CSV_NAME_FORMAT
             {
                 @Override
@@ -57,16 +69,23 @@ public enum FormattedString
                             .toLowerCase();
                 }
             },
-    ATTRIBUTE_NAME_IMAGE_FORMAT
+    ATTRIBUTE_NAME_URI_FORMAT
             {
                 @Override
                 public String toFormat(String toBeFormatted)
                 {
-                    return toBeFormatted
+                    String formatted = toBeFormatted
+                            .replaceAll("The ", "")
+                            .replaceAll("Scaling ", "")
+                            .replaceAll("Bonus ", "")
+                            .replaceAll(" Shard", "")
                             .replaceAll("[+%0-9]+", "")
                             .trim()
                             .replaceAll(" ", "_")
                             .toLowerCase();
+                    if (formatted.equals("cdr"))
+                        formatted = "ability_haste";
+                    return formatted;
                 }
             },
     ITEM_NAME_FORMAT

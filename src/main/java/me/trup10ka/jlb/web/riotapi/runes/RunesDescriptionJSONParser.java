@@ -60,7 +60,7 @@ public class RunesDescriptionJSONParser
                 }
             }
         }
-        System.err.println("Couldn't find desired rune");
+        System.err.println("Couldn't find desired rune. Looked for: " + compareName);
         return null;
     }
 
