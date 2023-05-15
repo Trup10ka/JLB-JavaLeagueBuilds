@@ -13,7 +13,7 @@ import javafx.util.Duration;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.*;
 import me.trup10ka.jlb.util.FormattedString;
-import me.trup10ka.jlb.util.ItemDescription;
+import me.trup10ka.jlb.util.Descriptions;
 import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
@@ -254,7 +254,7 @@ public class BuildScene
     private Pane createItemImagePane(Item item)
     {
         Pane pane = new Pane();
-        createTooltipForItemAndAttachToNode(item, pane);
+        createTooltipForItem(item, pane);
         pane.setStyle("-fx-background-image: url(\"images/items/" + item.imageName() + "\");" +
                 "-fx-background-position: " + item.x() + " " + item.y() + ";" +
                 "-fx-min-height: 48;" + "-fx-min-width: 48;" + "-fx-max-height: 48;" + "-fx-max-width: 48;" +
@@ -284,28 +284,35 @@ public class BuildScene
     /**
      * @return Image of {@link RunePage#keyStoneRune Keystone} rune
      */
-    private ImageView returnKeyStoneRune()
+    private Pane returnKeyStoneRune()
     {
-        ImageView image = new ImageView("images/runes/mainrunes/" +
-                recentChampion.getRunePage().getKeyStoneRune().name().toLowerCase().replaceAll("[-: ]", "_") + ".png");
-        image.setFitHeight(70);
-        image.setFitWidth(70);
-        return image;
+        Rune keystone = recentChampion.getRunePage().getKeyStoneRune();
+        String rune = FormattedString.URI_IMAGE_FORMAT.toFormat(keystone.name());
+
+        ImageView image = new ImageView("images/runes/mainrunes/" + rune + ".png");
+        image.setFitHeight(70);  image.setFitWidth(70);
+
+        Pane container = new Pane(image);
+        container.setMaxSize(70, 70);
+
+        createTooltipForRune(keystone, container);
+        return container;
     }
 
     /**
      * @return a list of image views with {@link RunePage#sideMainRunes main} runes
      */
-    private List<ImageView> returnSideMainRunes()
+    private List<Pane> returnSideMainRunes()
     {
-        List<ImageView> runes = new ArrayList<>(3);
+        List<Pane> runes = new ArrayList<>(3);
         for (Rune rune : recentChampion.getRunePage().getSideMainRunes())
         {
-            ImageView image = new ImageView("images/runes/secondaryrunes/"
-                    + rune.name().toLowerCase().replaceAll("[: ]+", "_").replaceAll("'", "") + ".png");
-            image.setFitHeight(40);
-            image.setFitWidth(40);
-            runes.add(image);
+            String path = FormattedString.URI_IMAGE_FORMAT.toFormat(rune.name());
+            ImageView image = new ImageView("images/runes/secondaryrunes/" + path + ".png");
+            image.setFitHeight(40); image.setFitWidth(40);
+            Pane container = new Pane(image); container.setMaxSize(40, 40);
+            createTooltipForRune(rune, container);
+            runes.add(container);
         }
         return runes;
     }
@@ -313,16 +320,17 @@ public class BuildScene
     /**
      * @return a list of image views with {@link RunePage#secondaryRunes secondary} runes
      */
-    private List<ImageView> returnSecondaryRunes()
+    private List<Pane> returnSecondaryRunes()
     {
-        List<ImageView> runes = new ArrayList<>(2);
+        List<Pane> runes = new ArrayList<>(2);
         for (Rune rune : recentChampion.getRunePage().getSecondaryRunes())
         {
-            ImageView image = new ImageView("images/runes/secondaryrunes/"
-                    + rune.name().toLowerCase().replaceAll("[: ]+", "_").replaceAll("'", "") + ".png");
-            image.setFitHeight(40);
-            image.setFitWidth(40);
-            secondaryRunesAndAttributesBox.getChildren().add(image);
+            String path = FormattedString.URI_IMAGE_FORMAT.toFormat(rune.name());
+            ImageView image = new ImageView("images/runes/secondaryrunes/" + path + ".png");
+            image.setFitHeight(40); image.setFitWidth(40);
+            Pane container = new Pane(image); container.setMaxSize(40, 40);
+            createTooltipForRune(rune, container);
+            runes.add(container);
         }
         return runes;
     }
@@ -330,15 +338,17 @@ public class BuildScene
     /**
      * @return a list of image views with attributes
      */
-    private List<ImageView> returnAttributes()
+    private List<Pane> returnAttributes()
     {
-        List<ImageView> runes = new ArrayList<>(3);
+        List<Pane> runes = new ArrayList<>(3);
         for (Attribute attribute : recentChampion.getRunePage().getAttributes())
         {
-            ImageView image = new ImageView("images/runes/attributes/"
-                    + FormattedString.ATTRIBUTE_NAME_IMAGE_FORMAT.toFormat(attribute.propertyName()) + ".png");
+            String path = FormattedString.ATTRIBUTE_NAME_URI_FORMAT.toFormat(attribute.propertyName());
+            ImageView image = new ImageView("images/runes/attributes/" + path + ".png");
             image.setFitHeight(27); image.setFitWidth(27);
-            runes.add(image);
+            Pane container = new Pane(image); container.setMaxSize(27, 27);
+            createTooltipForAttribute(attribute, container);
+            runes.add(container);
         }
         return runes;
     }
@@ -370,12 +380,12 @@ public class BuildScene
         hBox.getChildren().add(createItemImagePane(itemBuild.getBoots()));
         hBox.setMinWidth(width + 60);
     }
+
     @FXML
     private void terminate()
     {
         JavaLeagueBuilds.getInstance().terminate();
     }
-
     /**
      * Clears the BuildScene page
      * @param boxes all nodes present and visible in BuildScene
@@ -389,19 +399,34 @@ public class BuildScene
         if (shouldSwitch)
             JavaLeagueBuilds.getInstance().switchToChampions();
     }
+
     private void clearPageAndSwitchToChampions()
     {
         clearPageAndSwitchToChampions(false ,startingItems, coreItems, otherItems, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
     }
-
-    private void createTooltipForItemAndAttachToNode(Item item, Node node)
+    private void createTooltipForItem(Item item, Node node)
     {
-        String nameOfTheItem = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name());
-        Tooltip tooltip = new Tooltip(nameOfTheItem + "\n\n" + ItemDescription.getDescriptionOfItem(item.name()));
+        String description = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name()) + "\n\n" + Descriptions.getDescriptionOfItem(item.name());
+        assignTooltipForNode(node, description);
+    }
+
+    private void createTooltipForRune(Rune rune, Node node)
+    {
+        String description = rune.name() + "\n\n" + Descriptions.getDescriptionOfRune(rune.name());
+        assignTooltipForNode(node, description);
+    }
+    private void createTooltipForAttribute(Attribute attribute, Node node)
+    {
+        String description = attribute.propertyName();
+        assignTooltipForNode(node, description);
+    }
+    private void assignTooltipForNode(Node node, String description)
+    {
+        Tooltip tooltip = new Tooltip(description);
         tooltip.setShowDelay(new Duration(0));
-        tooltip.getStyleClass().add("tool-tip-item");
         tooltip.setMaxWidth(300);
         tooltip.setWrapText(true);
+        tooltip.getStyleClass().add("tool-tip-item");
         Tooltip.install(node, tooltip);
     }
     @FXML

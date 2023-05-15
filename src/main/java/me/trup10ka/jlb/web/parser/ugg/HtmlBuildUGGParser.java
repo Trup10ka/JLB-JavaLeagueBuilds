@@ -166,14 +166,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         ArrayList<Attribute> attributes = new ArrayList<>();
         for (Element element : document.select("div.shard-active"))
         {
-            String shard = element.select("img")
-                    .attr("alt")
-                    .replaceAll("The ", "")
-                    .replaceAll("Scaling ", "")
-                    .replaceAll("Bonus ", "")
-                    .replaceAll(" Shard", "");
-            if (shard.equals("CDR"))
-                shard = "ability_haste";
+            String shard = element.select("img").attr("alt");
             if (attributes.size() < 3)
                 attributes.add(new Attribute(shard));
         }
