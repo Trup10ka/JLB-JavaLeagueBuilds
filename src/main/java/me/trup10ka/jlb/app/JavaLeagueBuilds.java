@@ -138,6 +138,10 @@ public class JavaLeagueBuilds extends Application
     {
         stage.close();
     }
+    public void iconify()
+    {
+        stage.setIconified(true);
+    }
 
     public static Page getChosenPage()
     {

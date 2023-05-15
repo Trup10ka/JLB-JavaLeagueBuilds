@@ -1,43 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/MainScene.css"
-            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="me.trup10ka.jlb.controllers.MainScene">
-   <Pane fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0"/>
-   <Label styleClass="font-changer" layoutX="434.0" layoutY="224.0" text="JLB - League Builds in Java App">
+<AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/MainScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.MainScene">
+   <Pane id="application-header" fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
+   <Label layoutX="434.0" layoutY="224.0" styleClass="font-changer" text="JLB - League Builds in Java App">
       <font>
-         <Font name="Calisto MT" size="31.0"/>
+         <Font name="Calisto MT" size="31.0" />
       </font>
    </Label>
-   <HBox fx:id="buttonBox" alignment="CENTER" layoutX="61.0" layoutY="326.0" prefHeight="166.0" prefWidth="1161.0"
-         spacing="270.0">
+   <HBox fx:id="buttonBox" alignment="CENTER" layoutX="61.0" layoutY="326.0" prefHeight="166.0" prefWidth="1161.0" spacing="270.0">
       <opaqueInsets>
-         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </opaqueInsets>
-      <JFXButton styleClass="font-changer" id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity"
-                 onAction="#setChampionsParserUGG" prefHeight="65.0" prefWidth="170.0" text="U.GG">
+      <JFXButton id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#setChampionsParserUGG" prefHeight="65.0" prefWidth="170.0" styleClass="font-changer" text="U.GG">
          <font>
-            <Font size="16.0"/>
+            <Font size="16.0" />
          </font>
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../icons/ugg-icon.png"/>
+               <Image url="@../icons/ugg-icon.png" />
             </ImageView>
          </graphic>
       </JFXButton>
-      <Label styleClass="coming-soon" minWidth="200" text="Mobafire - Coming soon"/>
+      <Label minWidth="200" styleClass="coming-soon" text="Mobafire - Coming soon" />
       <!--<JFXButton styleClass="font-changer" id="mobafire-button" onAction="#setChampionsParserMobafire" prefHeight="65.0"
                  prefWidth="169.0" text="Mobafire">
          <graphic>
@@ -46,29 +37,25 @@
             </ImageView>
          </graphic>
       </JFXButton>-->
-      <JFXButton styleClass="font-changer" id="leagueofgraphs-button" onAction="#setChampionsParserLeagueOfGraphs"
-                 text="League of Graphs">
+      <JFXButton id="leagueofgraphs-button" onAction="#setChampionsParserLeagueOfGraphs" styleClass="font-changer" text="League of Graphs">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../icons/league-of-graphs-icon.png"/>
+               <Image url="@../icons/league-of-graphs-icon.png" />
             </ImageView>
          </graphic>
       </JFXButton>
    </HBox>
-   <ImageView fitHeight="48.0" fitWidth="52.0" layoutX="72.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../icons/icon.png"/>
-   </ImageView>
-   <Label styleClass="font-changer" alignment="BOTTOM_LEFT" layoutX="23.0" layoutY="22.0" prefHeight="27.0" prefWidth="42.0" text="JLB">
-      <font>
-         <Font size="20.0"/>
-      </font>
-   </Label>
-   <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0"
-           minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
+   <Button styleClass="util-button" id="terminate" layoutX="1270.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#terminate" prefHeight="20.0" prefWidth="20.0">
       <graphic>
-         <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true"
-                    preserveRatio="true">
-            <Image url="@../icons/close.png"/>
+         <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../icons/close.png" />
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button styleClass="util-button" id="iconify" layoutX="1240.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#iconify" prefHeight="20.0" prefWidth="20.0">
+      <graphic>
+         <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../icons/bar-ico.png" />
          </ImageView>
       </graphic>
    </Button>

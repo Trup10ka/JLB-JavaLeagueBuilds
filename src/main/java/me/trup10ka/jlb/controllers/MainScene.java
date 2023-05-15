@@ -87,4 +87,10 @@ public class MainScene
         JavaLeagueBuilds.getInstance().terminate();
     }
 
+    @FXML
+    private void iconify()
+    {
+        JavaLeagueBuilds.getInstance().iconify();
+    }
+
 }
