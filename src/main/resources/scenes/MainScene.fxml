@@ -26,7 +26,7 @@
       <opaqueInsets>
          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
       </opaqueInsets>
-      <JFXButton styleClass="font-changer" id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="170.0"
+      <JFXButton styleClass="font-changer" id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity"
                  onAction="#setChampionsParserUGG" prefHeight="65.0" prefWidth="170.0" text="U.GG">
          <font>
             <Font size="16.0"/>
@@ -37,8 +37,8 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <Label styleClass="coming-soon" text="Mobafire - Coming soon"/>
-      <!--<JFXButton styleClass="font-changer" id="mobafire-button" minWidth="170.0" onAction="#setChampionsParserMobafire" prefHeight="65.0"
+      <Label styleClass="coming-soon" minWidth="200" text="Mobafire - Coming soon"/>
+      <!--<JFXButton styleClass="font-changer" id="mobafire-button" onAction="#setChampionsParserMobafire" prefHeight="65.0"
                  prefWidth="169.0" text="Mobafire">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -46,8 +46,8 @@
             </ImageView>
          </graphic>
       </JFXButton>-->
-      <JFXButton styleClass="font-changer" id="leagueofgraphs-button" minWidth="170.0" onAction="#setChampionsParserLeagueOfGraphs"
-                 prefHeight="65.0" prefWidth="150.0" text="League of Graphs">
+      <JFXButton styleClass="font-changer" id="leagueofgraphs-button" onAction="#setChampionsParserLeagueOfGraphs"
+                 text="League of Graphs">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../icons/league-of-graphs-icon.png"/>

@@ -9,7 +9,8 @@
 .jfx-button {
      -jfx-button-type: RAISED;
      -fx-text-fill: black;
-     -fx-pref-width: 100px;
+     -fx-min-width: 200px;
+     -fx-min-height: 75px;
      -fx-font-size: 14px;
      -fx-background-radius: 25px;
 }
