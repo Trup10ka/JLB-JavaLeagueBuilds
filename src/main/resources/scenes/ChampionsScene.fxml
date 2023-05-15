@@ -14,13 +14,12 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ProgressIndicator?>
 
-<?import javafx.scene.control.TextField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/ChampionsScene.css"
             xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="me.trup10ka.jlb.controllers.ChampionsScene">
-   <Pane fx:id="applicationHeader" prefHeight="28.0" prefWidth="1224.0"/>
+   <Pane id="application-header" fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
    <HBox fx:id="buttonBox" id="buttons-box" alignment="CENTER" layoutX="230.0" layoutY="40.0" prefHeight="85.0" prefWidth="840.0">
       <JFXButton onAction="#refreshForUGG"  alignment="CENTER" id="ugg-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="U.GG">
          <graphic>
@@ -56,12 +55,17 @@
       </FlowPane>
    </SmoothScrollPane>
    <ProgressIndicator fx:id="progressIndicator" visible="false" layoutX="630" layoutY="350" scaleX="1.4" scaleY="1.4"/>
-   <Button id="terminate" layoutX="1245.0" layoutY="15.0" maxHeight="35.0" maxWidth="35.0" minHeight="35.0"
-           minWidth="35.0" mnemonicParsing="false" onAction="#terminate" prefHeight="35.0" prefWidth="35.0">
+   <Button id="terminate" styleClass="util-button" layoutX="1270.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#terminate" prefHeight="20.0" prefWidth="20.0">
       <graphic>
-         <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true"
-                    preserveRatio="true">
-            <Image url="@../icons/close.png"/>
+         <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../icons/close.png" />
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button styleClass="util-button" id="iconify" layoutX="1240.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#iconify" prefHeight="20.0" prefWidth="20.0">
+      <graphic>
+         <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../icons/bar-ico.png" />
          </ImageView>
       </graphic>
    </Button>

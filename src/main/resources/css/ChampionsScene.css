@@ -94,12 +94,20 @@
 .font-changer {
     -fx-font-family: "Friz Quadrata";
 }
-#terminate {
-   -fx-background-color: transparent;
-   -fx-radius: 25;
+.util-button {
+     -fx-background-color: transparent;
+     -fx-radius: 25;
 }
 #terminate:hover {
-    -fx-background-color: rgba(79, 79, 79 , 0.3);
+    -fx-background-color: rgba(255, 60, 60, 0.4);
     -fx-cursor: hand;
 }
-
+#iconify:hover {
+    -fx-background-color: rgba(110, 110, 110, 0.9);
+    -fx-cursor: hand;
+}
+#application-header {
+    -fx-background-color: rgba(90, 90, 90, 0.9);
+    -fx-background-radius: 5 5 0 0;
+    -fx-border-radius: 5 5 0 0;
+}

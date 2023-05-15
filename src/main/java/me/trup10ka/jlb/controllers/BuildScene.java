@@ -381,11 +381,6 @@ public class BuildScene
         hBox.setMinWidth(width + 60);
     }
 
-    @FXML
-    private void terminate()
-    {
-        JavaLeagueBuilds.getInstance().terminate();
-    }
     /**
      * Clears the BuildScene page
      * @param boxes all nodes present and visible in BuildScene
@@ -399,22 +394,22 @@ public class BuildScene
         if (shouldSwitch)
             JavaLeagueBuilds.getInstance().switchToChampions();
     }
-
     private void clearPageAndSwitchToChampions()
     {
         clearPageAndSwitchToChampions(false ,startingItems, coreItems, otherItems, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
     }
+
     private void createTooltipForItem(Item item, Node node)
     {
         String description = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name()) + "\n\n" + Descriptions.getDescriptionOfItem(item.name());
         assignTooltipForNode(node, description);
     }
-
     private void createTooltipForRune(Rune rune, Node node)
     {
         String description = rune.name() + "\n\n" + Descriptions.getDescriptionOfRune(rune.name());
         assignTooltipForNode(node, description);
     }
+
     private void createTooltipForAttribute(Attribute attribute, Node node)
     {
         String description = attribute.propertyName();
@@ -456,5 +451,16 @@ public class BuildScene
     public static BuildScene getInstance()
     {
         return instance;
+    }
+    @FXML
+    private void terminate()
+    {
+        JavaLeagueBuilds.getInstance().terminate();
+    }
+
+    @FXML
+    private void iconify()
+    {
+        JavaLeagueBuilds.getInstance().iconify();
     }
 }

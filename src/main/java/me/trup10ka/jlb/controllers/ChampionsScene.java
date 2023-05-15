@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
@@ -26,7 +25,6 @@ import me.trup10ka.jlb.web.parser.ugg.HtmlChampionsUGGParser;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
@@ -296,6 +294,12 @@ public class ChampionsScene
     private void terminate()
     {
         JavaLeagueBuilds.getInstance().terminate();
+    }
+
+    @FXML
+    private void iconify()
+    {
+        JavaLeagueBuilds.getInstance().iconify();
     }
 
     public static ChampionsScene getInstance()

@@ -27,4 +27,10 @@ public class LoadingScene
     {
         JavaLeagueBuilds.getInstance().terminate();
     }
+
+    @FXML
+    private void iconify()
+    {
+        JavaLeagueBuilds.getInstance().iconify();
+    }
 }
