@@ -12,7 +12,7 @@
     -fx-cursor: hand;
 }
 #iconify:hover {
-    -fx-background-color: rgba(110, 110, 110, 0.9);
+    -fx-background-color: rgba(110, 110, 110, 0.5);
     -fx-cursor: hand;
 }
 #application-header {

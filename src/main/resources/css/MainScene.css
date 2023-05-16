@@ -55,11 +55,11 @@
     -fx-cursor: hand;
 }
 #iconify:hover {
-    -fx-background-color: rgba(110, 110, 110, 0.9);
+    -fx-background-color: rgba(110, 110, 110, 0.5);
     -fx-cursor: hand;
 }
 #application-header {
-    -fx-background-color: rgba(90, 90, 90, 0.9);
+    -fx-background-color: rgba(75, 75, 75, 0.9);
     -fx-background-radius: 5 5 0 0;
     -fx-border-radius: 5 5 0 0;
 }
