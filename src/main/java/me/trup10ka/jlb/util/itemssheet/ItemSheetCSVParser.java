@@ -1,6 +1,6 @@
 package me.trup10ka.jlb.util.itemssheet;
 
-import me.trup10ka.jlb.data.Item;
+import me.trup10ka.jlb.data.lolgame.Item;
 import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.util.Descriptions;
 

@@ -1,8 +1,8 @@
 package me.trup10ka.jlb.web.parser.mobafire;
 
-import me.trup10ka.jlb.data.ItemBuild;
-import me.trup10ka.jlb.data.RunePage;
-import me.trup10ka.jlb.data.SummonerSpell;
+import me.trup10ka.jlb.data.lolgame.ItemBuild;
+import me.trup10ka.jlb.data.lolgame.RunePage;
+import me.trup10ka.jlb.data.lolgame.SummonerSpell;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 import org.jsoup.nodes.Document;
 

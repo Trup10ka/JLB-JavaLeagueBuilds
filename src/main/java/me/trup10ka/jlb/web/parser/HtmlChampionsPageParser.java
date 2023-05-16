@@ -1,6 +1,6 @@
 package me.trup10ka.jlb.web.parser;
 
-import me.trup10ka.jlb.data.Champion;
+import me.trup10ka.jlb.data.lolgame.Champion;
 import me.trup10ka.jlb.web.parser.ugg.HtmlChampionsUGGParser;
 import me.trup10ka.jlb.web.parser.mobafire.HtmlChampionsMobafireParser;
 import me.trup10ka.jlb.web.parser.lographs.HtmlChampionsLoGParser;

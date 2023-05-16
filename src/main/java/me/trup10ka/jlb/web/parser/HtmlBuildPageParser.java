@@ -1,8 +1,9 @@
 package me.trup10ka.jlb.web.parser;
 
-import me.trup10ka.jlb.data.ItemBuild;
-import me.trup10ka.jlb.data.RunePage;
-import me.trup10ka.jlb.data.SummonerSpell;
+import me.trup10ka.jlb.data.lolgame.ItemBuild;
+import me.trup10ka.jlb.data.lolgame.RunePage;
+import me.trup10ka.jlb.data.lolgame.SummonerSpell;
+import me.trup10ka.jlb.data.lolgame.Champion;
 import org.jsoup.nodes.Document;
 
 import java.util.List;
@@ -31,17 +32,17 @@ public interface HtmlBuildPageParser
      */
     void setChampionToParse(String champion);
     /**
-     * @return {@link me.trup10ka.jlb.data.ItemBuild Items} which are currently the best option to buy on chosen {@link me.trup10ka.jlb.data.Champion champion}
+     * @return {@link ItemBuild Items} which are currently the best option to buy on chosen {@link Champion champion}
      */
     ItemBuild queryItemBuild();
 
     /**
-     * @return {@link me.trup10ka.jlb.data.RunePage Runes} which are currently the best option to take on chosen {@link me.trup10ka.jlb.data.Champion champion}
+     * @return {@link RunePage Runes} which are currently the best option to take on chosen {@link Champion champion}
      */
     RunePage queryRunePage();
 
     /**
-     * @return {@link me.trup10ka.jlb.data.SummonerSpell Summoners} which are currently the best option to take on chosen {@link me.trup10ka.jlb.data.Champion champion}
+     * @return {@link SummonerSpell Summoners} which are currently the best option to take on chosen {@link Champion champion}
      */
     List<SummonerSpell> summoners();
     /**

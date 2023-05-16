@@ -9,7 +9,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
-import me.trup10ka.jlb.data.Champion;
+import me.trup10ka.jlb.data.lolgame.Champion;
 import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.Page;

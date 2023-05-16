@@ -1,6 +1,6 @@
 package me.trup10ka.jlb.web.parser.ugg;
 
-import me.trup10ka.jlb.data.*;
+import me.trup10ka.jlb.data.lolgame.*;
 import me.trup10ka.jlb.util.Descriptions;
 import me.trup10ka.jlb.util.itemssheet.ItemSheetCSVParser;
 import me.trup10ka.jlb.web.Page;

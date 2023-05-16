@@ -1,6 +1,6 @@
 package me.trup10ka.jlb.web.parser.mobafire;
 
-import me.trup10ka.jlb.data.Champion;
+import me.trup10ka.jlb.data.lolgame.Champion;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
 import org.jsoup.nodes.Document;
 

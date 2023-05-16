@@ -1,4 +1,4 @@
-package me.trup10ka.jlb.data;
+package me.trup10ka.jlb.data.lolgame;
 
 import java.util.Map;
 import java.util.Set;

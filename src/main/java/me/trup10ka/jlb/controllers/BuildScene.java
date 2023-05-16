@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
-import me.trup10ka.jlb.data.*;
+import me.trup10ka.jlb.data.lolgame.*;
 import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.util.Descriptions;
 import me.trup10ka.jlb.util.RoundCorners;

@@ -1,7 +1,7 @@
 package me.trup10ka.jlb.web.parser.ugg;
 
 import me.trup10ka.jlb.controllers.ChampionsScene;
-import me.trup10ka.jlb.data.Champion;
+import me.trup10ka.jlb.data.lolgame.Champion;
 import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
