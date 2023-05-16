@@ -9,12 +9,12 @@
 
 <AnchorPane id="root" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/MainScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.MainScene">
    <Pane id="application-header" fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
-   <Label layoutX="434.0" layoutY="224.0" styleClass="font-changer" text="JLB - League Builds in Java App">
+   <Label layoutX="436.0" layoutY="76.0" styleClass="font-changer" text="JLB - League Builds in Java App">
       <font>
          <Font name="Calisto MT" size="31.0" />
       </font>
    </Label>
-   <HBox fx:id="buttonBox" alignment="CENTER" layoutX="61.0" layoutY="326.0" prefHeight="166.0" prefWidth="1161.0" spacing="270.0">
+   <HBox fx:id="buttonBox" alignment="CENTER" layoutX="69.0" layoutY="468.0" prefHeight="166.0" prefWidth="1161.0" spacing="270.0">
       <opaqueInsets>
          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </opaqueInsets>
@@ -45,18 +45,33 @@
          </graphic>
       </JFXButton>
    </HBox>
-   <Button styleClass="util-button" id="terminate" layoutX="1270.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#terminate" prefHeight="20.0" prefWidth="20.0">
+   <Button id="terminate" layoutX="1270.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#terminate" prefHeight="20.0" prefWidth="20.0" styleClass="util-button">
       <graphic>
          <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
             <Image url="@../icons/close.png" />
          </ImageView>
       </graphic>
    </Button>
-   <Button styleClass="util-button" id="iconify" layoutX="1240.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#iconify" prefHeight="20.0" prefWidth="20.0">
+   <Button id="iconify" layoutX="1240.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#iconify" prefHeight="20.0" prefWidth="20.0" styleClass="util-button">
       <graphic>
          <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
             <Image url="@../icons/bar-ico.png" />
          </ImageView>
       </graphic>
    </Button>
+   <Label layoutX="103.0" layoutY="172.0" text="Current patch:">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+   <Label layoutX="604.0" layoutY="172.0" text="Next patch:">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+   <Label layoutX="1078.0" layoutY="172.0" text="Live matches:">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
 </AnchorPane>
