@@ -23,7 +23,7 @@
    <HBox fx:id="buttonBox" id="buttons-box" alignment="CENTER" layoutX="230.0" layoutY="40.0" prefHeight="85.0" prefWidth="840.0">
       <JFXButton onAction="#refreshForUGG"  alignment="CENTER" id="ugg-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="U.GG">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" fx:id="uggPageActive" visible="false">
+            <ImageView opacity="0.3" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" fx:id="uggPageActive">
                <Image url="@../icons/ugg-icon.png"/>
             </ImageView>
          </graphic>
@@ -33,14 +33,14 @@
       </FlowPane>
       <!--<JFXButton onAction="#refreshForMobafire" alignment="CENTER" id="mobafire-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="Mobafire">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" fx:id="mobafirePageActive" visible="false">
+            <ImageView opacity="0.3" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" fx:id="mobafirePageActive" >
                <Image url="@../icons/mobafire-icon.png"/>
             </ImageView>
          </graphic>
       </JFXButton>-->
       <JFXButton onAction="#refreshForLoG" alignment="CENTER" id="leagueofgraphs-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="League of Graphs">
          <graphic>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" fx:id="logPageActive" visible="false">
+            <ImageView opacity="0.3" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" fx:id="logPageActive" >
                <Image url="@../icons/league-of-graphs-icon.png"/>
             </ImageView>
          </graphic>

@@ -258,15 +258,15 @@ public class ChampionsScene
         switch (page)
         {
             case U_GG -> {
-                recentActivePage.setVisible(false);
+                recentActivePage.setOpacity(0.3);
                 recentActivePage = uggPageActive;
             }
             case MOBAFIRE -> {
-                recentActivePage.setVisible(false);
+                recentActivePage.setOpacity(0.3);
                 recentActivePage = mobafirePageActive;
             }
             case LEAGUE_OF_GRAPHS -> {
-                recentActivePage.setVisible(false);
+                recentActivePage.setOpacity(0.3);
                 recentActivePage = logPageActive;
             }
         }
@@ -277,15 +277,15 @@ public class ChampionsScene
         {
             case U_GG ->
             {
-                uggPageActive.setVisible(true);
+                uggPageActive.setOpacity(1);
                 recentActivePage = uggPageActive;
             }
             case MOBAFIRE -> {
-                mobafirePageActive.setVisible(true);
+                mobafirePageActive.setOpacity(1);
                 recentActivePage = mobafirePageActive;
             }
             case LEAGUE_OF_GRAPHS -> {
-                logPageActive.setVisible(true);
+                logPageActive.setOpacity(1);
                 recentActivePage = logPageActive;
             }
         }
