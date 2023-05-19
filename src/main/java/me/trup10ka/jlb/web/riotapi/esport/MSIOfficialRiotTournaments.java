@@ -6,9 +6,7 @@ import me.trup10ka.jlb.data.esport.Schedule;
 import me.trup10ka.jlb.data.esport.Team;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,6 +21,8 @@ public class MSIOfficialRiotTournaments
 
     private final String xAPIKey;
 
+    private final File config = new File("config.cg");
+
     public MSIOfficialRiotTournaments()
     {
         URL url = null;
@@ -30,7 +30,7 @@ public class MSIOfficialRiotTournaments
         try
         {
             url = new URL("https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-GB");
-            xAPIKey = "";
+            xAPIKey = getxAPIKeyFromFile();
         } catch (MalformedURLException e)
         {
             System.err.println("Wrong URL: " + url);
@@ -87,7 +87,7 @@ public class MSIOfficialRiotTournaments
         {
             JSONObject jsonEvent = (JSONObject) event;
             MatchState state = MatchState.valueOf(jsonEvent.getString("state").toUpperCase());
-            if (!(state == matchState))
+            if (state != matchState || isAShow(jsonEvent))
                 continue;
             Team blueTeam = parseTeamFromJSON(jsonEvent, 0);
             Team redTeam = parseTeamFromJSON(jsonEvent, 1);
@@ -104,5 +104,32 @@ public class MSIOfficialRiotTournaments
             throw new IllegalArgumentException("Invalid team index");
         JSONObject team = (JSONObject) json.getJSONObject("match").getJSONArray("teams").get(teamIndex);
         return new Team(team.getString("name"));
+    }
+
+    private String getxAPIKeyFromFile()
+    {
+        String key = null;
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(config)))
+        {
+            String line;
+            while ((line = bufferedReader.readLine()) != null)
+            {
+                String[] property = line.split(":");
+                if (property[0].equals("key"))
+                    key = property[1].trim();
+            }
+        }
+        catch (IOException ioException)
+        {
+            System.err.println("IO error during manipulation with file, reason: " + ioException.getCause().toString());
+        }
+        if (key == null)
+            System.err.println("Error unknown when parsing api key from configuration file");
+        return key;
+    }
+
+    private boolean isAShow(JSONObject jsonObject)
+    {
+        return jsonObject.getString("type").equals("show");
     }
 }
