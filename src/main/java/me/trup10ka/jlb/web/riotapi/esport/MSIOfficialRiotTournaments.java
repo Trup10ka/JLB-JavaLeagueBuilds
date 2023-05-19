@@ -87,7 +87,7 @@ public class MSIOfficialRiotTournaments
         {
             JSONObject jsonEvent = (JSONObject) event;
             MatchState state = MatchState.valueOf(jsonEvent.getString("state").toUpperCase());
-            if (state != matchState || isAShow(jsonEvent))
+            if (state != matchState || isAShow(jsonEvent) || isNotAnMSIEvent(jsonEvent))
                 continue;
             Team blueTeam = parseTeamFromJSON(jsonEvent, 0);
             Team redTeam = parseTeamFromJSON(jsonEvent, 1);
@@ -98,6 +98,7 @@ public class MSIOfficialRiotTournaments
         }
         return matches;
     }
+
     private Team parseTeamFromJSON(JSONObject json, int teamIndex)
     {
         if (teamIndex > 1 || teamIndex < 0)
@@ -131,5 +132,10 @@ public class MSIOfficialRiotTournaments
     private boolean isAShow(JSONObject jsonObject)
     {
         return jsonObject.getString("type").equals("show");
+    }
+
+    private boolean isNotAnMSIEvent(JSONObject jsonObject)
+    {
+        return !(jsonObject.getJSONObject("league").getString("name").equals("MSI"));
     }
 }
