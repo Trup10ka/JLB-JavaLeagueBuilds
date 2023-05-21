@@ -59,7 +59,7 @@
          </ImageView>
       </graphic>
    </Button>
-   <Label layoutX="103.0" layoutY="172.0" text="Current patch:">
+   <!--<Label layoutX="103.0" layoutY="172.0" text="Current patch:">
       <font>
          <Font size="18.0" />
       </font>
@@ -73,5 +73,5 @@
       <font>
          <Font size="18.0" />
       </font>
-   </Label>
+   </Label>-->
 </AnchorPane>
