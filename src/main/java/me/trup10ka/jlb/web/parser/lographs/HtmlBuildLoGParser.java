@@ -2,10 +2,10 @@ package me.trup10ka.jlb.web.parser.lographs;
 
 import me.trup10ka.jlb.data.lolgame.*;
 import me.trup10ka.jlb.util.Descriptions;
-import me.trup10ka.jlb.util.itemssheet.ItemSheetCSVParser;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.WrongChampionPathException;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
+import me.trup10ka.jlb.web.riotapi.items.ItemRiotJSONParser;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,6 +20,8 @@ public final class HtmlBuildLoGParser implements HtmlBuildPageParser
 
     private Document document;
     private Connection connection;
+
+    private ItemRiotJSONParser riotJSONParser;
     private final Elements COLUMNS_WITH_ITEMS;
     private final Elements ALL_BOXES_WITH_CONTENT;
 
@@ -34,6 +36,7 @@ public final class HtmlBuildLoGParser implements HtmlBuildPageParser
         setChampionToParse(url);
         this.COLUMNS_WITH_ITEMS = document.select("div.box.box-padding-10.overviewBox").select("div.columns");
         this.ALL_BOXES_WITH_CONTENT = document.select("div.box.box-padding-10.overviewBox");
+        this.riotJSONParser = new ItemRiotJSONParser();
 
         this.numberOfKeystoneRunes = calculateNumberOfKeystoneRunes();
         this.numberOfSideRunes = calculateNumberSideRunes();
@@ -182,7 +185,7 @@ public final class HtmlBuildLoGParser implements HtmlBuildPageParser
             if (!startingItem.attr("tooltip-class").equals("itemTooltip") ||
                     !startingItem.attr("height").equals("48"))
                 continue;
-            item = ItemSheetCSVParser.getItemFromName(startingItem.first().attr("alt"));
+            item = riotJSONParser.getItem(startingItem.first().attr("alt"));
         }
         return item;
     }
@@ -199,7 +202,7 @@ public final class HtmlBuildLoGParser implements HtmlBuildPageParser
                 if (!startingItem.attr("tooltip-class").equals("itemTooltip") ||
                         !startingItem.attr("height").equals("48"))
                     continue;
-                Item item = ItemSheetCSVParser.getItemFromName(startingItem.attr("alt"));
+                Item item = riotJSONParser.getItem(startingItem.attr("alt"));
                 if (item == null)
                     continue;
                 items.add(item);

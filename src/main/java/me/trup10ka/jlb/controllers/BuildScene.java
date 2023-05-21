@@ -401,7 +401,7 @@ public class BuildScene
 
     private void createTooltipForItem(Item item, Node node)
     {
-        String description = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name()) + "\n\n" + Descriptions.getDescriptionOfItem(item.name());
+        String description = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name()) + "\n\n" + item.description();
         assignTooltipForNode(node, description);
     }
     private void createTooltipForRune(Rune rune, Node node)

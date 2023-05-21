@@ -2,10 +2,10 @@ package me.trup10ka.jlb.web.parser.ugg;
 
 import me.trup10ka.jlb.data.lolgame.*;
 import me.trup10ka.jlb.util.Descriptions;
-import me.trup10ka.jlb.util.itemssheet.ItemSheetCSVParser;
 import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.WrongChampionPathException;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
+import me.trup10ka.jlb.web.riotapi.items.ItemRiotJSONParser;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,6 +30,8 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
     private Document document;
     private Connection connection;
 
+    private ItemRiotJSONParser riotJSONParser;
+
     public HtmlBuildUGGParser(String champion)
     {
         setChampionToParse(champion);
@@ -42,6 +44,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         {
             this.connection = Jsoup.connect(Page.U_GG.championURL(champion));
             this.document = parse();
+            this.riotJSONParser = new ItemRiotJSONParser();
         }
         catch (RuntimeException ignored) {}
         if (validate(document))
@@ -198,8 +201,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
     private Set<Item> queryItemPosition(String itemCategory)
     {
         Set<Item> coreItems = new TreeSet<>();
-
-        int[] usedPositionValues = null;
+        float[] usedPositionValues = null;
         String usedImagePath = null;
 
         for (Element element : document.select(itemCategory).select("div.item-img"))
@@ -207,28 +209,19 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
             String startingItem = element.select("div > div").select("div > div")
                     .attr("style");
             String imagePath = imagePath(startingItem);
-            int[] positionValues = positionOfImage(startingItem);
-
+            float[] positionValues = positionOfImage(startingItem);
             if (usedPositionValues == null)
             {
-                usedPositionValues = new int[2];
+                usedPositionValues = new float[2];
                 setValuesForUsedVariables(usedPositionValues, positionValues);
                 usedImagePath = imagePath;
-                String nameOfItem = ItemSheetCSVParser.generateNameFromGivenPositionsAndSprite(positionValues, imagePath);
-                String itemDescription = Descriptions.getDescriptionOfItem(nameOfItem);
-                coreItems.add(new Item(nameOfItem, imagePath, itemDescription, positionValues[0], positionValues[1]));
+                coreItems.add(riotJSONParser.getItem(positionValues, imagePath));
                 continue;
             }
 
             if (isItemAlreadyRegistered(usedImagePath, imagePath, usedPositionValues, positionValues))
                 break;
-            String nameOfItem = ItemSheetCSVParser.generateNameFromGivenPositionsAndSprite(positionValues, imagePath);
-            String itemDescription = Descriptions.getDescriptionOfItem(nameOfItem);
-            coreItems.add(new Item(nameOfItem
-                    ,imagePath
-                    ,itemDescription
-                    ,positionValues[0]
-                    ,positionValues[1]));
+            coreItems.add(riotJSONParser.getItem(positionValues, imagePath));
         }
         return coreItems;
     }
@@ -275,7 +268,6 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
     {
         Pattern pattern = Pattern.compile("\\((.*?)\\)");
         Matcher matcher = pattern.matcher(image);
-
         String url = matcher.find() ? matcher.group(0) : "";
 
         return url.substring(url.lastIndexOf("/") + 1, url.length() - 1).replaceAll("webp", "png");
@@ -286,7 +278,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
      * @param image item image URL
      * @return array of background positions x and y
      */
-    private int[] positionOfImage(String image)
+    private float[] positionOfImage(String image)
     {
         Pattern pattern = Pattern.compile("(?<=background-position:).*?(?=;)");
         Matcher matcher = pattern.matcher(image);
@@ -295,9 +287,9 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         String positionParseAble = position.replaceAll("px", "");
         String[] result = positionParseAble.split(" ");
 
-        int positionX = Integer.parseInt(result[0]);
-        int positionY = Integer.parseInt(result[1]);
-        return new int[]{positionX, positionY};
+        float positionX = Float.parseFloat(result[0]);
+        float positionY = Float.parseFloat(result[1]);
+        return new float[]{positionX, positionY};
     }
     /**
      * Checks whether the specified item is already saved
@@ -310,8 +302,8 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
      */
     private boolean isItemAlreadyRegistered(String usedImagePath,
                                             String imagePath,
-                                            int[] positionValues,
-                                            int[] usedPositionValues)
+                                            float[] positionValues,
+                                            float[] usedPositionValues)
     {
         return usedPositionValues[0] == positionValues[0] && usedPositionValues[1] == positionValues[1] && usedImagePath.equals(imagePath);
     }
@@ -321,7 +313,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
      * @param usedPositionValues old used position values
      * @param positionValues new position values
      */
-    private void setValuesForUsedVariables(int[] usedPositionValues, int[] positionValues)
+    private void setValuesForUsedVariables(float[] usedPositionValues, float[] positionValues)
     {
         usedPositionValues[0] = positionValues[0];
         usedPositionValues[1] = positionValues[1];
