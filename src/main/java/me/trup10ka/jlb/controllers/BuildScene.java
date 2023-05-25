@@ -431,7 +431,7 @@ public class BuildScene
             return;
         JavaLeagueBuilds.setChosenPage(Page.U_GG);
         CompletableFuture.runAsync(() -> {
-            HtmlBuildPageParser parser = new HtmlBuildUGGParser(FormattedString.U_GG_HYPERLINK_FORMAT.toFormat(recentChampion.getName()));
+            HtmlBuildPageParser parser = new HtmlBuildUGGParser(FormattedString.U_GG_CHAMPION_HYPERLINK_FORMAT.toFormat(recentChampion.getName()));
             setChampionToParse(recentChampion, parser);
         });
         clearPageAndSwitchToChampions();
@@ -443,7 +443,7 @@ public class BuildScene
             return;
         JavaLeagueBuilds.setChosenPage(Page.LEAGUE_OF_GRAPHS);
         CompletableFuture.runAsync(() -> {
-            HtmlBuildPageParser parser = new HtmlBuildLoGParser(FormattedString.LOG_HYPERLINK_FORMAT.toFormat(recentChampion.getName()));
+            HtmlBuildPageParser parser = new HtmlBuildLoGParser(FormattedString.LOG_CHAMPION_HYPERLINK_FORMAT.toFormat(recentChampion.getName()));
             setChampionToParse(recentChampion, parser);
         });
         clearPageAndSwitchToChampions();

@@ -51,7 +51,7 @@ public class HtmlChampionsLoGParser implements HtmlChampionsPageParser
         champions = new ArrayList<>(190);
         for (Element element : document.select("div#championListBox").select("div.championName"))
         {
-            String formattedName = FormattedString.LOG_HYPERLINK_FORMAT.toFormat(element.text());
+            String formattedName = FormattedString.LOG_CHAMPION_HYPERLINK_FORMAT.toFormat(element.text());
             champions.add(
                     new Champion(element.text(), formattedName)
             );

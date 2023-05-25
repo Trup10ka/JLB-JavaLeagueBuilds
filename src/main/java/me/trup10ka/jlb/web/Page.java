@@ -19,12 +19,12 @@ public enum Page
                     return "https://u.gg/lol/champions/" + champion + "/build";
                 }
             },
-    MOBAFIRE("https://www.mobafire.com/champions/")
+    MOBAFIRE("https://www.mobafire.com/league-of-legends/champions")
             {
                 @Override
                 public String championURL(String champion)
                 {
-                    return null;
+                    return "https://www.mobafire.com/league-of-legends/champion/" + champion;
                 }
             },
     LEAGUE_OF_GRAPHS("https://www.leagueofgraphs.com")

@@ -3,7 +3,7 @@ package me.trup10ka.jlb.util;
 
 public enum FormattedString
 {
-    U_GG_HYPERLINK_FORMAT
+    U_GG_CHAMPION_HYPERLINK_FORMAT
             {
                 @Override
                 public String toFormat(String toBeFormatted)
@@ -15,7 +15,7 @@ public enum FormattedString
                             .toLowerCase();
                 }
             },
-    LOG_HYPERLINK_FORMAT
+    LOG_CHAMPION_HYPERLINK_FORMAT
             {
                 @Override
                 public String toFormat(String toBeFormatted)
@@ -32,6 +32,19 @@ public enum FormattedString
                     else if (formatted.equals("wukong"))
                         formatted= "monkeyking";
                     return formatted;
+                }
+            },
+    MOBAFIRE_CHAMPION_HYPERLINK_FORMAT
+            {
+                @Override
+                public String toFormat(String toBeFormatted)
+                {
+                    return toBeFormatted
+                            .replaceAll("\\.", "")
+                            .replaceAll("'", "")
+                            .replaceAll("&", "amp")
+                            .replaceAll(" ", "-")
+                            .toLowerCase();
                 }
             },
     CHAMPION_IMAGE_NAME_FORMAT
