@@ -16,6 +16,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/**
+ * Class responsible for parsing all possible community builds available
+ * <br><br>
+ * When Page is created by community, each build has a {@link CommunityBuild#creatorName creator name}
+ * , {@link CommunityBuild#build his build link} and {@link CommunityBuild#nameOfTheBuild creator name}
+ *
+ * @see HtmlBuildMobafireParser Mobafire parser
+ * @see CommunityBuild
+ */
 public class HtmlAllBuildsMobafireParser implements HtmlAllBuildsPageParser
 {
 

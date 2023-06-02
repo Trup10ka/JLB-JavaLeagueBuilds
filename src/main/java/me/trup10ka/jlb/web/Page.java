@@ -35,10 +35,18 @@ public enum Page
                     return "https://www.leagueofgraphs.com/champions/builds/" + champion;
                 }
             };
+    /**
+     * URL for page, where all champions, which page provides, are.
+     */
     public final String ALL_CHAMPIONS_URL;
 
+    /**
+     * URL for home screen of the page
+     */
     public final String RAW_WEB_URL;
-
+    /**
+     * Stores a value as boolean if this page builds are created by players or by statistics
+     */
     public final boolean IS_COMMUNITY_BUILD;
 
     Page(String ALL_CHAMPIONS_URL, boolean IS_COMMUNITY_BUILD)

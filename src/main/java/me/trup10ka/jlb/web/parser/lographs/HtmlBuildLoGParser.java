@@ -15,6 +15,13 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Class representing builds parser for {@link Page#LEAGUE_OF_GRAPHS League of Graphs} page
+ * @see HtmlBuildPageParser
+ * @see me.trup10ka.jlb.controllers.BuildScene BuildScene
+ * @see ItemBuild
+ * @see RunePage
+ */
 public final class HtmlBuildLoGParser implements HtmlBuildPageParser
 {
 

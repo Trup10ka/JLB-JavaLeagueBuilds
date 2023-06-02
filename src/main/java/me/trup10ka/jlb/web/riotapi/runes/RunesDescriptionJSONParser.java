@@ -10,9 +10,17 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+/**
+ * Class for parsing JSON Riot file with {@link me.trup10ka.jlb.data.lolgame.Rune Runes}
+ * @see me.trup10ka.jlb.data.lolgame.RunePage RunePage
+ * @see <a href="https://developer.riotgames.com/docs/lol">RIOT API Docs</a>
+ */
 public class RunesDescriptionJSONParser
 {
     private final URL apiURL;
+    /**
+     * JSON file with Items
+     */
     private final JSONArray allRunes;
 
     public RunesDescriptionJSONParser()
@@ -30,6 +38,9 @@ public class RunesDescriptionJSONParser
         allRunes = getJSON();
     }
 
+    /**
+     * @return Requested JSON file from API
+     */
     private JSONArray getJSON()
     {
         String json = null;
@@ -43,6 +54,12 @@ public class RunesDescriptionJSONParser
         assert json != null;
         return new JSONArray(json);
     }
+
+    /**
+     *
+     * @param compareName rune which you want the description of
+     * @return a {@link me.trup10ka.jlb.data.lolgame.Rune Rune} description
+     */
     public String getDescriptionForRune(String compareName)
     {
         for (int i = 0; i < allRunes.length(); i++)
@@ -63,5 +80,4 @@ public class RunesDescriptionJSONParser
         System.err.println("Couldn't find desired rune. Looked for: " + compareName);
         return null;
     }
-
 }

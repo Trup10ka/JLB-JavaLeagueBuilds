@@ -10,12 +10,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-
+/**
+ * Class representing Riot JSON file parser for {@link Item}
+ * @see me.trup10ka.jlb.data.lolgame.ItemBuild ItemBuild
+ * @see <a href="https://developer.riotgames.com/docs/lol#data-dragon_data-assets">Riot API Docs</a>
+ */
 public final class ItemRiotJSONParser
 {
 
     private final URL apiURL;
-
+    /**
+     * JSON file with Items
+     */
     private final JSONObject allItems;
 
 
@@ -34,6 +40,9 @@ public final class ItemRiotJSONParser
         this.allItems = getJSON();
     }
 
+    /**
+     * @return JSON file from provided URL
+     */
     private JSONObject getJSON()
     {
         String json = null;
@@ -48,6 +57,14 @@ public final class ItemRiotJSONParser
         return new JSONObject(json).getJSONObject("data");
     }
 
+    /**
+     * Locates the Item in the JSON file and returns with all his attributes.
+     * <br><br>
+     * Compares the name of the parameter and all
+     * of the available items in JSON file
+     * @param nameOfItem name of the Item which you want to be created
+     * @return new {@link Item} if found
+     */
     public Item getItem(String nameOfItem)
     {
         for (String key : allItems.keySet())
