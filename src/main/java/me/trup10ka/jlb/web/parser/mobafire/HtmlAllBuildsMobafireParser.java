@@ -72,24 +72,23 @@ public class HtmlAllBuildsMobafireParser implements HtmlAllBuildsPageParser
                     break;
                 continue;
             }
-            Elements ratings = element.select("div.mf-listings__item__rating__info");
-            Elements creator = element.select("div.mf-listings__item__info").select("div.mf-listings__item__info__main");
-            String nameOfTheBuild = creator.select("h3").text();
-            URL buildUrl = null;
-            try
-            {
-                buildUrl = new URL(Page.MOBAFIRE.RAW_WEB_URL + element.attr("href"));
-            } catch (MalformedURLException e)
-            {
-                System.err.println("HtmlAllBuildsMobafireParser error: Could not create URL from given text");
-            }
-            short ratingUp = Short.parseShort(ratings.select("div").get(1).text());
-            short ratingDown = Short.parseShort(ratings.select("div").get(2).text());
-            Rating rating = new Rating(ratingUp, ratingDown);
+            Elements metaInfo = element.select("div.mf-listings__item__info").select("div.mf-listings__item__info__main");
 
-            allPossibleCurrentPatchBuilds.add(new CommunityBuild(nameOfTheBuild, buildUrl, rating));
+            String nameOfTheBuild = metaInfo.select("h3").text();
+            String creatorName = metaInfo.select("span.user-level").text();
+            String buildUrl = Page.MOBAFIRE.RAW_WEB_URL + element.attr("href");
+            Rating rating = parseRating(element);
+
+            allPossibleCurrentPatchBuilds.add(new CommunityBuild(nameOfTheBuild, creatorName, buildUrl, rating));
         }
 
         return allPossibleCurrentPatchBuilds;
+    }
+    private Rating parseRating(Element element)
+    {
+        Elements ratings = element.select("div.mf-listings__item__rating__info");
+        short ratingUp = Short.parseShort(ratings.select("div").get(1).text());
+        short ratingDown = Short.parseShort(ratings.select("div").get(2).text());
+        return new Rating(ratingUp, ratingDown);
     }
 }

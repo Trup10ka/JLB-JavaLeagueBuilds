@@ -30,9 +30,9 @@ public class JavaLeagueBuilds extends Application
     private double yOffSet;
     private final Scene mainScene;
     private final Scene championScene;
-    private final Scene buildScene;
+    private final Scene buildSceneStatic;
+    private final Scene buildSceneCommunity;
     private final Scene loadingScene;
-    private final Scene chooseBuildScene;
 
     /**
      * A wrap-up for all the Scenes above to handle them easier ({@link JavaLeagueBuilds#start(Stage) here; line 91})
@@ -57,16 +57,16 @@ public class JavaLeagueBuilds extends Application
 
         Scene mainScene = null;
         Scene championsScene = null;
-        Scene buildScene = null;
+        Scene buildSceneStatic = null;
+        Scene buildSceneCommunity = null;
         Scene loadingScene = null;
-        Scene chooseBuildScene = null;
         try
         {
             mainScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/MainScene.fxml")));
             championsScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/ChampionsScene.fxml")));
-            buildScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildScene.fxml")));
+            buildSceneStatic = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildSceneStatic.fxml")));
+            buildSceneCommunity = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildSceneCommunity.fxml")));
             loadingScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/LoadingScene.fxml")));
-            chooseBuildScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/ChooseBuildScene.fxml")));
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -74,10 +74,10 @@ public class JavaLeagueBuilds extends Application
 
         this.mainScene = mainScene;
         this.championScene = championsScene;
-        this.buildScene = buildScene;
+        this.buildSceneStatic = buildSceneStatic;
+        this.buildSceneCommunity = buildSceneCommunity;
         this.loadingScene = loadingScene;
-        this.chooseBuildScene = chooseBuildScene;
-        this.scenes = Arrays.asList(mainScene, championsScene, buildScene, loadingScene, chooseBuildScene);
+        this.scenes = Arrays.asList(mainScene, championsScene, buildSceneStatic, buildSceneCommunity, loadingScene);
     }
 
     /**
@@ -109,18 +109,18 @@ public class JavaLeagueBuilds extends Application
         stage.setScene(championScene);
     }
 
-    public void switchToBuildScene()
+    public void switchToBuildSceneStatic()
     {
-        stage.setScene(buildScene);
+        stage.setScene(buildSceneStatic);
+    }
+
+    public void switchToBuildSceneCommunity()
+    {
+        stage.setScene(buildSceneCommunity);
     }
     public void switchToLoading()
     {
         stage.setScene(loadingScene);
-    }
-
-    public void switchToChooseBuildScene()
-    {
-        stage.setScene(chooseBuildScene);
     }
 
     /**

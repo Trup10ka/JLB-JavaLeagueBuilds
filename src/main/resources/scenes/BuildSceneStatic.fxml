@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.BuildScene">
+<AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.builds.BuildSceneStatic">
    <Pane id="application-header" fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
    <Line endX="-91.0" endY="573.0" layoutX="280.0" layoutY="93.0" startX="-91.0" startY="-60.0" />
    <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="763.0" layoutY="107.0" lineSpacing="4.0" prefHeight="130.0" prefWidth="263.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
@@ -55,35 +55,6 @@
       </graphic>
       </JFXButton>
    </VBox>
-   <Pane id="items-pane" layoutX="225.0" layoutY="379.0" prefHeight="214.0" prefWidth="850.0">
-      <HBox alignment="CENTER_LEFT" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" spacing="7.0">
-         <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
-         <Label styleClass="font-changer" text="Starting Items">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Label>
-      </HBox>
-      <HBox fx:id="startingItems" alignment="CENTER" layoutY="50.0" prefHeight="156.0" prefWidth="166.0" spacing="25" />
-      <HBox alignment="CENTER_LEFT" layoutX="202.0" layoutY="5.0" prefHeight="45.0" prefWidth="111.0" spacing="7.0">
-         <Line endX="100.0" startX="100.0" startY="26.0" stroke="#464646" strokeWidth="2.0" />
-         <Label styleClass="font-changer" text="Core Items">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Label>
-      </HBox>
-      <HBox fx:id="coreItems" layoutX="202.0" layoutY="50.0" prefHeight="156.0" prefWidth="179.0" />
-      <HBox alignment="CENTER_LEFT" layoutX="498.0" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" spacing="7.0">
-         <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
-         <Label styleClass="font-changer" text="Other Items">
-            <font>
-               <Font size="18.0" />
-            </font>
-         </Label>
-      </HBox>
-      <HBox fx:id="otherItems" layoutX="498.0" layoutY="50.0" prefHeight="156.0" prefWidth="179.0" />
-   </Pane>
    <Pane id="summoners-pane" layoutX="1082.0" layoutY="115.0" prefHeight="174.0" prefWidth="213.0">
       <VBox fx:id="summonersBox" alignment="CENTER" layoutX="67.0" layoutY="44.0" prefHeight="130.0" prefWidth="79.0" styleClass="filled-box" />
       <Label layoutX="24.0" prefHeight="35.0" prefWidth="166.0" styleClass="font-changer" text="Summoner spells">
@@ -104,5 +75,34 @@
          </Label>
          <Line endX="-20.0" startX="-85.0" stroke="#464646" strokeWidth="2.0" />
       </VBox>
+   </Pane>
+   <Pane id="items-pane" layoutX="225.0" layoutY="379.0" prefHeight="214.0" prefWidth="993.0">
+      <HBox alignment="CENTER_LEFT" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" spacing="7.0">
+         <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
+         <Label styleClass="font-changer" text="Starting Items">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+      </HBox>
+      <HBox fx:id="startingItems" alignment="CENTER" layoutY="50.0" prefHeight="156.0" prefWidth="166.0" spacing="25" />
+      <HBox alignment="CENTER_LEFT" layoutX="285.0" layoutY="7.0" prefHeight="45.0" prefWidth="111.0" spacing="7.0">
+         <Line endX="100.0" startX="100.0" startY="26.0" stroke="#464646" strokeWidth="2.0" />
+         <Label styleClass="font-changer" text="Core Items">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+      </HBox>
+      <HBox fx:id="coreItems" layoutX="285.0" layoutY="52.0" prefHeight="156.0" prefWidth="179.0" />
+      <HBox alignment="CENTER_LEFT" layoutX="602.0" layoutY="7.0" prefHeight="45.0" prefWidth="130.0" spacing="7.0">
+         <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
+         <Label styleClass="font-changer" text="Other Items">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+      </HBox>
+      <HBox fx:id="otherItems" layoutX="602.0" layoutY="52.0" prefHeight="156.0" prefWidth="179.0" />
    </Pane>
 </AnchorPane>

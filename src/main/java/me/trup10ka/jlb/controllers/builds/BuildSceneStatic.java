@@ -1,4 +1,4 @@
-package me.trup10ka.jlb.controllers;
+package me.trup10ka.jlb.controllers.builds;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
+import me.trup10ka.jlb.controllers.ChampionsScene;
 import me.trup10ka.jlb.data.lolgame.*;
 import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.util.Descriptions;
@@ -29,10 +30,10 @@ import java.util.concurrent.CompletableFuture;
  * @since 1.0.0
  * @author Lukas "Trup10ka" Friedl
  */
-public class BuildScene
+public class BuildSceneStatic
 {
 
-    private static BuildScene instance;
+    private static BuildSceneStatic instance;
     /**
      * {@link Champion} which has user chosen, and from which data will be queried
      */
@@ -76,7 +77,7 @@ public class BuildScene
                 startingItems, coreItems, otherItems, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox));
     }
 
-    public BuildScene()
+    public BuildSceneStatic()
     {
         instance = this;
     }
@@ -94,7 +95,6 @@ public class BuildScene
                 && recentChampion.getName().equals(champion.getName())
                 && recentlyUsedPage.equals(JavaLeagueBuilds.getChosenPage())))
         {
-
             recentlyUsedPage = JavaLeagueBuilds.getChosenPage();
             recentChampion = new Champion(
                     champion.getName(),
@@ -108,9 +108,9 @@ public class BuildScene
     /**
      * Builds the entire Build page, by calling <strong>arranging</strong> methods
      * <ul>
-     *     <li>{@link BuildScene#arrangeItems(ItemBuild) Arrange Items}</li>
-     *     <li>{@link BuildScene#arrangeRunes() Arrange Runes}</li>
-     *     <li>{@link BuildScene#arrangeSummonerSpells() Arrange Summoner Spells}</li>
+     *     <li>{@link BuildSceneStatic#arrangeItems(ItemBuild) Arrange Items}</li>
+     *     <li>{@link BuildSceneStatic#arrangeRunes() Arrange Runes}</li>
+     *     <li>{@link BuildSceneStatic#arrangeSummonerSpells() Arrange Summoner Spells}</li>
      * </ul>
      */
     @FXML
@@ -123,8 +123,8 @@ public class BuildScene
     }
 
     /**
-     * Arranges {@link BuildScene#arrangeStartingItems(ItemBuild) starting items}, {@link BuildScene#arrangeCoreItems(ItemBuild) core items}
-     * and {@link BuildScene#arrangeOtherItems(ItemBuild) other items}
+     * Arranges {@link BuildSceneStatic#arrangeStartingItems(ItemBuild) starting items}, {@link BuildSceneStatic#arrangeCoreItems(ItemBuild) core items}
+     * and {@link BuildSceneStatic#arrangeOtherItems(ItemBuild) other items}
      * @param itemBuild chosen champion's {@link ItemBuild}
      */
     private void arrangeItems(ItemBuild itemBuild)
@@ -135,8 +135,8 @@ public class BuildScene
     }
 
     /**
-     * Arranges all champion's runes, including: <br> {@link BuildScene#mainRunes() Keystone and main runes} and
-     * {@link BuildScene#secondaryRunesAndAttributes() secondary runes and atributes}
+     * Arranges all champion's runes, including: <br> {@link BuildSceneStatic#mainRunes() Keystone and main runes} and
+     * {@link BuildSceneStatic#secondaryRunesAndAttributes() secondary runes and atributes}
      */
     private void arrangeRunes()
     {
@@ -145,7 +145,7 @@ public class BuildScene
     }
 
     /**
-     * Adds champion's summoner spells into the {@link JavaLeagueBuilds#buildScene BuildScene}
+     * Adds champion's summoner spells into the {@link JavaLeagueBuilds#buildSceneStatic BuildSceneStatic}
      */
     private void arrangeSummonerSpells()
     {
@@ -382,8 +382,8 @@ public class BuildScene
     }
 
     /**
-     * Clears the BuildScene page
-     * @param boxes all nodes present and visible in BuildScene
+     * Clears the BuildSceneStatic page
+     * @param boxes all nodes present and visible in BuildSceneStatic
      */
     private void clearPageAndSwitchToChampions(boolean shouldSwitch, Pane... boxes)
     {
@@ -448,7 +448,7 @@ public class BuildScene
         });
         clearPageAndSwitchToChampions();
     }
-    public static BuildScene getInstance()
+    public static BuildSceneStatic getInstance()
     {
         return instance;
     }

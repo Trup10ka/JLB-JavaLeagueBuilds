@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.builds.BuildSceneCommunity">
+    <Pane id="application-header" fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
+    <Line endX="-91.0" endY="573.0" layoutX="280.0" layoutY="93.0" startX="-91.0" startY="-60.0" />
+    <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="763.0" layoutY="107.0" lineSpacing="4.0" prefHeight="130.0" prefWidth="263.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+        <font>
+            <Font size="26.0" />
+        </font>
+    </Label>
+    <Button id="terminate" layoutX="1270.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#terminate" prefHeight="20.0" prefWidth="20.0" styleClass="util-button">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../icons/close.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button id="iconify" layoutX="1240.0" layoutY="3.0" maxHeight="20.0" maxWidth="20.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#iconify" prefHeight="20.0" prefWidth="20.0" styleClass="util-button">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#terminate" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../icons/bar-ico.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button id="arrow" fx:id="goBack" layoutX="1210.0" layoutY="3.0" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="22.0">
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="1215.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../icons/left-arrow.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <VBox alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="674.0" prefWidth="166.0" spacing="180.0">
+
+    </VBox>
+    <Pane id="summoners-pane" layoutX="1082.0" layoutY="115.0" prefHeight="174.0" prefWidth="213.0">
+        <VBox fx:id="summonersBox" alignment="CENTER" layoutX="67.0" layoutY="44.0" prefHeight="130.0" prefWidth="79.0" styleClass="filled-box" />
+        <Label layoutX="24.0" prefHeight="35.0" prefWidth="166.0" styleClass="font-changer" text="Summoner spells">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Line endX="13.0" endY="34.0" layoutX="1.0" layoutY="-32.0" startX="13.0" startY="64.0" />
+    </Pane>
+    <Pane id="runes-pane" layoutX="216.0" layoutY="42.0" prefHeight="260.0" prefWidth="502.0">
+        <HBox fx:id="mainRunesBox" alignment="CENTER" layoutX="129.0" layoutY="14.0" prefHeight="100.0" prefWidth="350.0" spacing="15" styleClass="filled-box" />
+        <HBox fx:id="secondaryRunesAndAttributesBox" alignment="CENTER" layoutX="129.0" layoutY="138.0" prefHeight="100.0" prefWidth="350.0" spacing="20" styleClass="filled-box" />
+        <VBox alignment="CENTER" layoutX="14.0" layoutY="108.0" prefHeight="45.0" prefWidth="95.0">
+            <Label text="Runes">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </Label>
+            <Line endX="-20.0" startX="-85.0" stroke="#464646" strokeWidth="2.0" />
+        </VBox>
+    </Pane>
+    <Pane id="items-pane" layoutX="225.0" layoutY="379.0" prefHeight="214.0" prefWidth="993.0">
+        <HBox fx:id="items" layoutX="16.0" layoutY="49.0" prefHeight="151.0" prefWidth="961.0" />
+        <VBox alignment="CENTER" layoutX="16.0" prefHeight="45.0" prefWidth="95.0">
+            <Label text="Items">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            </Label>
+            <Line endX="-20.0" startX="-85.0" stroke="#464646" strokeWidth="2.0" />
+        </VBox>
+    </Pane>
+</AnchorPane>
