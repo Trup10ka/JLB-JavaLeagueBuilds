@@ -4,23 +4,19 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
+import me.trup10ka.jlb.controllers.builds.*;
 import me.trup10ka.jlb.data.lolgame.Champion;
-import me.trup10ka.jlb.util.FormattedString;
-import me.trup10ka.jlb.util.RoundCorners;
+import me.trup10ka.jlb.util.*;
 import me.trup10ka.jlb.web.Page;
-import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
-import me.trup10ka.jlb.web.parser.HtmlChampionsPageParser;
-import me.trup10ka.jlb.web.parser.lographs.HtmlBuildLoGParser;
-import me.trup10ka.jlb.web.parser.lographs.HtmlChampionsLoGParser;
-import me.trup10ka.jlb.web.parser.mobafire.HtmlBuildMobafireParser;
-import me.trup10ka.jlb.web.parser.mobafire.HtmlChampionsMobafireParser;
-import me.trup10ka.jlb.web.parser.ugg.HtmlBuildUGGParser;
-import me.trup10ka.jlb.web.parser.ugg.HtmlChampionsUGGParser;
+import me.trup10ka.jlb.web.parser.*;
+import me.trup10ka.jlb.web.parser.lographs.*;
+import me.trup10ka.jlb.web.parser.mobafire.*;
+import me.trup10ka.jlb.web.parser.ugg.*;
+
 
 
 import java.net.URL;
@@ -146,27 +142,18 @@ public class ChampionsScene
     }
 
     /**
-     * @param champion {@link Champion} which is needed to be parsed for the possible future {@link BuildScene}
+     * @param champion {@link Champion} which is needed to be parsed for the possible future {@link BuildSceneStatic}
      * @return StackPane in which is ImageView wrapped
      */
     private StackPane createPaneForImageView(Champion champion)
     {
         StackPane imgViewPane = new StackPane();
         imgViewPane.getStyleClass().add("champion-image");
-        imgViewPane.setOnMouseClicked(mouseEvent ->
-        {
-            JavaLeagueBuilds.getInstance().switchToLoading();
-            CompletableFuture.runAsync(() -> 
-            {
-                HtmlBuildPageParser buildPage = switch (JavaLeagueBuilds.getChosenPage())
-                {
-                    case U_GG -> new HtmlBuildUGGParser(champion.getWebBuildPagePath());
-                    case MOBAFIRE -> new HtmlBuildMobafireParser(champion.getWebBuildPagePath());
-                    case LEAGUE_OF_GRAPHS -> new HtmlBuildLoGParser(champion.getWebBuildPagePath());
-                };
-                BuildScene.getInstance().setChampionToParse(champion, buildPage);
-            }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildScene()));
-        });
+
+        if (!JavaLeagueBuilds.getChosenPage().IS_COMMUNITY_BUILD)
+            imgViewPane.setOnMouseClicked(mouseEvent -> createAndShowStaticBuildParser(champion));
+        else
+            imgViewPane.setOnMouseClicked(mouseEvent -> createAndShowCommunityBuildParser(champion));
         return imgViewPane;
     }
 
@@ -201,6 +188,64 @@ public class ChampionsScene
         for (String key : allChampionCardsByTheirNames.keySet())
             if (key.toLowerCase().contains(searchingName.toLowerCase()))
                 championsPane.getChildren().add(allChampionCardsByTheirNames.get(key));
+    }
+
+    private void createAndShowStaticBuildParser(Champion champion)
+    {
+        JavaLeagueBuilds.getInstance().switchToLoading();
+        CompletableFuture.runAsync(() ->
+        {
+            HtmlBuildPageParser buildPage = getBuildPageParser(JavaLeagueBuilds.getChosenPage(), champion);
+            BuildSceneStatic.getInstance().setChampionToParse(champion, buildPage);
+        }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildSceneStatic()));
+    }
+    private void createAndShowCommunityBuildParser(Champion champion)
+    {
+        JavaLeagueBuilds.getInstance().switchToLoading();
+        CompletableFuture.runAsync(() ->
+        {
+            HtmlAllBuildsPageParser allBuildsPageParser = getAllBuildPageParser(JavaLeagueBuilds.getChosenPage(), champion);
+            HtmlBuildPageParser buildPageParser = getBuildPageParser(JavaLeagueBuilds.getChosenPage(), allBuildsPageParser);
+
+            BuildSceneCommunity.getInstance().setBuildToParse(allBuildsPageParser.allCommunityBuilds(), buildPageParser, champion.getName());
+        }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildSceneCommunity()));
+    }
+
+    private HtmlAllBuildsPageParser getAllBuildPageParser(Page page, Champion champion)
+    {
+        return switch (page)
+        {
+            case MOBAFIRE -> new HtmlAllBuildsMobafireParser(champion.getWebBuildPagePath());
+            default -> throw new IllegalArgumentException("ChampionsScene.java exception: Chosen page cannot be " + JavaLeagueBuilds.getChosenPage().name()
+                    + " because " + JavaLeagueBuilds.getChosenPage().name() +" \"IS_COMMUNITY_BUILD\" is false");
+        };
+    }
+
+    private HtmlBuildPageParser getBuildPageParser(Page page, Champion champion)
+    {
+        return getBuildPageParser(page, champion, null);
+    }
+    private HtmlBuildPageParser getBuildPageParser(Page page, HtmlAllBuildsPageParser allBuildsPageParser)
+    {
+        return getBuildPageParser(page, null, allBuildsPageParser);
+    }
+    private HtmlBuildPageParser getBuildPageParser(Page page, Champion champion, HtmlAllBuildsPageParser allBuildsPageParser)
+    {
+        if (page.IS_COMMUNITY_BUILD)
+            return switch (JavaLeagueBuilds.getChosenPage())
+            {
+                case MOBAFIRE -> new HtmlBuildMobafireParser(allBuildsPageParser.allCommunityBuilds().get(0).buildURL());
+                default -> throw new IllegalArgumentException("ChampionsScene.java exception: Chosen page cannot be " + JavaLeagueBuilds.getChosenPage().name()
+                        + " because " + JavaLeagueBuilds.getChosenPage().name() +" \"IS_COMMUNITY_BUILD\" is false");
+            };
+        else
+            return switch (JavaLeagueBuilds.getChosenPage())
+            {
+                case U_GG -> new HtmlBuildUGGParser(champion.getWebBuildPagePath());
+                case LEAGUE_OF_GRAPHS -> new HtmlBuildLoGParser(champion.getWebBuildPagePath());
+                default -> throw new IllegalArgumentException("ChampionsScene.java exception: Chosen page cannot be " + JavaLeagueBuilds.getChosenPage().name()
+                        + " because " + JavaLeagueBuilds.getChosenPage().name() +" \"IS_COMMUNITY_BUILD\" is true");
+            };
     }
     @FXML
     private void refreshForUGG()
