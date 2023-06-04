@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Class responsible for parsing all possible community builds available
  * <br><br>
  * When Page is created by community, each build has a {@link CommunityBuild#creatorName creator name}
- * , {@link CommunityBuild#build his build link} and {@link CommunityBuild#nameOfTheBuild creator name}
+ * , {@link CommunityBuild#buildURL his build link} and {@link CommunityBuild#nameOfTheBuild creator name}
  *
  * @see HtmlBuildMobafireParser Mobafire parser
  * @see CommunityBuild
@@ -81,12 +81,15 @@ public class HtmlAllBuildsMobafireParser implements HtmlAllBuildsPageParser
 
             allPossibleCurrentPatchBuilds.add(new CommunityBuild(nameOfTheBuild, creatorName, buildUrl, rating));
         }
-
         return allPossibleCurrentPatchBuilds;
     }
     private Rating parseRating(Element element)
     {
         Elements ratings = element.select("div.mf-listings__item__rating__info");
+        if (ratings.get(0).text().equals("Rating Pending"))
+            return new Rating((short) -1, (short) -1);
+        else if (ratings.get(0).text().equals("New Guide"))
+            return new Rating((short) -1, (short) -1);
         short ratingUp = Short.parseShort(ratings.select("div").get(1).text());
         short ratingDown = Short.parseShort(ratings.select("div").get(2).text());
         return new Rating(ratingUp, ratingDown);

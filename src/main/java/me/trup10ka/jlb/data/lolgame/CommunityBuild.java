@@ -4,6 +4,6 @@ import me.trup10ka.jlb.data.Rating;
 
 import java.net.URL;
 
-public record CommunityBuild(String creatorName, URL build, Rating rating)
+public record CommunityBuild(String nameOfTheBuild, String creatorName, String buildURL, Rating rating)
 {
 }
