@@ -1,5 +1,7 @@
 package me.trup10ka.jlb.web.parser.ugg;
 
+import javafx.application.Platform;
+import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.lolgame.*;
 import me.trup10ka.jlb.util.Descriptions;
 import me.trup10ka.jlb.web.Page;
@@ -28,6 +30,7 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
 {
 
     private Document document;
+
     private Connection connection;
 
     private ItemRiotJSONParser riotJSONParser;
@@ -46,7 +49,8 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
             this.document = parse();
             this.riotJSONParser = new ItemRiotJSONParser();
         }
-        catch (RuntimeException ignored) {}
+        catch (RuntimeException ignored)
+        {}
         if (validate(document))
         {
             throw new WrongChampionPathException(champion);
@@ -63,8 +67,9 @@ public class HtmlBuildUGGParser implements HtmlBuildPageParser
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToChampions());
         }
+        return null;
     }
 
     @Override

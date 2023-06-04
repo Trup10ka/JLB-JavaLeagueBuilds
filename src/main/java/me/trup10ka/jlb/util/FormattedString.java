@@ -140,7 +140,17 @@ public enum FormattedString
                     .replaceAll("[</]+[a-z=0-9-_ A-Z#']+>", "")
                     .trim();
         }
-    };
+    },
+    MOBAFIRE_SUMMONERS_SPECIAL_CASE
+            {
+                @Override
+                public String toFormat(String toBeFormatted)
+                {
+                    return toBeFormatted
+                            .replaceAll("Unleashed ", "");
+                }
+            }
+    ;
 
 
     public abstract String toFormat(String toBeFormatted);

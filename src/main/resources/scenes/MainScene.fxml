@@ -28,15 +28,14 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <Label minWidth="200" styleClass="coming-soon" text="Mobafire - Coming soon" />
-      <!--<JFXButton styleClass="font-changer" id="mobafire-button" onAction="#setChampionsParserMobafire" prefHeight="65.0"
+      <JFXButton styleClass="font-changer" id="mobafire-button" onAction="#setChampionsParserMobafire" prefHeight="65.0"
                  prefWidth="169.0" text="Mobafire">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../icons/mobafire-icon.png"/>
             </ImageView>
          </graphic>
-      </JFXButton>-->
+      </JFXButton>
       <JFXButton id="leagueofgraphs-button" onAction="#setChampionsParserLeagueOfGraphs" styleClass="font-changer" text="League of Graphs">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

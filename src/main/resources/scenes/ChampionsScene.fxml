@@ -28,16 +28,13 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <FlowPane alignment="CENTER" prefHeight="85.0" minWidth="280.0">
-         <Label styleClass="coming-soon, font-changer">Mobafire - Coming soon</Label>
-      </FlowPane>
-      <!--<JFXButton onAction="#refreshForMobafire" alignment="CENTER" id="mobafire-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="Mobafire">
+      <JFXButton onAction="#refreshForMobafire" alignment="CENTER" id="mobafire-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="Mobafire">
          <graphic>
             <ImageView opacity="0.3" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" fx:id="mobafirePageActive" >
                <Image url="@../icons/mobafire-icon.png"/>
             </ImageView>
          </graphic>
-      </JFXButton>-->
+      </JFXButton>
       <JFXButton onAction="#refreshForLoG" alignment="CENTER" id="leagueofgraphs-button" mnemonicParsing="false" prefHeight="85.0" minWidth="280.0" text="League of Graphs">
          <graphic>
             <ImageView opacity="0.3" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" fx:id="logPageActive" >
