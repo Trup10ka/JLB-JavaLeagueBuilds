@@ -73,7 +73,12 @@ public class MainScene
     private void setChampionsParserMobafire()
     {
         JavaLeagueBuilds.setChosenPage(MOBAFIRE);
-        JavaLeagueBuilds.getInstance().switchToChooseBuildScene();
+        JavaLeagueBuilds.getInstance().switchToLoading();
+        CompletableFuture.runAsync(() -> ChampionsScene.getInstance().setChampionsPageParser(new HtmlChampionsMobafireParser()))
+                .thenRun(() -> Platform.runLater(() -> {
+                    ChampionsScene.getInstance().fillChampionsPane();
+                    JavaLeagueBuilds.getInstance().switchToChampions();
+                }));
     }
 
     @FXML
