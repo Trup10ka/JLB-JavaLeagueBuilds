@@ -1,6 +1,5 @@
 package me.trup10ka.jlb.web.parser.mobafire;
 
-import com.sun.source.doctree.AttributeTree;
 import me.trup10ka.jlb.data.lolgame.*;
 import me.trup10ka.jlb.util.Descriptions;
 import me.trup10ka.jlb.util.FormattedString;
@@ -13,8 +12,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 public class HtmlBuildMobafireParser implements HtmlBuildPageParser
@@ -141,10 +138,15 @@ public class HtmlBuildMobafireParser implements HtmlBuildPageParser
 
     private ArrayList<Attribute> createAttributes(String attributesString)
     {
-        String[] separateAttributesString = attributesString.split("\n");
+        String[] separateAttributesString = attributesString.split("[+]");
         ArrayList<Attribute> attributes = new ArrayList<>();
         for (String nameOfAttribute : separateAttributesString)
+        {
+            if (nameOfAttribute.isBlank())
+                continue;
             attributes.add(new Attribute(nameOfAttribute));
+        }
+
         return attributes;
     }
 

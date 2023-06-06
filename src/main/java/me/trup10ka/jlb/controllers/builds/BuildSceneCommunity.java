@@ -1,16 +1,38 @@
 package me.trup10ka.jlb.controllers.builds;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
+import me.trup10ka.jlb.data.lolgame.*;
+import me.trup10ka.jlb.util.Descriptions;
+import me.trup10ka.jlb.util.FormattedString;
+import me.trup10ka.jlb.util.RoundCorners;
+import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class BuildSceneCommunity
 {
 
     private static BuildSceneCommunity instance;
+    /**
+     * All possible {@link CommunityBuild community builds} parsed for latest patch
+     */
+    private List<CommunityBuild> allCommunityBuilds;
+
+    private Champion curentChampion;
 
     @FXML
     private Pane applicationHeader;
@@ -35,7 +57,7 @@ public class BuildSceneCommunity
     {
         applicationHeader.setOnMousePressed(event -> JavaLeagueBuilds.getInstance().setOffSets(event));
         applicationHeader.setOnMouseDragged(event -> JavaLeagueBuilds.getInstance().moveStage(event));
-        goBack.setOnMousePressed(event -> clearPageAndSwitchToChampions(true , summonersBox, mainRunesBox, secondaryRunesAndAttributesBox));
+        goBack.setOnMousePressed(event -> clearPageAndSwitchToChampions(true , summonersBox, mainRunesBox, secondaryRunesAndAttributesBox, items));
     }
 
     public BuildSceneCommunity()
@@ -43,17 +65,154 @@ public class BuildSceneCommunity
         instance = this;
     }
 
-
-    public static BuildSceneCommunity getInstance()
+    public void setBuildToParse(List<CommunityBuild> allCommunityBuilds, HtmlBuildPageParser parser, String championName)
     {
-        return instance;
+        this.allCommunityBuilds = allCommunityBuilds;
+        this.curentChampion = new Champion(championName,
+                parser.queryItemBuild(),
+                parser.queryRunePage(),
+                parser.summoners());
+        Platform.runLater(this::build);
     }
+
+    private void build()
+    {
+        ItemBuild itemBuild = curentChampion.getItemBuild();
+        RunePage runePage = curentChampion.getRunePage();
+        arrangeSummonerSpells();
+        arrangeItems(itemBuild);
+        arrangeRunes(runePage);
+    }
+
+    private void arrangeItems(ItemBuild itemBuild)
+    {
+        Set<Item> items = itemBuild.getCoreItems();
+        HBox allImages = new HBox();
+        double width = 0;
+        allImages.setSpacing(10); allImages.setAlignment(Pos.CENTER);
+        for (Item item : items)
+        {
+            allImages.getChildren().add(createItemImage(item));
+            width += 50;
+        }
+        allImages.setMinWidth(width + 60);
+        this.items.getChildren().add(allImages);
+    }
+
+    private void arrangeRunes(RunePage runePage)
+    {
+        arrangeMainRunes(runePage.getKeyStoneRune(), runePage.getSideMainRunes());
+        arrangeSecondaryRunes(runePage.getSecondaryRunes(), runePage.getAttributes());
+    }
+
+    private void arrangeSummonerSpells()
+    {
+        VBox summonersBox = new VBox();
+        summonersBox.setSpacing(10);
+        summonersBox.setAlignment(Pos.CENTER);
+        for (SummonerSpell spell : curentChampion.getSummonerSpell())
+        {
+            ImageView image = new ImageView("images/summoners/" + spell.name().toLowerCase() + ".png");
+            image.setFitHeight(48);
+            image.setFitWidth(48);
+            RoundCorners.setRoundedCornerImageView(image);
+            summonersBox.getChildren().add(image);
+        }
+        this.summonersBox.getChildren().add(summonersBox);
+    }
+
+    private void arrangeMainRunes(Rune keyStoneRune, Set<Rune> sideMainRunes)
+    {
+        createRunesPane(Set.of(keyStoneRune), "mainrunes", mainRunesBox);
+        createRunesPane(sideMainRunes, "secondaryrunes", mainRunesBox);
+    }
+
+    private void arrangeSecondaryRunes(Set<Rune> secondaryRunes, List<Attribute> attributes)
+    {
+        createRunesPane(secondaryRunes, "secondaryrunes", secondaryRunesAndAttributesBox);
+        createAttributePane(attributes);
+    }
+
+    private void createRunesPane(Set<Rune> keyStoneRune, String pathForRunes, Pane group)
+    {
+        for (Rune rune : keyStoneRune)
+        {
+            String runeImageName = FormattedString.URI_IMAGE_FORMAT.toFormat(rune.name());
+            ImageView runeImage = new ImageView("images/runes/" + pathForRunes + "/" + runeImageName + ".png");
+            Pane container = new Pane(runeImage);
+            container.setMaxSize(40, 40);
+            runeImage.setFitWidth(40); runeImage.setFitHeight(40);
+            if (pathForRunes.equalsIgnoreCase("mainrunes"))
+            {
+                runeImage.setFitWidth(70);
+                runeImage.setFitHeight(70);
+                container.setMaxSize(70, 70);
+            }
+            createTooltipForRune(rune, container);
+            group.getChildren().add(container);
+        }
+    }
+
+    private void createAttributePane(List<Attribute> keyStoneRune)
+    {
+        for (Attribute attribute : keyStoneRune)
+        {
+            String runeImageName = FormattedString.MOBAFIRE_ATTRIBUTE_SPECIAL_CASE.toFormat(attribute.propertyName());
+            ImageView runeImage = new ImageView("images/runes/attributes/" + runeImageName + ".png");
+            runeImage.setFitHeight(27); runeImage.setFitWidth(27);
+
+            Pane container = new Pane(runeImage);
+            container.setMaxSize(27, 27);
+
+            createTooltipForAttribute(attribute, container);
+            this.secondaryRunesAndAttributesBox.getChildren().add(container);
+        }
+    }
+    private Pane createItemImage(Item item)
+    {
+        Pane pane = new Pane();
+        createTooltipForItem(item, pane);
+        pane.setStyle("-fx-background-image: url(\"images/items/" + item.imageName() + "\");" +
+                "-fx-background-position: " + item.x() + " " + item.y() + ";" +
+                "-fx-min-height: 48;" + "-fx-min-width: 48;" + "-fx-max-height: 48;" + "-fx-max-width: 48;" +
+                "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 40, 0.1, 5, 5);");
+        RoundCorners.setRoundedCornerToImagePane(pane);
+        return pane;
+    }
+
+    private void createTooltipForItem(Item item, Node node)
+    {
+        String description = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name()) + "\n\n" + item.description();
+        assignTooltipForNode(node, description);
+    }
+    private void createTooltipForRune(Rune rune, Node node)
+    {
+        String description = rune.name() + "\n\n" + Descriptions.getDescriptionOfRune(rune.name());
+        assignTooltipForNode(node, description);
+    }
+
+
+    private void createTooltipForAttribute(Attribute attribute, Node node)
+    {
+        String description = attribute.propertyName();
+        assignTooltipForNode(node, description);
+    }
+    private void assignTooltipForNode(Node node, String description)
+    {
+        Tooltip tooltip = new Tooltip(description);
+        tooltip.setShowDelay(new Duration(0));
+        tooltip.setMaxWidth(300);
+        tooltip.setWrapText(true);
+        tooltip.getStyleClass().add("tool-tip-item");
+        Tooltip.install(node, tooltip);
+    }
+
+
     @FXML
     private void terminate()
     {
         JavaLeagueBuilds.getInstance().terminate();
     }
-
     private void clearPageAndSwitchToChampions(boolean shouldSwitch, Pane... boxes)
     {
         for (Pane box : boxes)
@@ -63,14 +222,19 @@ public class BuildSceneCommunity
         if (shouldSwitch)
             JavaLeagueBuilds.getInstance().switchToChampions();
     }
+
     private void clearPageAndSwitchToChampions()
     {
         clearPageAndSwitchToChampions(false , items, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
     }
-
     @FXML
     private void iconify()
     {
         JavaLeagueBuilds.getInstance().iconify();
+    }
+
+    public static BuildSceneCommunity getInstance()
+    {
+        return instance;
     }
 }

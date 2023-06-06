@@ -149,6 +149,30 @@ public enum FormattedString
                     return toBeFormatted
                             .replaceAll("Unleashed ", "");
                 }
+            },
+    MOBAFIRE_ATTRIBUTE_SPECIAL_CASE
+            {
+                @Override
+                public String toFormat(String toBeFormatted)
+                {
+                    if (toBeFormatted.contains("Armor"))
+                        return "armor";
+                    else if (toBeFormatted.contains("Adaptive"))
+                        return "adaptive_force";
+                    else if (toBeFormatted.contains("Speed"))
+                        return "attack_speed";
+                    else if (toBeFormatted.contains("haste"))
+                        return "ability_haste";
+                    else if (toBeFormatted.contains("HP"))
+                        return "health";
+                    else if (toBeFormatted.contains("Resist"))
+                        return "magic_resist";
+                    else
+                    {
+                        System.err.println("FormattedString error: Did not found special case of attribute in Mobafire");
+                        return null;
+                    }
+                }
             }
     ;
 

@@ -9,7 +9,7 @@
 <AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.builds.BuildSceneCommunity">
     <Pane id="application-header" fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
     <Line endX="-91.0" endY="573.0" layoutX="280.0" layoutY="93.0" startX="-91.0" startY="-60.0" />
-    <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="763.0" layoutY="107.0" lineSpacing="4.0" prefHeight="130.0" prefWidth="263.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+    <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="225.0" layoutY="39.0" lineSpacing="4.0" prefHeight="51.0" prefWidth="1024.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
         <font>
             <Font size="26.0" />
         </font>
@@ -47,7 +47,7 @@
         </Label>
         <Line endX="13.0" endY="34.0" layoutX="1.0" layoutY="-32.0" startX="13.0" startY="64.0" />
     </Pane>
-    <Pane id="runes-pane" layoutX="216.0" layoutY="42.0" prefHeight="260.0" prefWidth="502.0">
+    <Pane id="runes-pane" layoutX="220.0" layoutY="90.0" prefHeight="260.0" prefWidth="502.0">
         <HBox fx:id="mainRunesBox" alignment="CENTER" layoutX="129.0" layoutY="14.0" prefHeight="100.0" prefWidth="350.0" spacing="15" styleClass="filled-box" />
         <HBox fx:id="secondaryRunesAndAttributesBox" alignment="CENTER" layoutX="129.0" layoutY="138.0" prefHeight="100.0" prefWidth="350.0" spacing="20" styleClass="filled-box" />
         <VBox alignment="CENTER" layoutX="14.0" layoutY="108.0" prefHeight="45.0" prefWidth="95.0">
