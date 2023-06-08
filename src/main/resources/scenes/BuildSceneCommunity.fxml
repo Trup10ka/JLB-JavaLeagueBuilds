@@ -9,7 +9,7 @@
 <AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.builds.BuildSceneCommunity">
     <Pane id="application-header" fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
     <Line endX="-91.0" endY="573.0" layoutX="280.0" layoutY="93.0" startX="-91.0" startY="-60.0" />
-    <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="225.0" layoutY="39.0" lineSpacing="4.0" prefHeight="51.0" prefWidth="1024.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+    <Label id="champion-name" fx:id="buildName" alignment="CENTER" layoutX="225.0" layoutY="39.0" lineSpacing="4.0" prefHeight="51.0" prefWidth="1024.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
         <font>
             <Font size="26.0" />
         </font>
@@ -60,7 +60,7 @@
         </VBox>
     </Pane>
     <Pane id="items-pane" layoutX="225.0" layoutY="379.0" prefHeight="214.0" prefWidth="993.0">
-        <HBox fx:id="items" layoutX="16.0" layoutY="49.0" prefHeight="151.0" prefWidth="961.0" />
+        <HBox fx:id="items" alignment="CENTER_LEFT" layoutX="16.0" layoutY="49.0" prefHeight="151.0" prefWidth="961.0" />
         <VBox alignment="CENTER" layoutX="16.0" prefHeight="45.0" prefWidth="95.0">
             <Label text="Items">
                 <font>

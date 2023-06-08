@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -19,7 +19,6 @@ import me.trup10ka.jlb.util.FormattedString;
 import me.trup10ka.jlb.util.RoundCorners;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -34,11 +33,16 @@ public class BuildSceneCommunity
 
     private Champion curentChampion;
 
+    private CommunityBuild currentCommunitybuild;
+
     @FXML
     private Pane applicationHeader;
 
     @FXML
     private Button goBack;
+
+    @FXML
+    private Label buildName;
 
     @FXML
     private VBox summonersBox;
@@ -65,10 +69,11 @@ public class BuildSceneCommunity
         instance = this;
     }
 
-    public void setBuildToParse(List<CommunityBuild> allCommunityBuilds, HtmlBuildPageParser parser, String championName)
+    public void setBuildToParse(List<CommunityBuild> allCommunityBuilds, HtmlBuildPageParser parser, Champion champion)
     {
         this.allCommunityBuilds = allCommunityBuilds;
-        this.curentChampion = new Champion(championName,
+        this.currentCommunitybuild = allCommunityBuilds.get(0);
+        this.curentChampion = new Champion(champion.getName(),
                 parser.queryItemBuild(),
                 parser.queryRunePage(),
                 parser.summoners());
@@ -82,6 +87,7 @@ public class BuildSceneCommunity
         arrangeSummonerSpells();
         arrangeItems(itemBuild);
         arrangeRunes(runePage);
+        this.buildName.setText(currentCommunitybuild.nameOfTheBuild());
     }
 
     private void arrangeItems(ItemBuild itemBuild)
@@ -89,7 +95,7 @@ public class BuildSceneCommunity
         Set<Item> items = itemBuild.getCoreItems();
         HBox allImages = new HBox();
         double width = 0;
-        allImages.setSpacing(10); allImages.setAlignment(Pos.CENTER);
+        allImages.setSpacing(10); allImages.setAlignment(Pos.CENTER); allImages.getStyleClass().add("filled-box");
         for (Item item : items)
         {
             allImages.getChildren().add(createItemImage(item));
