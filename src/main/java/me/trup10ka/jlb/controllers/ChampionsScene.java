@@ -64,6 +64,7 @@ public class ChampionsScene
     private ImageView logPageActive;
     @FXML
     private ProgressIndicator progressIndicator;
+
     public ChampionsScene()
     {
         instance = this;
@@ -95,7 +96,7 @@ public class ChampionsScene
      */
     public void fillChampionsPane()
     {
-        setRecentActivePage();
+        setActivePageImageView();
         if (championsPageParser.champions() == null)
             return;
         ArrayList<Champion> champions = championsPageParser.champions();
@@ -180,6 +181,10 @@ public class ChampionsScene
         exception.printStackTrace();
         Platform.runLater(() -> errorLabel.setText(exception.getMessage()));
     }
+
+    /**
+     * When searching for a champion, deletes all the champion cards, and then shows cards which are valid for the search value
+     */
     @FXML
     private void refreshChampionPageWithSearchFilter()
     {
@@ -190,6 +195,11 @@ public class ChampionsScene
                 championsPane.getChildren().add(allChampionCardsByTheirNames.get(key));
     }
 
+    /**
+     * Creates a shows build parsed from statistics Pages
+     * @param champion champion which build is being parsed
+     * @see HtmlBuildPageParser
+     */
     private void createAndShowStaticBuildParser(Champion champion)
     {
         JavaLeagueBuilds.getInstance().switchToLoading();
@@ -199,6 +209,12 @@ public class ChampionsScene
             BuildSceneStatic.getInstance().setChampionToParse(champion, buildPage);
         }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildSceneStatic()));
     }
+
+    /**
+     * Creates a shows build parsed from community Pages
+     * @param champion champion which build is being parsed
+     * @see HtmlBuildPageParser
+     */
     private void createAndShowCommunityBuildParser(Champion champion)
     {
         JavaLeagueBuilds.getInstance().switchToLoading();
@@ -211,6 +227,13 @@ public class ChampionsScene
         }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildSceneCommunity()));
     }
 
+    /**
+     * If pages builds are community build, this method creates a parser for all the possible builds
+     * @param page the page which is parsed from
+     * @param champion champion where builds are looked up
+     * @return the parser for the builds
+     * @see HtmlAllBuildsPageParser
+     */
     private HtmlAllBuildsPageParser getAllBuildPageParser(Page page, Champion champion)
     {
         return switch (page)
@@ -221,14 +244,42 @@ public class ChampionsScene
         };
     }
 
+
+    /**
+     * @param page page which is parsed from
+     * @param champion champion which is being parsed
+     * @return A parser for builds created statistically
+     */
     private HtmlBuildPageParser getBuildPageParser(Page page, Champion champion)
     {
         return getBuildPageParser(page, champion, null);
     }
+
+    /**
+     *
+     * @param page page which is parsed from
+     * @param allBuildsPageParser parser which parsed all the possible community builds
+     * @return A parser for builds created by community
+     */
     private HtmlBuildPageParser getBuildPageParser(Page page, HtmlAllBuildsPageParser allBuildsPageParser)
     {
         return getBuildPageParser(page, null, allBuildsPageParser);
     }
+
+    /**
+     * <p>
+     *     Decides whether is page a community build or not, then creates a build parser for desired page.
+     * </p>
+     * <p>
+     *     If page is community built, creates a parser for build that is <bold>FIRST</bold> in the list of community
+     *     builds, which {@link HtmlAllBuildsPageParser HtmlParser} provided.
+     * </p>
+     * @param page page which is being parsed from
+     * @param champion champion which we are parsing - is null in case of community built page
+     * @param allBuildsPageParser all builds parser - is null in case of statistically built page
+     * @return Parser for champion build
+     * @see HtmlBuildPageParser
+     */
     private HtmlBuildPageParser getBuildPageParser(Page page, Champion champion, HtmlAllBuildsPageParser allBuildsPageParser)
     {
         if (page.IS_COMMUNITY_BUILD)
@@ -247,42 +298,57 @@ public class ChampionsScene
                         + " because " + JavaLeagueBuilds.getChosenPage().name() +" \"IS_COMMUNITY_BUILD\" is true");
             };
     }
+
+    /**
+     * Refreshes the scroll pane filled with champion cards, with cards from {@link Page#U_GG U.GG}
+     */
     @FXML
     private void refreshForUGG()
     {
         JavaLeagueBuilds.setChosenPage(Page.U_GG);
         switchToMinorLoading(true);
-        setActivePageImage(Page.U_GG);
+        setRecentActivePage(Page.U_GG);
         CompletableFuture.runAsync(() -> setChampionsPageParser(new HtmlChampionsUGGParser()))
                 .thenRun(() -> Platform.runLater(() -> {
                     switchToMinorLoading(false);
                     fillChampionsPane();
                 }));
     }
+    /**
+     * Refreshes the scroll pane filled with champion cards, with cards from {@link Page#MOBAFIRE Mobafire}
+     */
     @FXML
     private void refreshForMobafire()
     {
         JavaLeagueBuilds.setChosenPage(Page.MOBAFIRE);
         switchToMinorLoading(true);
-        setActivePageImage(Page.MOBAFIRE);
+        setRecentActivePage(Page.MOBAFIRE);
         CompletableFuture.runAsync(() -> setChampionsPageParser(new HtmlChampionsMobafireParser()))
                 .thenRun(() -> Platform.runLater(() -> {
                     switchToMinorLoading(false);
                     fillChampionsPane();
                 }));
     }
+    /**
+     * Refreshes the scroll pane filled with champion cards, with cards from {@link Page#LEAGUE_OF_GRAPHS League of Graphs}
+     */
     @FXML
     private void refreshForLoG()
     {
         JavaLeagueBuilds.setChosenPage(Page.LEAGUE_OF_GRAPHS);
         switchToMinorLoading(true);
-        setActivePageImage(Page.LEAGUE_OF_GRAPHS);
+        setRecentActivePage(Page.LEAGUE_OF_GRAPHS);
         CompletableFuture.runAsync(() -> setChampionsPageParser(new HtmlChampionsLoGParser()))
                 .thenRun(() -> Platform.runLater(() -> {
                     switchToMinorLoading(false);
                     fillChampionsPane();
                 }));
     }
+
+    /**
+     * Switches between loading and scroll pane with champion cards.
+     * @param onOrOff determines whether loading should be turned on or off
+     */
     private void switchToMinorLoading(boolean onOrOff)
     {
         if (onOrOff)
@@ -298,7 +364,11 @@ public class ChampionsScene
         }
     }
 
-    private void setActivePageImage(Page page)
+    /**
+     * Sets image in the button to full opacity for currently chosen page
+     * @param page page which was currently chosen and now is {@link ChampionsScene#recentActivePage}
+     */
+    private void setRecentActivePage(Page page)
     {
         switch (page)
         {
@@ -316,7 +386,10 @@ public class ChampionsScene
             }
         }
     }
-    private void setRecentActivePage()
+    /**
+     * Sets image in the button to full opacity for currently chosen page
+     */
+    private void setActivePageImageView()
     {
         switch (JavaLeagueBuilds.getChosenPage())
         {

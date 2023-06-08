@@ -15,18 +15,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Class which can provide you with data about current International League of Legends matches
+ */
 public class MSIOfficialRiotTournaments
 {
+    /**
+     * API Riot endpoint for MSI schedule
+     */
     private final URL url;
 
     private final String xAPIKey;
-
-    private final File config = new File("config.cg");
+    /**
+     * File from which is API key taken
+     */
+    private final File config;
 
     public MSIOfficialRiotTournaments()
     {
         URL url = null;
         String xAPIKey = null;
+        this.config = new File("config.cg");
         try
         {
             url = new URL("https://esports-api.lolesports.com/persisted/gw/getSchedule?hl=en-GB");
@@ -39,6 +48,11 @@ public class MSIOfficialRiotTournaments
         this.xAPIKey = xAPIKey;
     }
 
+    /**
+     * Reads JSON from API endpoint and converts it into a Schedule table
+     * @return schedule containing current live match (if exists) and two upcoming matches (if exists)
+     * @see Schedule
+     */
     public Schedule getSchedule()
     {
         StringBuilder jsonFileString = new StringBuilder();
@@ -60,12 +74,26 @@ public class MSIOfficialRiotTournaments
         return parseScheduleFromJson(new JSONObject(jsonFileString.toString()));
     }
 
+    /**
+     * Takes in the JSON file and parses it into one live match and two (list of) upcoming matches
+     * @param jsonObject JSON file containing whole not parsed MSI schedule
+     * @return parsed schedule containing live match and two upcoming matches
+     * @see Match
+     * @see Schedule
+     */
     private Schedule parseScheduleFromJson(JSONObject jsonObject)
     {
         Match liveMatch = parseLiveMatchFromJson(jsonObject);
         List<Match> matches = parseListOfUpcomingMatches(jsonObject);
         return new Schedule(liveMatch, matches);
     }
+
+     /**
+     * @param jsonObject schedule in JSON format
+     * @return live Match parsed from JSON <br> if it does not exist, returns null
+     * @see Match
+     * @see MatchState
+     */
     private Match parseLiveMatchFromJson(JSONObject jsonObject)
     {
         List<Match> matches = parseMatches(jsonObject, MatchState.INPROGRESS);
@@ -73,12 +101,26 @@ public class MSIOfficialRiotTournaments
             return null;
         return matches.get(0);
     }
-
+    /**
+     * @param jsonObject schedule in JSON format
+     * @return live Match parsed from JSON
+     * @see Match
+     * @see MatchState
+    */
     private List<Match> parseListOfUpcomingMatches(JSONObject jsonObject)
     {
         return parseMatches(jsonObject, MatchState.UNSTARTED);
     }
 
+    /**
+     * Parses matches with desired MatchState and returns them in a list
+     * @param jsonObject schedule JSON file
+     * @param matchState state, in which parsed Matches should be
+     * @return list of matches in desired match state
+     * @see Match
+     * @see MatchState
+     * @see Team
+     */
     private List<Match> parseMatches(JSONObject jsonObject, MatchState matchState)
     {
 
@@ -99,6 +141,12 @@ public class MSIOfficialRiotTournaments
         return matches;
     }
 
+    /**
+     * Parses one of the Teams from JSON Match file
+     * @param json JSON format Match
+     * @param teamIndex 0 or 1, team index in JSON array
+     * @return team parsed on index position
+     */
     private Team parseTeamFromJSON(JSONObject json, int teamIndex)
     {
         if (teamIndex > 1 || teamIndex < 0)
@@ -107,6 +155,9 @@ public class MSIOfficialRiotTournaments
         return new Team(team.getString("name"));
     }
 
+    /**
+     * @return API key from config file
+     */
     private String getxAPIKeyFromFile()
     {
         String key = null;
@@ -129,11 +180,21 @@ public class MSIOfficialRiotTournaments
         return key;
     }
 
+    /**
+     * Checks if event is a Show
+     * @param jsonObject JSON format Match
+     * @return true if it is a show, else false
+     */
     private boolean isAShow(JSONObject jsonObject)
     {
         return jsonObject.getString("type").equals("show");
     }
 
+    /**
+     * Checks if event match is from MSI league
+     * @param jsonObject JSON format Match
+     * @return true if it is a not MSI league match, else false
+     */
     private boolean isNotAnMSIEvent(JSONObject jsonObject)
     {
         return !(jsonObject.getJSONObject("league").getString("name").equals("MSI"));

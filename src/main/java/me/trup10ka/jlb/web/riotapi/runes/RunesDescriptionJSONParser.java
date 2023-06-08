@@ -77,7 +77,7 @@ public class RunesDescriptionJSONParser
                 }
             }
         }
-        System.err.println("Couldn't find desired rune. Looked for: " + compareName);
+        System.err.println("RunesDescriptionJSONParser miss input: Couldn't find desired rune. Looked for: " + compareName);
         return null;
     }
 }
