@@ -30,6 +30,8 @@ public class JavaLeagueBuilds extends Application
     private double yOffSet;
     private final Scene mainScene;
     private final Scene championScene;
+
+    private final Scene buildScene;
     private final Scene buildSceneStatic;
     private final Scene buildSceneCommunity;
     private final Scene loadingScene;
@@ -57,6 +59,7 @@ public class JavaLeagueBuilds extends Application
 
         Scene mainScene = null;
         Scene championsScene = null;
+        Scene buildScene = null;
         Scene buildSceneStatic = null;
         Scene buildSceneCommunity = null;
         Scene loadingScene = null;
@@ -64,6 +67,7 @@ public class JavaLeagueBuilds extends Application
         {
             mainScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/MainScene.fxml")));
             championsScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/ChampionsScene.fxml")));
+            buildScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildScene.fxml")));
             buildSceneStatic = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildSceneStatic.fxml")));
             buildSceneCommunity = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildSceneCommunity.fxml")));
             loadingScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/LoadingScene.fxml")));
@@ -74,10 +78,11 @@ public class JavaLeagueBuilds extends Application
 
         this.mainScene = mainScene;
         this.championScene = championsScene;
+        this.buildScene = buildScene;
         this.buildSceneStatic = buildSceneStatic;
         this.buildSceneCommunity = buildSceneCommunity;
         this.loadingScene = loadingScene;
-        this.scenes = Arrays.asList(mainScene, championsScene, buildSceneStatic, buildSceneCommunity, loadingScene);
+        this.scenes = Arrays.asList(mainScene, championsScene, buildScene,buildSceneStatic, buildSceneCommunity, loadingScene);
     }
 
     /**
@@ -112,6 +117,10 @@ public class JavaLeagueBuilds extends Application
     public void switchToBuildSceneStatic()
     {
         stage.setScene(buildSceneStatic);
+    }
+    public void switchToBuildScene()
+    {
+        stage.setScene(buildScene);
     }
 
     public void switchToBuildSceneCommunity()
