@@ -8,10 +8,18 @@
 }
 .jfx-button {
      -jfx-button-type: RAISED;
-     -fx-text-fill: grey;
-     -fx-pref-width: 100px;
+     -fx-text-fill: black;
      -fx-font-size: 14px;
      -fx-background-radius: 25px;
+}
+.jfx-button:hover {
+    -fx-cursor: hand;
+}
+.comm-build-button {
+    -fx-background-color: rgba(255, 194, 103, 0.7);
+}
+.comm-build-button:hover {
+     -fx-background-color: derive(#f7ad3e, -15%);
 }
 #ugg-button {
      -fx-background-color: rgba(49, 76, 241 ,0.7);
@@ -19,6 +27,25 @@
 }
 #leagueofgraphs-button {
      -fx-background-color: rgba(88, 210, 202, 0.7);
+     -fx-text-fill: black;
+}
+.scroll-pane > .viewport{
+    -fx-background-color: transparent;
+}
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-bar:vertical{
+    -fx-background-color: transparent;
+}
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(18, 111, 239, 1);
+    -fx-background-radius: 5em;
 }
 .jfx-button:hover {
     -fx-cursor: hand;

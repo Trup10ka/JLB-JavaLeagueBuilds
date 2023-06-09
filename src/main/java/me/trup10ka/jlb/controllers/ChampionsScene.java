@@ -223,7 +223,7 @@ public class ChampionsScene
             HtmlAllBuildsPageParser allBuildsPageParser = getAllBuildPageParser(JavaLeagueBuilds.getChosenPage(), champion);
             HtmlBuildPageParser buildPageParser = getBuildPageParser(JavaLeagueBuilds.getChosenPage(), allBuildsPageParser);
 
-            BuildSceneCommunity.getInstance().setBuildToParse(allBuildsPageParser.allCommunityBuilds(), buildPageParser, champion.getName());
+            BuildSceneCommunity.getInstance().setBuildToParse(allBuildsPageParser.allCommunityBuilds(), buildPageParser, champion);
         }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildSceneCommunity()));
     }
 

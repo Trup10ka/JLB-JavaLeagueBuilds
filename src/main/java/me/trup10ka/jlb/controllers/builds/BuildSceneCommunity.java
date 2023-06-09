@@ -1,26 +1,25 @@
 package me.trup10ka.jlb.controllers.builds;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.lolgame.*;
-import me.trup10ka.jlb.util.Descriptions;
-import me.trup10ka.jlb.util.FormattedString;
-import me.trup10ka.jlb.util.RoundCorners;
+import me.trup10ka.jlb.util.*;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
+import me.trup10ka.jlb.web.parser.mobafire.HtmlBuildMobafireParser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class BuildSceneCommunity
 {
@@ -56,12 +55,15 @@ public class BuildSceneCommunity
     @FXML
     private HBox items;
 
+    @FXML
+    private VBox communityBuildsVBox;
+
 
     public void initialize()
     {
         applicationHeader.setOnMousePressed(event -> JavaLeagueBuilds.getInstance().setOffSets(event));
         applicationHeader.setOnMouseDragged(event -> JavaLeagueBuilds.getInstance().moveStage(event));
-        goBack.setOnMousePressed(event -> clearPageAndSwitchToChampions(true , summonersBox, mainRunesBox, secondaryRunesAndAttributesBox, items));
+        goBack.setOnMousePressed(event -> clearPageAndSwitchToChampions(true , summonersBox, mainRunesBox, secondaryRunesAndAttributesBox, items, communityBuildsVBox));
     }
 
     public BuildSceneCommunity()
@@ -73,6 +75,20 @@ public class BuildSceneCommunity
     {
         this.allCommunityBuilds = allCommunityBuilds;
         this.currentCommunitybuild = allCommunityBuilds.get(0);
+        this.curentChampion = new Champion(champion.getName(),
+                parser.queryItemBuild(),
+                parser.queryRunePage(),
+                parser.summoners());
+        Platform.runLater(() ->
+        {
+            this.build();
+            this.fillInRemainingBuilds();
+        });
+    }
+
+    private void setBuildToParse(CommunityBuild communityBuild, HtmlBuildPageParser parser, Champion champion)
+    {
+        this.currentCommunitybuild = communityBuild;
         this.curentChampion = new Champion(champion.getName(),
                 parser.queryItemBuild(),
                 parser.queryRunePage(),
@@ -174,6 +190,7 @@ public class BuildSceneCommunity
             this.secondaryRunesAndAttributesBox.getChildren().add(container);
         }
     }
+
     private Pane createItemImage(Item item)
     {
         Pane pane = new Pane();
@@ -185,24 +202,24 @@ public class BuildSceneCommunity
         RoundCorners.setRoundedCornerToImagePane(pane);
         return pane;
     }
-
     private void createTooltipForItem(Item item, Node node)
     {
         String description = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name()) + "\n\n" + item.description();
         assignTooltipForNode(node, description);
     }
+
     private void createTooltipForRune(Rune rune, Node node)
     {
         String description = rune.name() + "\n\n" + Descriptions.getDescriptionOfRune(rune.name());
         assignTooltipForNode(node, description);
     }
 
-
     private void createTooltipForAttribute(Attribute attribute, Node node)
     {
         String description = attribute.propertyName();
         assignTooltipForNode(node, description);
     }
+
     private void assignTooltipForNode(Node node, String description)
     {
         Tooltip tooltip = new Tooltip(description);
@@ -212,13 +229,38 @@ public class BuildSceneCommunity
         tooltip.getStyleClass().add("tool-tip-item");
         Tooltip.install(node, tooltip);
     }
-
-
-    @FXML
-    private void terminate()
+    private void fillInRemainingBuilds()
     {
-        JavaLeagueBuilds.getInstance().terminate();
+        for (CommunityBuild communitybuild : allCommunityBuilds)
+        {
+            JFXButton buildButton = new JFXButton(communitybuild.nameOfTheBuild());
+            buildButton.setMinSize(200, 70);
+            buildButton.setTextAlignment(TextAlignment.CENTER);
+            buildButton.getStyleClass().add("comm-build-button");
+            if (!(communitybuild.rating().up() == -1))
+                buildButton.setText(communitybuild.nameOfTheBuild() + "\nBuild from: " +
+                        communitybuild.creatorName() + "\n" + communitybuild.rating().up() + " upvotes " + communitybuild.rating().down() + " downvotes");
+            else
+                buildButton.setText(communitybuild.nameOfTheBuild() + "\nBuild from: " +
+                        communitybuild.creatorName() + "\n" + "Rating is still pending");
+            buildButton.setOnAction(actionEvent -> switchCommunityBuilds(communitybuild));
+            this.communityBuildsVBox.getChildren().add(buildButton);
+        }
     }
+
+
+    private void switchCommunityBuilds(CommunityBuild communitybuild)
+    {
+        if (currentCommunitybuild == communitybuild)
+            return;
+        clearPage();
+        CompletableFuture.runAsync(() ->
+        {
+            HtmlBuildPageParser buildPageParser = new HtmlBuildMobafireParser(communitybuild.buildURL());
+            this.setBuildToParse(communitybuild, buildPageParser, this.curentChampion);
+        });
+    }
+
     private void clearPageAndSwitchToChampions(boolean shouldSwitch, Pane... boxes)
     {
         for (Pane box : boxes)
@@ -228,10 +270,15 @@ public class BuildSceneCommunity
         if (shouldSwitch)
             JavaLeagueBuilds.getInstance().switchToChampions();
     }
-
-    private void clearPageAndSwitchToChampions()
+    private void clearPage()
     {
         clearPageAndSwitchToChampions(false , items, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
+    }
+
+    @FXML
+    private void terminate()
+    {
+        JavaLeagueBuilds.getInstance().terminate();
     }
     @FXML
     private void iconify()
