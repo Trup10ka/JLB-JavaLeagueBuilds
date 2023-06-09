@@ -16,7 +16,6 @@ import me.trup10ka.jlb.util.*;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
 import me.trup10ka.jlb.web.parser.mobafire.HtmlBuildMobafireParser;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -116,6 +115,8 @@ public class BuildSceneCommunity
         {
             allImages.getChildren().add(createItemImage(item));
             width += 50;
+            if (allImages.getChildren().size() > 6)
+                break;
         }
         allImages.setMinWidth(width + 60);
         this.items.getChildren().add(allImages);
@@ -238,7 +239,7 @@ public class BuildSceneCommunity
             buildButton.setTextAlignment(TextAlignment.CENTER);
             buildButton.getStyleClass().add("comm-build-button");
             if (!(communitybuild.rating().up() == -1))
-                buildButton.setText(communitybuild.nameOfTheBuild() + "\nBuild from: " +
+                buildButton.setText(communitybuild.nameOfTheBuild() + "\nBuild by: " +
                         communitybuild.creatorName() + "\n" + communitybuild.rating().up() + " upvotes " + communitybuild.rating().down() + " downvotes");
             else
                 buildButton.setText(communitybuild.nameOfTheBuild() + "\nBuild from: " +
@@ -247,7 +248,6 @@ public class BuildSceneCommunity
             this.communityBuildsVBox.getChildren().add(buildButton);
         }
     }
-
 
     private void switchCommunityBuilds(CommunityBuild communitybuild)
     {
