@@ -57,7 +57,7 @@
     </VBox>
    <VBox fx:id="communityButtons" disable="true" layoutX="7.0" layoutY="13.0" prefHeight="674.0" prefWidth="179.0" visible="false" />
     <Pane id="summoners-pane" layoutX="1087.0" layoutY="200.0" prefHeight="174.0" prefWidth="213.0">
-        <VBox fx:id="summonersBox" alignment="CENTER" layoutX="67.0" layoutY="38.0" prefHeight="130.0" prefWidth="79.0" styleClass="filled-box" />
+        <VBox fx:id="summonersBox" alignment="CENTER" spacing="15" layoutX="67.0" layoutY="38.0" prefHeight="130.0" prefWidth="79.0" styleClass="filled-box" />
         <Label layoutX="24.0" prefHeight="35.0" prefWidth="166.0" styleClass="font-changer" text="Summoner spells">
             <font>
                 <Font size="20.0" />

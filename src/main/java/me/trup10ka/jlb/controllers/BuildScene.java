@@ -102,6 +102,7 @@ public class BuildScene
         arrangeRunes(curentChampion.getRunePage().getSideMainRunes(), "secondaryrunes", mainRunesBox);
         arrangeRunes(curentChampion.getRunePage().getSecondaryRunes(), "secondaryrunes", secondaryRunesAndAttributesBox);
         arrangeAttributes(curentChampion.getRunePage().getAttributes());
+        arrangeSummoners(curentChampion.getSummonerSpell());
     }
 
     private void setLayoutForCommunityCreatedBuild()
@@ -111,6 +112,19 @@ public class BuildScene
         arrangeRunes(curentChampion.getRunePage().getSideMainRunes(), "secondaryrunes", mainRunesBox);
         arrangeRunes(curentChampion.getRunePage().getSecondaryRunes(), "secondaryrunes", secondaryRunesAndAttributesBox);
         arrangeAttributes(curentChampion.getRunePage().getAttributes());
+        arrangeSummoners(curentChampion.getSummonerSpell());
+    }
+
+    private void arrangeSummoners(List<SummonerSpell> summonerSpell)
+    {
+        for (SummonerSpell summoner : summonerSpell)
+        {
+            ImageView imageView = new ImageView("images/summoners/" + FormattedString.MOBAFIRE_SUMMONERS_SPECIAL_CASE.toFormat(summoner.name()) + ".png");
+            imageView.setFitHeight(48);
+            imageView.setFitWidth(48);
+            RoundCorners.setRoundedCornerImageView(imageView);
+            this.summonersBox.getChildren().add(imageView);
+        }
     }
 
     private void arrangeRunes(Set<Rune> runes, String pathForRunes, Pane group)
@@ -276,9 +290,8 @@ public class BuildScene
     {
         return switch (JavaLeagueBuilds.getChosenPage())
         {
-            case U_GG -> FormattedString.ATTRIBUTE_NAME_URI_FORMAT.toFormat(s);
+            case U_GG, LEAGUE_OF_GRAPHS -> FormattedString.ATTRIBUTE_NAME_URI_FORMAT.toFormat(s);
             case MOBAFIRE -> FormattedString.MOBAFIRE_ATTRIBUTE_SPECIAL_CASE.toFormat(s);
-            case LEAGUE_OF_GRAPHS -> FormattedString.ATTRIBUTE_NAME_URI_FORMAT.toFormat(s); // TODO: Repair
         };
     }
 

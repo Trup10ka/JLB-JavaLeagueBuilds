@@ -40,7 +40,6 @@ public class JavaLeagueBuilds extends Application
      * A wrap-up for all the Scenes above to handle them easier ({@link JavaLeagueBuilds#start(Stage) here; line 91})
      */
     private final List<Scene> scenes;
-    // TODO: Re-work this into instance variable
     /**
      * Determines what page has been chosen by the user
      * <br>Only possible values are:
