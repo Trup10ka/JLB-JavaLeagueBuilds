@@ -9,8 +9,8 @@
 
 <AnchorPane id="root" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/BuildScene.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.trup10ka.jlb.controllers.BuildScene">
     <Pane id="application-header" fx:id="applicationHeader" prefHeight="28.0" prefWidth="1300.0" />
-    <Line endX="-91.0" endY="573.0" layoutX="280.0" layoutY="93.0" startX="-91.0" startY="-60.0" />
-    <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="763.0" layoutY="107.0" lineSpacing="4.0" prefHeight="130.0" prefWidth="263.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+    <Line endX="-91.0" endY="573.0" layoutX="280.0" layoutY="93.0" startX="-91.0" startY="-60.0" stroke="#1e1d1d" />
+    <Label id="champion-name" fx:id="championName" alignment="CENTER" layoutX="718.0" layoutY="54.0" lineSpacing="4.0" prefHeight="130.0" prefWidth="560.0" styleClass="font-changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
         <font>
             <Font size="26.0" />
         </font>
@@ -37,7 +37,7 @@
         </graphic>
     </Button>
     <VBox alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="674.0" prefWidth="166.0" spacing="180.0">
-        <JFXButton id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="145.0"  prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="U.GG">
+        <JFXButton id="ugg-button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="145.0" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="U.GG">
             <font>
                 <Font size="16.0" />
             </font>
@@ -47,7 +47,7 @@
                 </ImageView>
             </graphic>
         </JFXButton>
-        <JFXButton id="leagueofgraphs-button" lineSpacing="2.0" minWidth="145.0"  prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="League of Graphs" textAlignment="CENTER" wrapText="true">
+        <JFXButton id="leagueofgraphs-button" lineSpacing="2.0" minWidth="145.0" prefHeight="55.0" prefWidth="145.0" styleClass="font-changer" text="League of Graphs" textAlignment="CENTER" wrapText="true">
             <graphic>
                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../icons/league-of-graphs-icon.png" />
@@ -55,8 +55,9 @@
             </graphic>
         </JFXButton>
     </VBox>
-    <Pane id="summoners-pane" layoutX="1082.0" layoutY="115.0" prefHeight="174.0" prefWidth="213.0">
-        <VBox fx:id="summonersBox" alignment="CENTER" layoutX="67.0" layoutY="44.0" prefHeight="130.0" prefWidth="79.0" styleClass="filled-box" />
+   <VBox fx:id="communityButtons" disable="true" layoutX="7.0" layoutY="13.0" prefHeight="674.0" prefWidth="179.0" visible="false" />
+    <Pane id="summoners-pane" layoutX="1087.0" layoutY="200.0" prefHeight="174.0" prefWidth="213.0">
+        <VBox fx:id="summonersBox" alignment="CENTER" layoutX="67.0" layoutY="38.0" prefHeight="130.0" prefWidth="79.0" styleClass="filled-box" />
         <Label layoutX="24.0" prefHeight="35.0" prefWidth="166.0" styleClass="font-changer" text="Summoner spells">
             <font>
                 <Font size="20.0" />
@@ -76,33 +77,7 @@
             <Line endX="-20.0" startX="-85.0" stroke="#464646" strokeWidth="2.0" />
         </VBox>
     </Pane>
-    <Pane id="items-pane" layoutX="225.0" layoutY="379.0" prefHeight="214.0" prefWidth="993.0">
-        <HBox alignment="CENTER_LEFT" layoutY="5.0" prefHeight="45.0" prefWidth="130.0" spacing="7.0">
-            <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
-            <Label styleClass="font-changer" text="Starting Items">
-                <font>
-                    <Font size="18.0" />
-                </font>
-            </Label>
-        </HBox>
-        <HBox fx:id="startingItems" alignment="CENTER" layoutY="50.0" prefHeight="156.0" prefWidth="166.0" spacing="25" />
-        <HBox alignment="CENTER_LEFT" layoutX="285.0" layoutY="7.0" prefHeight="45.0" prefWidth="111.0" spacing="7.0">
-            <Line endX="100.0" startX="100.0" startY="26.0" stroke="#464646" strokeWidth="2.0" />
-            <Label styleClass="font-changer" text="Core Items">
-                <font>
-                    <Font size="18.0" />
-                </font>
-            </Label>
-        </HBox>
-        <HBox fx:id="coreItems" layoutX="285.0" layoutY="52.0" prefHeight="156.0" prefWidth="179.0" />
-        <HBox alignment="CENTER_LEFT" layoutX="602.0" layoutY="7.0" prefHeight="45.0" prefWidth="130.0" spacing="7.0">
-            <Line endX="-49.0" endY="-224.0" startX="-49.0" startY="-197.0" stroke="#464646" strokeWidth="2.0" />
-            <Label styleClass="font-changer" text="Other Items">
-                <font>
-                    <Font size="18.0" />
-                </font>
-            </Label>
-        </HBox>
-        <HBox fx:id="otherItems" layoutX="602.0" layoutY="52.0" prefHeight="156.0" prefWidth="179.0" />
+    <Pane id="items-pane" layoutX="281.0" layoutY="299.0" prefHeight="360.0" prefWidth="846.0">
+         <HBox fx:id="items" alignment="BOTTOM_CENTER" maxWidth="946.0" prefHeight="360.0" prefWidth="846.0" spacing="40" />
     </Pane>
 </AnchorPane>
