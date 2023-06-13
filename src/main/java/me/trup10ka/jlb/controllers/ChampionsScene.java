@@ -151,10 +151,7 @@ public class ChampionsScene
         StackPane imgViewPane = new StackPane();
         imgViewPane.getStyleClass().add("champion-image");
 
-        if (!JavaLeagueBuilds.getChosenPage().IS_COMMUNITY_BUILD)
-            imgViewPane.setOnMouseClicked(mouseEvent -> createAndShowStaticBuildParser(champion));
-        else
-            imgViewPane.setOnMouseClicked(mouseEvent -> createAndShowCommunityBuildParser(champion));
+        imgViewPane.setOnMouseClicked(mouseEvent -> createBuildParser(champion));
         return imgViewPane;
     }
 
@@ -195,37 +192,22 @@ public class ChampionsScene
                 championsPane.getChildren().add(allChampionCardsByTheirNames.get(key));
     }
 
-    /**
-     * Creates a shows build parsed from statistics Pages
-     * @param champion champion which build is being parsed
-     * @see HtmlBuildPageParser
-     */
-    private void createAndShowStaticBuildParser(Champion champion)
+    private void createBuildParser(Champion champion)
     {
         JavaLeagueBuilds.getInstance().switchToLoading();
         CompletableFuture.runAsync(() ->
         {
-            HtmlBuildPageParser buildPage = getBuildPageParser(JavaLeagueBuilds.getChosenPage(), champion);
-            BuildSceneStatic.getInstance().setChampionToParse(champion, buildPage);
-        }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildSceneStatic()));
+            HtmlAllBuildsPageParser allBuildsPageParser = null;
+            HtmlBuildPageParser buildPageParser;
+            if (JavaLeagueBuilds.getChosenPage().IS_COMMUNITY_BUILD) {
+                allBuildsPageParser = getAllBuildPageParser(JavaLeagueBuilds.getChosenPage(), champion);
+            }
+            buildPageParser = getBuildPageParser(JavaLeagueBuilds.getChosenPage(), champion, allBuildsPageParser);
+
+            BuildScene.getInstance().setChampionToParse(champion, allBuildsPageParser, buildPageParser);
+        }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildScene()));
     }
 
-    /**
-     * Creates a shows build parsed from community Pages
-     * @param champion champion which build is being parsed
-     * @see HtmlBuildPageParser
-     */
-    private void createAndShowCommunityBuildParser(Champion champion)
-    {
-        JavaLeagueBuilds.getInstance().switchToLoading();
-        CompletableFuture.runAsync(() ->
-        {
-            HtmlAllBuildsPageParser allBuildsPageParser = getAllBuildPageParser(JavaLeagueBuilds.getChosenPage(), champion);
-            HtmlBuildPageParser buildPageParser = getBuildPageParser(JavaLeagueBuilds.getChosenPage(), allBuildsPageParser);
-
-            BuildSceneCommunity.getInstance().setBuildToParse(allBuildsPageParser.allCommunityBuilds(), buildPageParser, champion);
-        }).thenRun(() -> Platform.runLater(() -> JavaLeagueBuilds.getInstance().switchToBuildSceneCommunity()));
-    }
 
     /**
      * If pages builds are community build, this method creates a parser for all the possible builds
@@ -244,27 +226,6 @@ public class ChampionsScene
         };
     }
 
-
-    /**
-     * @param page page which is parsed from
-     * @param champion champion which is being parsed
-     * @return A parser for builds created statistically
-     */
-    private HtmlBuildPageParser getBuildPageParser(Page page, Champion champion)
-    {
-        return getBuildPageParser(page, champion, null);
-    }
-
-    /**
-     *
-     * @param page page which is parsed from
-     * @param allBuildsPageParser parser which parsed all the possible community builds
-     * @return A parser for builds created by community
-     */
-    private HtmlBuildPageParser getBuildPageParser(Page page, HtmlAllBuildsPageParser allBuildsPageParser)
-    {
-        return getBuildPageParser(page, null, allBuildsPageParser);
-    }
 
     /**
      * <p>

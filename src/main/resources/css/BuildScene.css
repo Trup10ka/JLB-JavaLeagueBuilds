@@ -15,6 +15,9 @@
 .jfx-button:hover {
     -fx-cursor: hand;
 }
+.community-button-box {
+    -fx-background-color: dimgray;
+}
 .comm-build-button {
     -fx-background-color: rgba(255, 194, 103, 0.7);
 }
@@ -29,6 +32,10 @@
      -fx-background-color: rgba(88, 210, 202, 0.7);
      -fx-text-fill: black;
 }
+#mobafire-button {
+     -fx-background-color: rgba(255, 194, 103, 0.7);
+     -fx-text-fill: black;
+}
 .scroll-pane > .viewport{
     -fx-background-color: transparent;
 }
@@ -38,17 +45,17 @@
 .scroll-bar:vertical{
     -fx-background-color: transparent;
 }
+.scroll-bar:horizontal{
+    -fx-background-color: transparent;
+}
 .increment-button, .decrement-button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
+    -fx-color: transparent;
 }
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: rgba(18, 111, 239, 1);
-    -fx-background-radius: 5em;
-}
-.jfx-button:hover {
-    -fx-cursor: hand;
+    -fx-color: transparent;
 }
 .filled-box {
     -fx-background-color: rgba(79, 79, 79 , 0.4);

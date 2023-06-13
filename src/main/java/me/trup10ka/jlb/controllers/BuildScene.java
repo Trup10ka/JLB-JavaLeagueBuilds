@@ -1,14 +1,18 @@
 package me.trup10ka.jlb.controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.sun.javafx.geom.Line2D;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -16,18 +20,23 @@ import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
 import me.trup10ka.jlb.data.lolgame.*;
-import me.trup10ka.jlb.util.ButtonBoxController;
-import me.trup10ka.jlb.util.Descriptions;
-import me.trup10ka.jlb.util.FormattedString;
-import me.trup10ka.jlb.util.RoundCorners;
+import me.trup10ka.jlb.util.*;
+import me.trup10ka.jlb.web.Page;
 import me.trup10ka.jlb.web.parser.HtmlAllBuildsPageParser;
 import me.trup10ka.jlb.web.parser.HtmlBuildPageParser;
+import me.trup10ka.jlb.web.parser.lographs.HtmlBuildLoGParser;
+import me.trup10ka.jlb.web.parser.mobafire.HtmlAllBuildsMobafireParser;
+import me.trup10ka.jlb.web.parser.mobafire.HtmlBuildMobafireParser;
+import me.trup10ka.jlb.web.parser.ugg.HtmlBuildUGGParser;
+
 import static javafx.scene.paint.Color.*;
+import static me.trup10ka.jlb.util.FormattedString.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class BuildScene
 {
@@ -41,22 +50,29 @@ public class BuildScene
 
     private CommunityBuild currentCommunitybuild;
 
-    private ButtonBoxController buttonBoxController;
-
     @FXML
     private Pane applicationHeader;
+
+    @FXML
+    private VBox communityButtons;
+
+    @FXML
+    private AnchorPane communityButtonsWrapper;
 
     @FXML
     private Button goBack;
 
     @FXML
-    private Label nameOfBuild;
+    private Label buildName;
 
     @FXML
     private VBox summonersBox;
 
     @FXML
     private HBox mainRunesBox;
+
+    @FXML
+    private ProgressIndicator loadingPossibleBuilds;
 
     @FXML
     private HBox secondaryRunesAndAttributesBox;
@@ -71,7 +87,7 @@ public class BuildScene
 
     public void initialize()
     {
-        this.buttonBoxController = new ButtonBoxController(this);
+        ButtonBoxController.initializeController(this);
         applicationHeader.setOnMousePressed(event -> JavaLeagueBuilds.getInstance().setOffSets(event));
         applicationHeader.setOnMouseDragged(event -> JavaLeagueBuilds.getInstance().moveStage(event));
         goBack.setOnMousePressed(event ->
@@ -85,11 +101,20 @@ public class BuildScene
                 buildParser.queryRunePage(),
                 buildParser.summoners());
         if (allBuilds == null)
-            Platform.runLater(this::setLayoutForStatisticallyCreatedBuild);
+        {
+            Platform.runLater(() -> {
+                buildName.setText(curentChampion.getName());
+                setLayoutForStatisticallyCreatedBuild();
+            });
+        }
         else {
             this.allCommunityBuilds = allBuilds.allCommunityBuilds();
-            this.currentCommunitybuild = allBuilds.allCommunityBuilds().get(0);
-            Platform.runLater(this::setLayoutForCommunityCreatedBuild);
+            if (currentCommunitybuild == null)
+                this.currentCommunitybuild = allBuilds.allCommunityBuilds().get(0);
+            Platform.runLater(() -> {
+                buildName.setText(currentCommunitybuild.nameOfTheBuild());
+                setLayoutForCommunityCreatedBuild();
+            });
         }
     }
 
@@ -119,7 +144,7 @@ public class BuildScene
     {
         for (SummonerSpell summoner : summonerSpell)
         {
-            ImageView imageView = new ImageView("images/summoners/" + FormattedString.MOBAFIRE_SUMMONERS_SPECIAL_CASE.toFormat(summoner.name()) + ".png");
+            ImageView imageView = new ImageView("images/summoners/" + MOBAFIRE_SUMMONERS_SPECIAL_CASE.toFormat(summoner.name()) + ".png");
             imageView.setFitHeight(48);
             imageView.setFitWidth(48);
             RoundCorners.setRoundedCornerImageView(imageView);
@@ -131,7 +156,7 @@ public class BuildScene
     {
         for (Rune rune : runes)
         {
-            String runeImageName = FormattedString.URI_IMAGE_FORMAT.toFormat(rune.name());
+            String runeImageName = URI_IMAGE_FORMAT.toFormat(rune.name());
             ImageView runeImage = new ImageView("images/runes/" + pathForRunes + "/" + runeImageName + ".png");
             Pane container = new Pane(runeImage);
             container.setMaxSize(40, 40);
@@ -233,7 +258,7 @@ public class BuildScene
 
     private void createTooltipForItem(Item item, Node node)
     {
-        String description = FormattedString.ITEM_NAME_FORMAT.toFormat(item.name()) + "\n\n" + item.description();
+        String description = ITEM_NAME_FORMAT.toFormat(item.name()) + "\n\n" + item.description();
         assignTooltipForNode(node, description);
     }
 
@@ -282,6 +307,90 @@ public class BuildScene
             JavaLeagueBuilds.getInstance().switchToChampions();
     }
 
+    @FXML
+    private void refreshBuildForUGG()
+    {
+        if (JavaLeagueBuilds.getChosenPage() == Page.U_GG)
+            return;
+        clearPage();
+        JavaLeagueBuilds.setChosenPage(Page.U_GG);
+        CompletableFuture.runAsync(() ->
+        {
+            String championUggLink = U_GG_CHAMPION_HYPERLINK_FORMAT.toFormat(curentChampion.getName());
+            HtmlBuildUGGParser uggParser = new HtmlBuildUGGParser(championUggLink);
+            setChampionToParse(curentChampion, null, uggParser);
+        });
+    }
+
+    @FXML
+    private void refreshBuildForLeagueOfGraphs()
+    {
+        if (JavaLeagueBuilds.getChosenPage() == Page.LEAGUE_OF_GRAPHS)
+            return;
+        clearPage();
+        JavaLeagueBuilds.setChosenPage(Page.LEAGUE_OF_GRAPHS);
+        CompletableFuture.runAsync(() ->
+        {
+            String championUggLink = LOG_CHAMPION_HYPERLINK_FORMAT.toFormat(curentChampion.getName());
+            HtmlBuildPageParser uggParser = new HtmlBuildLoGParser(championUggLink);
+            setChampionToParse(curentChampion, null, uggParser);
+        });
+    }
+
+    @FXML
+    private void refreshBuildForMobafire()
+    {
+        if (JavaLeagueBuilds.getChosenPage() == Page.MOBAFIRE)
+            return;
+        clearPage();
+        JavaLeagueBuilds.setChosenPage(Page.MOBAFIRE);
+        loadingPossibleBuilds.setVisible(true);
+        ButtonBoxController.transferBoxWithCommunityButtons();
+        CompletableFuture.runAsync(() ->
+        {
+            String championUggLink = MOBAFIRE_CHAMPION_HYPERLINK_FORMAT.toFormat(curentChampion.getName());
+            HtmlAllBuildsPageParser uggParser = new HtmlAllBuildsMobafireParser(championUggLink);
+            Platform.runLater(() ->
+            {
+                for (CommunityBuild build : uggParser.allCommunityBuilds())
+                {
+                    JFXButton buildButton = createBuildButton(build, uggParser, Page.MOBAFIRE);
+                    this.communityButtons.getChildren().add(buildButton);
+                }
+                loadingPossibleBuilds.setVisible(false);
+            });
+        });
+
+    }
+
+    private JFXButton createBuildButton(CommunityBuild communityBuild, HtmlAllBuildsPageParser allBuildsPageParser, Page chosenPage)
+    {
+        JFXButton buildButton = new JFXButton();
+        buildButton.getStyleClass().add("comm-build-button");
+        buildButton.setMaxWidth(200);
+        if (!(communityBuild.rating().up() == -1))
+            buildButton.setText(communityBuild.nameOfTheBuild() + "\nBuild by: " +
+                    communityBuild.creatorName() + "\n" + communityBuild.rating().up() + " upvotes " + communityBuild.rating().down() + " downvotes");
+        else
+            buildButton.setText(communityBuild.nameOfTheBuild() + "\nBuild from: " +
+                    communityBuild.creatorName() + "\n" + "Rating is still pending");
+        buildButton.setOnAction(actionEvent ->
+                {
+                    clearPage();
+                    this.currentCommunitybuild = communityBuild;
+                    CompletableFuture.runAsync(() ->
+                    {
+                        HtmlBuildPageParser buildParser = switch (chosenPage)
+                        {
+                            case MOBAFIRE -> new HtmlBuildMobafireParser(communityBuild.buildURL());
+                            default -> throw new IllegalArgumentException("BuildScene error while creating build button: Only community build pages acceptable");
+                        };
+                        this.setChampionToParse(curentChampion, allBuildsPageParser, buildParser);
+                    });
+                });
+        return buildButton;
+    }
+
     private void clearPage()
     {
         clearPageAndSwitchToChampions(false , items, summonersBox, mainRunesBox, secondaryRunesAndAttributesBox);
@@ -290,11 +399,15 @@ public class BuildScene
     {
         return switch (JavaLeagueBuilds.getChosenPage())
         {
-            case U_GG, LEAGUE_OF_GRAPHS -> FormattedString.ATTRIBUTE_NAME_URI_FORMAT.toFormat(s);
-            case MOBAFIRE -> FormattedString.MOBAFIRE_ATTRIBUTE_SPECIAL_CASE.toFormat(s);
+            case U_GG, LEAGUE_OF_GRAPHS -> ATTRIBUTE_NAME_URI_FORMAT.toFormat(s);
+            case MOBAFIRE -> MOBAFIRE_ATTRIBUTE_SPECIAL_CASE.toFormat(s);
         };
     }
 
+    public AnchorPane getCommunityButtonsWrapper()
+    {
+        return communityButtonsWrapper;
+    }
     @FXML
     private void terminate()
     {

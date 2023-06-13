@@ -92,7 +92,8 @@ public enum FormattedString
                             .replaceAll("Scaling ", "")
                             .replaceAll("Bonus ", "")
                             .replaceAll(" Shard", "")
-                            .replaceAll("[+%0-9]+", "")
+                            .replaceAll("[+%0-9-]+ ", "")
+                            .replaceAll("[(]based on level[)]", "")
                             .trim()
                             .replaceAll(" ", "_")
                             .toLowerCase();
@@ -147,7 +148,8 @@ public enum FormattedString
                 public String toFormat(String toBeFormatted)
                 {
                     return toBeFormatted
-                            .replaceAll("Unleashed ", "");
+                            .replaceAll("Unleashed ", "")
+                            .toLowerCase();
                 }
             },
     MOBAFIRE_ATTRIBUTE_SPECIAL_CASE
