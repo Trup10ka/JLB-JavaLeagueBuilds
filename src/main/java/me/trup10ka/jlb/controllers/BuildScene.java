@@ -377,6 +377,7 @@ public class BuildScene
         buildButton.setOnAction(actionEvent ->
                 {
                     clearPage();
+                    ButtonBoxController.transferBoxWithCommunityButtons();
                     this.currentCommunitybuild = communityBuild;
                     CompletableFuture.runAsync(() ->
                     {
