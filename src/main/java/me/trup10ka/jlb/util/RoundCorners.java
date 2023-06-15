@@ -6,7 +6,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import me.trup10ka.jlb.controllers.builds.BuildSceneStatic;
 import me.trup10ka.jlb.data.lolgame.Champion;
 
 import java.util.List;

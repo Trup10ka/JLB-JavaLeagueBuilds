@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import me.trup10ka.jlb.app.JavaLeagueBuilds;
-import me.trup10ka.jlb.controllers.builds.*;
 import me.trup10ka.jlb.data.lolgame.Champion;
 import me.trup10ka.jlb.util.*;
 import me.trup10ka.jlb.web.Page;

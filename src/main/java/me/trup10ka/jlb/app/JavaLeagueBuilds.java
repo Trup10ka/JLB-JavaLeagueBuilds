@@ -32,8 +32,6 @@ public class JavaLeagueBuilds extends Application
     private final Scene championScene;
 
     private final Scene buildScene;
-    private final Scene buildSceneStatic;
-    private final Scene buildSceneCommunity;
     private final Scene loadingScene;
 
     /**
@@ -59,16 +57,12 @@ public class JavaLeagueBuilds extends Application
         Scene mainScene = null;
         Scene championsScene = null;
         Scene buildScene = null;
-        Scene buildSceneStatic = null;
-        Scene buildSceneCommunity = null;
         Scene loadingScene = null;
         try
         {
             mainScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/MainScene.fxml")));
             championsScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/ChampionsScene.fxml")));
             buildScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildScene.fxml")));
-            buildSceneStatic = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildSceneStatic.fxml")));
-            buildSceneCommunity = new Scene(FXMLLoader.load(getClass().getResource("/scenes/BuildSceneCommunity.fxml")));
             loadingScene = new Scene(FXMLLoader.load(getClass().getResource("/scenes/LoadingScene.fxml")));
         } catch (IOException e)
         {
@@ -78,10 +72,8 @@ public class JavaLeagueBuilds extends Application
         this.mainScene = mainScene;
         this.championScene = championsScene;
         this.buildScene = buildScene;
-        this.buildSceneStatic = buildSceneStatic;
-        this.buildSceneCommunity = buildSceneCommunity;
         this.loadingScene = loadingScene;
-        this.scenes = Arrays.asList(mainScene, championsScene, buildScene,buildSceneStatic, buildSceneCommunity, loadingScene);
+        this.scenes = Arrays.asList(mainScene, championsScene, buildScene, loadingScene);
     }
 
     /**
@@ -113,19 +105,11 @@ public class JavaLeagueBuilds extends Application
         stage.setScene(championScene);
     }
 
-    public void switchToBuildSceneStatic()
-    {
-        stage.setScene(buildSceneStatic);
-    }
     public void switchToBuildScene()
     {
         stage.setScene(buildScene);
     }
 
-    public void switchToBuildSceneCommunity()
-    {
-        stage.setScene(buildSceneCommunity);
-    }
     public void switchToLoading()
     {
         stage.setScene(loadingScene);
