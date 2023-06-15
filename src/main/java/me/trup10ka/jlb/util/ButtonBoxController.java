@@ -33,6 +33,7 @@ public class ButtonBoxController
             translateTransition.setInterpolator(Interpolator.LINEAR);
             translateTransition.play();
             ButtonBoxController.notActive = false;
+            buildScene.getCommunityButtons().getChildren().clear();
         }
         else
         {
@@ -41,6 +42,9 @@ public class ButtonBoxController
             translateTransition.play();
             ButtonBoxController.notActive = true;
         }
+    }
 
+    public static boolean isNotActive() {
+        return notActive;
     }
 }

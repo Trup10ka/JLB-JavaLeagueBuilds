@@ -310,6 +310,8 @@ public class BuildScene
     @FXML
     private void refreshBuildForUGG()
     {
+        if (ButtonBoxController.isNotActive())
+            ButtonBoxController.transferBoxWithCommunityButtons();
         if (JavaLeagueBuilds.getChosenPage() == Page.U_GG)
             return;
         clearPage();
@@ -325,6 +327,8 @@ public class BuildScene
     @FXML
     private void refreshBuildForLeagueOfGraphs()
     {
+        if (ButtonBoxController.isNotActive())
+            ButtonBoxController.transferBoxWithCommunityButtons();
         if (JavaLeagueBuilds.getChosenPage() == Page.LEAGUE_OF_GRAPHS)
             return;
         clearPage();
@@ -340,9 +344,6 @@ public class BuildScene
     @FXML
     private void refreshBuildForMobafire()
     {
-        if (JavaLeagueBuilds.getChosenPage() == Page.MOBAFIRE)
-            return;
-        clearPage();
         JavaLeagueBuilds.setChosenPage(Page.MOBAFIRE);
         loadingPossibleBuilds.setVisible(true);
         ButtonBoxController.transferBoxWithCommunityButtons();
@@ -376,9 +377,11 @@ public class BuildScene
                     communityBuild.creatorName() + "\n" + "Rating is still pending");
         buildButton.setOnAction(actionEvent ->
                 {
-                    clearPage();
                     ButtonBoxController.transferBoxWithCommunityButtons();
-                    this.currentCommunitybuild = communityBuild;
+                    CommunityBuild recentBuild = this.currentCommunitybuild;
+                    if (recentBuild == null || !recentBuild.nameOfTheBuild().equals(communityBuild.nameOfTheBuild()))
+                        this.currentCommunitybuild = communityBuild;
+                    clearPage();
                     CompletableFuture.runAsync(() ->
                     {
                         HtmlBuildPageParser buildParser = switch (chosenPage)
@@ -409,6 +412,12 @@ public class BuildScene
     {
         return communityButtonsWrapper;
     }
+
+    public VBox getCommunityButtons()
+    {
+        return communityButtons;
+    }
+
     @FXML
     private void terminate()
     {
