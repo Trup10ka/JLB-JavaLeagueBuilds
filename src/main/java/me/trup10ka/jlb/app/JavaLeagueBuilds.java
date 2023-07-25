@@ -80,7 +80,7 @@ public class JavaLeagueBuilds extends Application
      * Initializes the stage with main scene
      * @param stage created window
      */
-    @Override
+    @Override @SuppressWarnings("DataFlowIssue")
     public void start(Stage stage)
     {
         this.stage = stage;
