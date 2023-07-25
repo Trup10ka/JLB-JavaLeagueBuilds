@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * Class representing Riot JSON file parser for {@link Item}
@@ -30,7 +31,7 @@ public final class ItemRiotJSONParser
         URL url = null;
         try
         {
-            String RIOT_API_STRING = "http://ddragon.leagueoflegends.com/cdn/13.10.1/data/en_US/item.json";
+            String RIOT_API_STRING = "http://ddragon.leagueoflegends.com/cdn/13.14.1/data/en_US/item.json";
             url = new URL(RIOT_API_STRING);
         } catch (MalformedURLException e)
         {
@@ -102,7 +103,8 @@ public final class ItemRiotJSONParser
                         itemPositionsInSpriteImage[1]
                         );
         }
-        System.err.println("ItemRiotJSONParser error: Did not find item with same sprite X and Y's");
+        System.err.println("ItemRiotJSONParser error: Did not find item with same sprite X and Y's ("
+                + Arrays.toString(itemPositionsInSpriteImage) + ", " + imageSprite + ")");
         return null;
     }
 
