@@ -1,4 +1,4 @@
-This repository is no longer maintained and will probably not work properly and you may experience crashing of the app
+## This repository is no longer maintained and will probably not work properly and you may experience crashing of the app
 
 # JLB
 This project requires Java Runtime **v18** or higher. Click to [download](https://download.oracle.com/java/18/archive/jdk-18.0.2_windows-x64_bin.exe)
